@@ -1,0 +1,25 @@
+[34mStarting hotel scraping for Prague, Czech Republic from 2026-10-01 to 2026-10-04[0m
+[34mNavigating to Booking.com URL:[0m https://www.booking.com/searchresults.html?ss=Prague%2C%20Czech%20Republic&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&no_rooms=1&group_children=0
+[34m[Agoda] Navigating to:[0m https://www.agoda.com/search?city=Prague%2C%20Czech%20Republic&checkIn=2026-10-01&checkOut=2026-10-04&rooms=1&adults=2&children=0
+[34m[MakeMyTrip] Navigating to:[0m https://www.makemytrip.com/hotels/hotel-listing/?checkin=10012026&checkout=10042026&city=Prague%2C%20Czech%20Republic&roomStayQualifier=2e0e&locusId=&country=&locusType=&searchText=Prague%2C%20Czech%20Republic&regionNearByExp=3&s=popularity
+[33mPage content loaded. First 500 characters:[0m
+<!DOCTYPE html><!--
+You know you could be getting paid to poke around in our code?
+We're hiring designers and developers to work in Amsterdam:
+https://careers.booking.com/
+--><!-- wdot-802 --><html lang="en-us" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# booking_com: http://ogp.me/ns/fb/booking_com#" class=" b_bot b_bot supports_fontface supports_hyphens  hasJS" dir="ltr"><head profile="http://a9.com/-/spec/opensearch/1.1/">
+<script async="" src="https://bat.bing.com/p/conversions/t/1
+[33m[MakeMyTrip] No hotel cards found. Site may be blocking or selectors changed.[0m
+[31mHotel cards not found on the page. Selector might be incorrect.[0m
+[31mError scraping Booking.com:[0m Waiting for selector `[data-testid="property-card"]` failed: Waiting failed: 20000ms exceeded
+[33m[Agoda] No hotel cards found. Site may be blocking or selectors changed.[0m
+[32mBooking.com: Found 0 hotels[0m
+[32mAgoda: Found 0 hotels[0m
+[32mMakeMyTrip: Found 0 hotels[0m
+[32mFound 0 unique hotels from 3 sources[0m
+[36mFinal sorted hotel results:[0m []
+{
+  "total_hotels": 0,
+  "booking_dot_com_count": 0,
+  "booking_dot_com_sample": []
+}

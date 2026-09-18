@@ -1,0 +1,85 @@
+{
+  "base_url": "https://www.booking.com/searchresults.cs.html",
+  "search_params": {
+    "ss": "Jihomoravsk\u00fd kraj, \u010cesk\u00e1 republika",
+    "lang": "en-gb",
+    "sb": "1",
+    "src_elem": "sb",
+    "src": "searchresults",
+    "dest_type": "region",
+    "ac_position": "0",
+    "ac_langcode": "cs",
+    "rows": "25"
+  },
+  "constructed_url": "https://www.booking.com/searchresults.cs.html?ss=Jihomoravsk%C3%BD+kraj%2C+%C4%8Cesk%C3%A1+republika&lang=en-gb&sb=1&src_elem=sb&src=searchresults&dest_type=region&ac_position=0&ac_langcode=cs&rows=25"
+}
+{
+  "records_count": 14,
+  "records": [
+    {
+      "name": "Hotel Ark\u00e1da",
+      "type": "other",
+      "price_total": null,
+      "currency": "CZK",
+      "rating": null,
+      "stars": null,
+      "lat": 49.15046448572197,
+      "lng": 17.002321779891645,
+      "address": null,
+      "source": "booking",
+      "source_url": "https://www.booking.com/hotel/cz/arkada-bucovice.en-gb.html?aid=304142&label=gen173nr-10CAQoggJCCHJlZ2lvbl9YSAlYBGgUiAEBmAEzuAEZyAEM2AED6AEB-AEBiAIBqAIBuAK3pbTVBsACAdICJDA2OGQ2MzgxLWZlMjUtNDMxZC05MGZhLWQxYjU3NDJjNWI4NNgCAeACAQ&ucfs=1&arphpl=1&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=1&hapos=1&sr_order=popularity&srpvid=b09b49db119d021d&srepoch=1789727419&from=searchresults"
+    },
+    {
+      "name": "Hotel Allvet",
+      "type": "other",
+      "price_total": null,
+      "currency": "CZK",
+      "rating": null,
+      "stars": null,
+      "lat": 49.25569688640717,
+      "lng": 16.958639323711395,
+      "address": null,
+      "source": "booking",
+      "source_url": "https://www.booking.com/hotel/cz/allvet.en-gb.html?aid=304142&label=gen173nr-10CAQoggJCCHJlZ2lvbl9YSAlYBGgUiAEBmAEzuAEZyAEM2AED6AEB-AEBiAIBqAIBuAK3pbTVBsACAdICJDA2OGQ2MzgxLWZlMjUtNDMxZC05MGZhLWQxYjU3NDJjNWI4NNgCAeACAQ&ucfs=1&arphpl=1&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=2&hapos=2&sr_order=popularity&srpvid=b09b49db119d021d&srepoch=1789727419&from=searchresults"
+    },
+    {
+      "name": "Vina\u0159stv\u00ed U Kapli\u010dky",
+      "type": "other",
+      "price_total": null,
+      "currency": "CZK",
+      "rating": null,
+      "stars": null,
+      "lat": 48.87029,
+      "lng": 16.751093,
+      "address": null,
+      "source": "booking",
+      "source_url": "https://www.booking.com/hotel/cz/vinarstvi-u-kaplicky.en-gb.html?aid=304142&label=gen173nr-10CAQoggJCCHJlZ2lvbl9YSAlYBGgUiAEBmAEzuAEZyAEM2AED6AEB-AEBiAIBqAIBuAK3pbTVBsACAdICJDA2OGQ2MzgxLWZlMjUtNDMxZC05MGZhLWQxYjU3NDJjNWI4NNgCAeACAQ&ucfs=1&arphpl=1&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=3&hapos=3&sr_order=popularity&srpvid=b09b49db119d021d&srepoch=1789727419&from=searchresults"
+    },
+    {
+      "name": "Hotel Termal Mu\u0161ov",
+      "type": "other",
+      "price_total": null,
+      "currency": "CZK",
+      "rating": null,
+      "stars": null,
+      "lat": 48.90449109488005,
+      "lng": 16.578739285469055,
+      "address": null,
+      "source": "booking",
+      "source_url": "https://www.booking.com/hotel/cz/termal-musov.en-gb.html?aid=304142&label=gen173nr-10CAQoggJCCHJlZ2lvbl9YSAlYBGgUiAEBmAEzuAEZyAEM2AED6AEB-AEBiAIBqAIBuAK3pbTVBsACAdICJDA2OGQ2MzgxLWZlMjUtNDMxZC05MGZhLWQxYjU3NDJjNWI4NNgCAeACAQ&ucfs=1&arphpl=1&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=4&hapos=4&sr_order=popularity&srpvid=b09b49db119d021d&srepoch=1789727419&from=searchresults"
+    },
+    {
+      "name": "Wellness Hotel Happy Star",
+      "type": "other",
+      "price_total": null,
+      "currency": "CZK",
+      "rating": null,
+      "stars": null,
+      "lat": 48.799788125331986,
+      "lng": 15.992773175239563,
+      "address": null,
+      "source": "booking",
+      "source_url": "https://www.booking.com/hotel/cz/happy-star.en-gb.html?aid=304142&label=gen173nr-10CAQoggJCCHJlZ2lvbl9YSAlYBGgUiAEBmAEzuAEZyAEM2AED6AEB-AEBiAIBqAIBuAK3pbTVBsACAdICJDA2OGQ2MzgxLWZlMjUtNDMxZC05MGZhLWQxYjU3NDJjNWI4NNgCAeACAQ&ucfs=1&arphpl=1&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=5&hapos=5&sr_order=popularity&srpvid=b09b49db119d021d&srepoch=1789727419&from=searchresults"
+    }
+  ]
+}

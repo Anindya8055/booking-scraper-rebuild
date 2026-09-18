@@ -1,0 +1,812 @@
+[34mStarting hotel scraping for Prague, Czech Republic from 2026-10-01 to 2026-10-04[0m
+[34m[Agoda] Navigating to:[0m https://www.agoda.com/search?city=Prague%2C%20Czech%20Republic&checkIn=2026-10-01&checkOut=2026-10-04&rooms=1&adults=2&children=0
+[34m[MakeMyTrip] Navigating to:[0m https://www.makemytrip.com/hotels/hotel-listing/?checkin=10012026&checkout=10042026&city=Prague%2C%20Czech%20Republic&roomStayQualifier=2e0e&locusId=&country=&locusType=&searchText=Prague%2C%20Czech%20Republic&regionNearByExp=3&s=popularity
+[34mNavigating to Booking.com URL:[0m https://www.booking.com/searchresults.html?ss=Prague%2C%20Czech%20Republic&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&no_rooms=1&group_children=0
+[33mPage content loaded. First 500 characters:[0m
+<!DOCTYPE html><!--
+You know you could be getting paid to poke around in our code?
+We're hiring designers and developers to work in Amsterdam:
+https://careers.booking.com/
+--><!-- wdot-802 --><html lang="en-us" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# booking_com: http://ogp.me/ns/fb/booking_com#" class=" b_firefox b_firefox_16 supports_inline-block supports_fontface supports_hyphens  hasJS" dir="ltr"><head profile="http://a9.com/-/spec/opensearch/1.1/">
+<script async="" src="https
+[32mHotel cards found on the page.[0m
+[36mRaw results from page evaluation:[0m [
+  {
+    "name": "Avenue Legerova 19",
+    "price": 63594,
+    "bookingLink": "https://www.booking.com/hotel/cz/legerova-19.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=1&hapos=1&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=250764807_103557527_2_2_0&highlighted_blocks=250764807_103557527_2_2_0&matching_block_id=250764807_103557527_2_2_0&sr_pri_blocks=250764807_103557527_2_2_0__45087&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/411032504.webp?k=3a412328478fb6b57fae273d4b68c5f610d1e8f729fdcd9f3c4b18fddd6b5ec8&o="
+  },
+  {
+    "name": "a&o Prague Rhea",
+    "price": 29058,
+    "bookingLink": "https://www.booking.com/hotel/cz/fortunarhea.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=2&hapos=2&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7713408_91461871_0_2_0&highlighted_blocks=7713408_91461871_0_2_0&matching_block_id=7713408_91461871_0_2_0&sr_pri_blocks=7713408_91461871_0_2_0__501004&from_sustainable_property_sr=1&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/137903830.webp?k=e09dc48216cd5241e3a97ce5ae75fe781006daba5fd3f86a7c7bf9e40a8d3340&o="
+  },
+  {
+    "name": "Congress & Wellness Hotel Olsanka",
+    "price": 46080,
+    "bookingLink": "https://www.booking.com/hotel/cz/olsanka.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=3&hapos=3&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7763303_93707048_0_2_0&highlighted_blocks=7763303_93707048_0_2_0&matching_block_id=7763303_93707048_0_2_0&sr_pri_blocks=7763303_93707048_0_2_0__32670&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/22301233.webp?k=0bde4fd6ac0fcadf6db61a941c99a46e5bb7a9c898f30261b3b8a388ea4e7ecf&o="
+  },
+  {
+    "name": "Havelska Old Town Residence",
+    "price": 147254,
+    "bookingLink": "https://www.booking.com/hotel/cz/havelska-old-town-residence.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=4&hapos=4&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=1133342801_385991195_4_2_0&highlighted_blocks=1133342801_385991195_4_2_0&matching_block_id=1133342801_385991195_4_2_0&sr_pri_blocks=1133342801_385991195_4_2_0__104400&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/537770430.webp?k=d6eaa167ac9449879e1cb91a8f4ea9986fdee945d606266e9b2cee26ae0a3b5a&o="
+  },
+  {
+    "name": "Hotel Krystal",
+    "price": 49367,
+    "bookingLink": "https://www.booking.com/hotel/cz/krystal-praha-6.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=5&hapos=5&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=37948505_108033065_2_1_0&highlighted_blocks=37948505_108033065_2_1_0&matching_block_id=37948505_108033065_2_1_0&sr_pri_blocks=37948505_108033065_2_1_0__35000&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/253290420.webp?k=8219ea9c2b9e97b98077a57140d4c19c8185330a31f7dabc7cad411d185eb77a&o="
+  },
+  {
+    "name": "Admiral Botel",
+    "price": 54727,
+    "bookingLink": "https://www.booking.com/hotel/cz/admiral-botel.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=6&hapos=6&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7739602_174155488_0_1_0&highlighted_blocks=7739602_174155488_0_1_0&matching_block_id=7739602_174155488_0_1_0&sr_pri_blocks=7739602_174155488_0_1_0__38800&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/283198509.webp?k=652e9a8668c1e915ccabdd58249a15d57d9ae327d808a4024f029df2a106fe8a&o="
+  },
+  {
+    "name": "Perla Hotel",
+    "price": 88860,
+    "bookingLink": "https://www.booking.com/hotel/cz/perla.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=7&hapos=7&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7753002_93707022_2_2_0&highlighted_blocks=7753002_93707022_2_2_0&matching_block_id=7753002_93707022_2_2_0&sr_pri_blocks=7753002_93707022_2_2_0__63000&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/586158868.webp?k=a60d3a0453bf167b83d1667cd23521c34fb87d67403436bdd7534c833806bada&o="
+  },
+  {
+    "name": "Hotel Prague Star",
+    "price": 123699,
+    "bookingLink": "https://www.booking.com/hotel/cz/magic-centre-prague-accommodation.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=8&hapos=8&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=69339817_89042453_0_1_0&highlighted_blocks=69339817_89042453_0_1_0&matching_block_id=69339817_89042453_0_1_0&sr_pri_blocks=69339817_89042453_0_1_0__87700&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/33134026.webp?k=9288dae0f531eddc71d15717dd7cd79389a88f37c35d8aeeb9daf5bf529987f2&o="
+  },
+  {
+    "name": "Gallery Hotel SIS",
+    "price": 23186,
+    "bookingLink": "https://www.booking.com/hotel/cz/bonn.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=9&hapos=9&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7726416_89028068_0_2_0&highlighted_blocks=7726416_89028068_0_2_0&matching_block_id=7726416_89028068_0_2_0&sr_pri_blocks=7726416_89028068_0_2_0__16438&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/370775878.webp?k=ffe704aa11df4cfd7ead69aa9793eb054b73675c9ef86c8eb31cc37122c40009&o="
+  },
+  {
+    "name": "The Cloud One Prague, part of the Motel One Group",
+    "price": 56549,
+    "bookingLink": "https://www.booking.com/hotel/cz/the-cloud-one-prague.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=10&hapos=10&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=1149874101_387811508_2_2_0&highlighted_blocks=1149874101_387811508_2_2_0&matching_block_id=1149874101_387811508_2_2_0&sr_pri_blocks=1149874101_387811508_2_2_0__975000&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/914496825.webp?k=bf34ae41d19327c3ba7547501d5d916da9b862bb26a35f0890e61ba31c14717d&o="
+  },
+  {
+    "name": "TOP HOTEL Praha",
+    "price": 184959,
+    "bookingLink": "https://www.booking.com/hotel/cz/praha.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=11&hapos=11&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7700025_91906478_0_33_0&highlighted_blocks=7700025_91906478_0_33_0&matching_block_id=7700025_91906478_0_33_0&sr_pri_blocks=7700025_91906478_0_33_0__3188983&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/115664289.webp?k=191af17429d8da25529b336d657c8c1c9484efd2c273fe3fdbfdf17cec061a0a&o="
+  },
+  {
+    "name": "Hotel Kinsky Fountain",
+    "price": 82513,
+    "bookingLink": "https://www.booking.com/hotel/cz/hotelkinskygarden.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=12&hapos=12&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7704431_443459547_2_2_0_776783&highlighted_blocks=7704431_443459547_2_2_0_776783&matching_block_id=7704431_443459547_2_2_0_776783&sr_pri_blocks=7704431_443459547_2_2_0_776783_58500&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/911504064.webp?k=34ddc80668862f67cd990a6be531471fcbd5026fe764c055e9879ff00cf87a45&o="
+  },
+  {
+    "name": "Hotel Legie",
+    "price": 49367,
+    "bookingLink": "https://www.booking.com/hotel/cz/legie.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=13&hapos=13&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=32253521_91921705_2_2_0&highlighted_blocks=32253521_91921705_2_2_0&matching_block_id=32253521_91921705_2_2_0&sr_pri_blocks=32253521_91921705_2_2_0__35000&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/557400632.webp?k=655f0eef9628b2d0e688f000defec0acd4888fe78741572e4e893048d04fb518&o="
+  },
+  {
+    "name": "Antik Hotel Prague",
+    "price": 108663,
+    "bookingLink": "https://www.booking.com/hotel/cz/antik-prague.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=14&hapos=14&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=23608808_89030576_0_2_0&highlighted_blocks=23608808_89030576_0_2_0&matching_block_id=23608808_89030576_0_2_0&sr_pri_blocks=23608808_89030576_0_2_0__77040&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/553792948.webp?k=43c1d9562bd7bedb5426c9d5e7deefbec42f0291b4750050b960719a1fd3733e&o="
+  },
+  {
+    "name": "Michelangelo Grand Hotel",
+    "price": 106670,
+    "bookingLink": "https://www.booking.com/hotel/cz/michelangelograndhotel.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=15&hapos=15&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7770302_0_2_1_0&highlighted_blocks=7770302_0_2_1_0&matching_block_id=7770302_0_2_1_0&sr_pri_blocks=7770302_0_2_1_0__75627&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/194730076.webp?k=5a3a7f17522185b61cb206c26a7fd07b1f595d9474571c752530aa2bfb67a996&o="
+  },
+  {
+    "name": "Hotel Melantrich Old Town",
+    "price": 69855,
+    "bookingLink": "https://www.booking.com/hotel/cz/hotelmelantrich.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=16&hapos=16&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7723502_91906565_0_1_0&highlighted_blocks=7723502_91906565_0_1_0&matching_block_id=7723502_91906565_0_1_0&sr_pri_blocks=7723502_91906565_0_1_0__49526&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/719426560.webp?k=8d87f397e184fcbe48ad4b7b0cd50fec1feb146b9c1e83219ac23c1deebccadf&o="
+  },
+  {
+    "name": "Hilton Prague Atrium",
+    "price": 155904,
+    "bookingLink": "https://www.booking.com/hotel/cz/hilton-prague.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=17&hapos=17&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7756027_94291607_2_1_0&highlighted_blocks=7756027_94291607_2_1_0&matching_block_id=7756027_94291607_2_1_0&sr_pri_blocks=7756027_94291607_2_1_0__2688033&from_sustainable_property_sr=1&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/822498242.webp?k=97208f60814b820b3398c4cbac8848dfaa8ee211e2b5afccb4d22dd9f6d89022&o="
+  },
+  {
+    "name": "Origin Prague",
+    "price": 100412,
+    "bookingLink": "https://www.booking.com/hotel/cz/origin-prague.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=18&hapos=18&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=237945528_270323555_0_1_0&highlighted_blocks=237945528_270323555_0_1_0&matching_block_id=237945528_270323555_0_1_0&sr_pri_blocks=237945528_270323555_0_1_0__71190&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/890460608.webp?k=00621202cd17aa07ecc4973803829cfd93e95fdc9c84de97598e40f8d5eed82a&o="
+  },
+  {
+    "name": "Gregory House",
+    "price": 44766,
+    "bookingLink": "https://www.booking.com/hotel/cz/gregory-house.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=19&hapos=19&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=297269705_247650746_0_0_0&highlighted_blocks=297269705_247650746_0_0_0&matching_block_id=297269705_247650746_0_0_0&sr_pri_blocks=297269705_247650746_0_0_0__31738&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/128319540.webp?k=ee5f1b19798798c78afc5f5c9bf72aa30b79a2e14505323f21de1af243c97e16&o="
+  },
+  {
+    "name": "Safestay Prague Charles Bridge",
+    "price": 93572,
+    "bookingLink": "https://www.booking.com/hotel/cz/equity-point-prague.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=20&hapos=20&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=54308512_104202709_6_2_0_805561&highlighted_blocks=54308512_104202709_6_2_0_805561&matching_block_id=54308512_104202709_6_2_0_805561&sr_pri_blocks=54308512_104202709_6_2_0_805561_1613328&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/658314317.webp?k=566a7aa534ff117e9f895c0f42b498c52387ba9662dcfebdaea20a54f9585d36&o="
+  },
+  {
+    "name": "Áurea Legends by Eurostars Hotel Company",
+    "price": 130229,
+    "bookingLink": "https://www.booking.com/hotel/cz/eurostars-legends-hlavni-mesto-praha.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=21&hapos=21&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=560934401_0_2_0_0&highlighted_blocks=560934401_0_2_0_0&matching_block_id=560934401_0_2_0_0&sr_pri_blocks=560934401_0_2_0_0__92330&from_sustainable_property_sr=1&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/228385830.webp?k=6a8177da57ea55bd937eef146d6e0140f3ded0bf562af4d9fec620641f190a6b&o="
+  },
+  {
+    "name": "Charming 2BR Apartment in Prague 1 Free Parking",
+    "price": 243731,
+    "bookingLink": "https://www.booking.com/hotel/cz/charming-2br-apartment-in-prague-1-free-parking.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=22&hapos=22&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=1727553601_444388739_8_0_0&highlighted_blocks=1727553601_444388739_8_0_0&matching_block_id=1727553601_444388739_8_0_0&sr_pri_blocks=1727553601_444388739_8_0_0__172800&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/918911993.webp?k=77eeed4c2844a1b9a56b56ad2799d213379a7d1f13be91564762fc3b6dd2062f&o="
+  },
+  {
+    "name": "Wenceslas Hotel & Apartments",
+    "price": 98762,
+    "bookingLink": "https://www.booking.com/hotel/cz/myo-wenceslas.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=23&hapos=23&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=273540301_106408901_2_0_0&highlighted_blocks=273540301_106408901_2_0_0&matching_block_id=273540301_106408901_2_0_0&sr_pri_blocks=273540301_106408901_2_0_0__70020&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/873957885.webp?k=399af9f0103564e4685f5ab69683f4a0ae30af3813d7204781848ca5c896c803&o="
+  },
+  {
+    "name": "Ibis Praha Mala Strana",
+    "price": 50210,
+    "bookingLink": "https://www.booking.com/hotel/cz/ibis-praha-mala-strana.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=24&hapos=24&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=27346003_94384959_2_2_0&highlighted_blocks=27346003_94384959_2_2_0&matching_block_id=27346003_94384959_2_2_0&sr_pri_blocks=27346003_94384959_2_2_0__865697&from_sustainable_property_sr=1&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/749877251.webp?k=5b87595f670ce939ed8c687fed4afa0f4c888f65cd05f85c5d8411463460424f&o="
+  },
+  {
+    "name": "Hotel Duo & Wellness",
+    "price": 53947,
+    "bookingLink": "https://www.booking.com/hotel/cz/duo.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=25&hapos=25&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7732011_91906602_2_2_0&highlighted_blocks=7732011_91906602_2_2_0&matching_block_id=7732011_91906602_2_2_0&sr_pri_blocks=7732011_91906602_2_2_0__38247&from_sustainable_property_sr=1&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/573842627.webp?k=6903dd33baf5b0dea241db06325fb87b9ab11ccc317dd6f4db7d6c7ba29243c0&o="
+  }
+]
+[33m[MakeMyTrip] No hotel cards found. Site may be blocking or selectors changed.[0m
+[33m[Agoda] No hotel cards found. Site may be blocking or selectors changed.[0m
+[32mBooking.com: Found 25 hotels[0m
+[32mAgoda: Found 0 hotels[0m
+[32mMakeMyTrip: Found 0 hotels[0m
+[32mFound 25 unique hotels from 3 sources[0m
+[36mFinal sorted hotel results:[0m [
+  {
+    "name": "Gallery Hotel SIS",
+    "price": 23186,
+    "bookingLink": "https://www.booking.com/hotel/cz/bonn.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=9&hapos=9&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7726416_89028068_0_2_0&highlighted_blocks=7726416_89028068_0_2_0&matching_block_id=7726416_89028068_0_2_0&sr_pri_blocks=7726416_89028068_0_2_0__16438&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/370775878.webp?k=ffe704aa11df4cfd7ead69aa9793eb054b73675c9ef86c8eb31cc37122c40009&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "a&o Prague Rhea",
+    "price": 29058,
+    "bookingLink": "https://www.booking.com/hotel/cz/fortunarhea.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=2&hapos=2&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7713408_91461871_0_2_0&highlighted_blocks=7713408_91461871_0_2_0&matching_block_id=7713408_91461871_0_2_0&sr_pri_blocks=7713408_91461871_0_2_0__501004&from_sustainable_property_sr=1&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/137903830.webp?k=e09dc48216cd5241e3a97ce5ae75fe781006daba5fd3f86a7c7bf9e40a8d3340&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Gregory House",
+    "price": 44766,
+    "bookingLink": "https://www.booking.com/hotel/cz/gregory-house.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=19&hapos=19&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=297269705_247650746_0_0_0&highlighted_blocks=297269705_247650746_0_0_0&matching_block_id=297269705_247650746_0_0_0&sr_pri_blocks=297269705_247650746_0_0_0__31738&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/128319540.webp?k=ee5f1b19798798c78afc5f5c9bf72aa30b79a2e14505323f21de1af243c97e16&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Congress & Wellness Hotel Olsanka",
+    "price": 46080,
+    "bookingLink": "https://www.booking.com/hotel/cz/olsanka.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=3&hapos=3&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7763303_93707048_0_2_0&highlighted_blocks=7763303_93707048_0_2_0&matching_block_id=7763303_93707048_0_2_0&sr_pri_blocks=7763303_93707048_0_2_0__32670&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/22301233.webp?k=0bde4fd6ac0fcadf6db61a941c99a46e5bb7a9c898f30261b3b8a388ea4e7ecf&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Hotel Krystal",
+    "price": 49367,
+    "bookingLink": "https://www.booking.com/hotel/cz/krystal-praha-6.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=5&hapos=5&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=37948505_108033065_2_1_0&highlighted_blocks=37948505_108033065_2_1_0&matching_block_id=37948505_108033065_2_1_0&sr_pri_blocks=37948505_108033065_2_1_0__35000&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/253290420.webp?k=8219ea9c2b9e97b98077a57140d4c19c8185330a31f7dabc7cad411d185eb77a&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Hotel Legie",
+    "price": 49367,
+    "bookingLink": "https://www.booking.com/hotel/cz/legie.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=13&hapos=13&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=32253521_91921705_2_2_0&highlighted_blocks=32253521_91921705_2_2_0&matching_block_id=32253521_91921705_2_2_0&sr_pri_blocks=32253521_91921705_2_2_0__35000&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/557400632.webp?k=655f0eef9628b2d0e688f000defec0acd4888fe78741572e4e893048d04fb518&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Ibis Praha Mala Strana",
+    "price": 50210,
+    "bookingLink": "https://www.booking.com/hotel/cz/ibis-praha-mala-strana.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=24&hapos=24&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=27346003_94384959_2_2_0&highlighted_blocks=27346003_94384959_2_2_0&matching_block_id=27346003_94384959_2_2_0&sr_pri_blocks=27346003_94384959_2_2_0__865697&from_sustainable_property_sr=1&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/749877251.webp?k=5b87595f670ce939ed8c687fed4afa0f4c888f65cd05f85c5d8411463460424f&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Hotel Duo & Wellness",
+    "price": 53947,
+    "bookingLink": "https://www.booking.com/hotel/cz/duo.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=25&hapos=25&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7732011_91906602_2_2_0&highlighted_blocks=7732011_91906602_2_2_0&matching_block_id=7732011_91906602_2_2_0&sr_pri_blocks=7732011_91906602_2_2_0__38247&from_sustainable_property_sr=1&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/573842627.webp?k=6903dd33baf5b0dea241db06325fb87b9ab11ccc317dd6f4db7d6c7ba29243c0&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Admiral Botel",
+    "price": 54727,
+    "bookingLink": "https://www.booking.com/hotel/cz/admiral-botel.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=6&hapos=6&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7739602_174155488_0_1_0&highlighted_blocks=7739602_174155488_0_1_0&matching_block_id=7739602_174155488_0_1_0&sr_pri_blocks=7739602_174155488_0_1_0__38800&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/283198509.webp?k=652e9a8668c1e915ccabdd58249a15d57d9ae327d808a4024f029df2a106fe8a&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "The Cloud One Prague, part of the Motel One Group",
+    "price": 56549,
+    "bookingLink": "https://www.booking.com/hotel/cz/the-cloud-one-prague.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=10&hapos=10&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=1149874101_387811508_2_2_0&highlighted_blocks=1149874101_387811508_2_2_0&matching_block_id=1149874101_387811508_2_2_0&sr_pri_blocks=1149874101_387811508_2_2_0__975000&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/914496825.webp?k=bf34ae41d19327c3ba7547501d5d916da9b862bb26a35f0890e61ba31c14717d&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Avenue Legerova 19",
+    "price": 63594,
+    "bookingLink": "https://www.booking.com/hotel/cz/legerova-19.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=1&hapos=1&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=250764807_103557527_2_2_0&highlighted_blocks=250764807_103557527_2_2_0&matching_block_id=250764807_103557527_2_2_0&sr_pri_blocks=250764807_103557527_2_2_0__45087&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/411032504.webp?k=3a412328478fb6b57fae273d4b68c5f610d1e8f729fdcd9f3c4b18fddd6b5ec8&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Hotel Melantrich Old Town",
+    "price": 69855,
+    "bookingLink": "https://www.booking.com/hotel/cz/hotelmelantrich.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=16&hapos=16&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7723502_91906565_0_1_0&highlighted_blocks=7723502_91906565_0_1_0&matching_block_id=7723502_91906565_0_1_0&sr_pri_blocks=7723502_91906565_0_1_0__49526&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/719426560.webp?k=8d87f397e184fcbe48ad4b7b0cd50fec1feb146b9c1e83219ac23c1deebccadf&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Hotel Kinsky Fountain",
+    "price": 82513,
+    "bookingLink": "https://www.booking.com/hotel/cz/hotelkinskygarden.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=12&hapos=12&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7704431_443459547_2_2_0_776783&highlighted_blocks=7704431_443459547_2_2_0_776783&matching_block_id=7704431_443459547_2_2_0_776783&sr_pri_blocks=7704431_443459547_2_2_0_776783_58500&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/911504064.webp?k=34ddc80668862f67cd990a6be531471fcbd5026fe764c055e9879ff00cf87a45&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Perla Hotel",
+    "price": 88860,
+    "bookingLink": "https://www.booking.com/hotel/cz/perla.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=7&hapos=7&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7753002_93707022_2_2_0&highlighted_blocks=7753002_93707022_2_2_0&matching_block_id=7753002_93707022_2_2_0&sr_pri_blocks=7753002_93707022_2_2_0__63000&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/586158868.webp?k=a60d3a0453bf167b83d1667cd23521c34fb87d67403436bdd7534c833806bada&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Safestay Prague Charles Bridge",
+    "price": 93572,
+    "bookingLink": "https://www.booking.com/hotel/cz/equity-point-prague.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=20&hapos=20&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=54308512_104202709_6_2_0_805561&highlighted_blocks=54308512_104202709_6_2_0_805561&matching_block_id=54308512_104202709_6_2_0_805561&sr_pri_blocks=54308512_104202709_6_2_0_805561_1613328&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/658314317.webp?k=566a7aa534ff117e9f895c0f42b498c52387ba9662dcfebdaea20a54f9585d36&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Wenceslas Hotel & Apartments",
+    "price": 98762,
+    "bookingLink": "https://www.booking.com/hotel/cz/myo-wenceslas.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=23&hapos=23&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=273540301_106408901_2_0_0&highlighted_blocks=273540301_106408901_2_0_0&matching_block_id=273540301_106408901_2_0_0&sr_pri_blocks=273540301_106408901_2_0_0__70020&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/873957885.webp?k=399af9f0103564e4685f5ab69683f4a0ae30af3813d7204781848ca5c896c803&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Origin Prague",
+    "price": 100412,
+    "bookingLink": "https://www.booking.com/hotel/cz/origin-prague.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=18&hapos=18&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=237945528_270323555_0_1_0&highlighted_blocks=237945528_270323555_0_1_0&matching_block_id=237945528_270323555_0_1_0&sr_pri_blocks=237945528_270323555_0_1_0__71190&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/890460608.webp?k=00621202cd17aa07ecc4973803829cfd93e95fdc9c84de97598e40f8d5eed82a&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Michelangelo Grand Hotel",
+    "price": 106670,
+    "bookingLink": "https://www.booking.com/hotel/cz/michelangelograndhotel.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=15&hapos=15&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7770302_0_2_1_0&highlighted_blocks=7770302_0_2_1_0&matching_block_id=7770302_0_2_1_0&sr_pri_blocks=7770302_0_2_1_0__75627&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/194730076.webp?k=5a3a7f17522185b61cb206c26a7fd07b1f595d9474571c752530aa2bfb67a996&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Antik Hotel Prague",
+    "price": 108663,
+    "bookingLink": "https://www.booking.com/hotel/cz/antik-prague.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=14&hapos=14&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=23608808_89030576_0_2_0&highlighted_blocks=23608808_89030576_0_2_0&matching_block_id=23608808_89030576_0_2_0&sr_pri_blocks=23608808_89030576_0_2_0__77040&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/553792948.webp?k=43c1d9562bd7bedb5426c9d5e7deefbec42f0291b4750050b960719a1fd3733e&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Hotel Prague Star",
+    "price": 123699,
+    "bookingLink": "https://www.booking.com/hotel/cz/magic-centre-prague-accommodation.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=8&hapos=8&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=69339817_89042453_0_1_0&highlighted_blocks=69339817_89042453_0_1_0&matching_block_id=69339817_89042453_0_1_0&sr_pri_blocks=69339817_89042453_0_1_0__87700&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/33134026.webp?k=9288dae0f531eddc71d15717dd7cd79389a88f37c35d8aeeb9daf5bf529987f2&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Áurea Legends by Eurostars Hotel Company",
+    "price": 130229,
+    "bookingLink": "https://www.booking.com/hotel/cz/eurostars-legends-hlavni-mesto-praha.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=21&hapos=21&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=560934401_0_2_0_0&highlighted_blocks=560934401_0_2_0_0&matching_block_id=560934401_0_2_0_0&sr_pri_blocks=560934401_0_2_0_0__92330&from_sustainable_property_sr=1&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/228385830.webp?k=6a8177da57ea55bd937eef146d6e0140f3ded0bf562af4d9fec620641f190a6b&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Havelska Old Town Residence",
+    "price": 147254,
+    "bookingLink": "https://www.booking.com/hotel/cz/havelska-old-town-residence.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=4&hapos=4&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=1133342801_385991195_4_2_0&highlighted_blocks=1133342801_385991195_4_2_0&matching_block_id=1133342801_385991195_4_2_0&sr_pri_blocks=1133342801_385991195_4_2_0__104400&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/537770430.webp?k=d6eaa167ac9449879e1cb91a8f4ea9986fdee945d606266e9b2cee26ae0a3b5a&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Hilton Prague Atrium",
+    "price": 155904,
+    "bookingLink": "https://www.booking.com/hotel/cz/hilton-prague.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=17&hapos=17&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7756027_94291607_2_1_0&highlighted_blocks=7756027_94291607_2_1_0&matching_block_id=7756027_94291607_2_1_0&sr_pri_blocks=7756027_94291607_2_1_0__2688033&from_sustainable_property_sr=1&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/822498242.webp?k=97208f60814b820b3398c4cbac8848dfaa8ee211e2b5afccb4d22dd9f6d89022&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "TOP HOTEL Praha",
+    "price": 184959,
+    "bookingLink": "https://www.booking.com/hotel/cz/praha.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=11&hapos=11&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7700025_91906478_0_33_0&highlighted_blocks=7700025_91906478_0_33_0&matching_block_id=7700025_91906478_0_33_0&sr_pri_blocks=7700025_91906478_0_33_0__3188983&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/115664289.webp?k=191af17429d8da25529b336d657c8c1c9484efd2c273fe3fdbfdf17cec061a0a&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Charming 2BR Apartment in Prague 1 Free Parking",
+    "price": 243731,
+    "bookingLink": "https://www.booking.com/hotel/cz/charming-2br-apartment-in-prague-1-free-parking.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=22&hapos=22&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=1727553601_444388739_8_0_0&highlighted_blocks=1727553601_444388739_8_0_0&matching_block_id=1727553601_444388739_8_0_0&sr_pri_blocks=1727553601_444388739_8_0_0__172800&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/918911993.webp?k=77eeed4c2844a1b9a56b56ad2799d213379a7d1f13be91564762fc3b6dd2062f&o=",
+    "source": "Booking.com"
+  }
+]
+{"attempt":1,"elapsed_ms":57236,"total_hotels":25,"booking_dot_com_count":25,"booking_sample":[{"name":"Gallery Hotel SIS","price":23186,"bookingLink":"https://www.booking.com/hotel/cz/bonn.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=9&hapos=9&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7726416_89028068_0_2_0&highlighted_blocks=7726416_89028068_0_2_0&matching_block_id=7726416_89028068_0_2_0&sr_pri_blocks=7726416_89028068_0_2_0__16438&from=searchresults","amenities":[],"imageUrl":"https://cf.bstatic.com/xdata/images/hotel/square240/370775878.webp?k=ffe704aa11df4cfd7ead69aa9793eb054b73675c9ef86c8eb31cc37122c40009&o=","source":"Booking.com"},{"name":"a&o Prague Rhea","price":29058,"bookingLink":"https://www.booking.com/hotel/cz/fortunarhea.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=2&hapos=2&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=7713408_91461871_0_2_0&highlighted_blocks=7713408_91461871_0_2_0&matching_block_id=7713408_91461871_0_2_0&sr_pri_blocks=7713408_91461871_0_2_0__501004&from_sustainable_property_sr=1&from=searchresults","amenities":[],"imageUrl":"https://cf.bstatic.com/xdata/images/hotel/square240/137903830.webp?k=e09dc48216cd5241e3a97ce5ae75fe781006daba5fd3f86a7c7bf9e40a8d3340&o=","source":"Booking.com"},{"name":"Gregory House","price":44766,"bookingLink":"https://www.booking.com/hotel/cz/gregory-house.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEP2AED6AEB-AEBiAIBqAIBuALGprTVBsACAdICJDg3NmZkYThiLWIxMGYtNGVhNS05ZjYzLWEwNzg2YjNiY2EwOdgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=19&hapos=19&sr_order=popularity&srpvid=64694a235ba30017&srepoch=1789727564&all_sr_blocks=297269705_247650746_0_0_0&highlighted_blocks=297269705_247650746_0_0_0&matching_block_id=297269705_247650746_0_0_0&sr_pri_blocks=297269705_247650746_0_0_0__31738&from=searchresults","amenities":[],"imageUrl":"https://cf.bstatic.com/xdata/images/hotel/square240/128319540.webp?k=ee5f1b19798798c78afc5f5c9bf72aa30b79a2e14505323f21de1af243c97e16&o=","source":"Booking.com"}]}
+[34mStarting hotel scraping for Prague, Czech Republic from 2026-10-01 to 2026-10-04[0m
+[34mNavigating to Booking.com URL:[0m https://www.booking.com/searchresults.html?ss=Prague%2C%20Czech%20Republic&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&no_rooms=1&group_children=0
+[34m[MakeMyTrip] Navigating to:[0m https://www.makemytrip.com/hotels/hotel-listing/?checkin=10012026&checkout=10042026&city=Prague%2C%20Czech%20Republic&roomStayQualifier=2e0e&locusId=&country=&locusType=&searchText=Prague%2C%20Czech%20Republic&regionNearByExp=3&s=popularity
+[34m[Agoda] Navigating to:[0m https://www.agoda.com/search?city=Prague%2C%20Czech%20Republic&checkIn=2026-10-01&checkOut=2026-10-04&rooms=1&adults=2&children=0
+[33mPage content loaded. First 500 characters:[0m
+<!DOCTYPE html><html><head><title>Booking.com Online Hotel Reservations</title><link rel="shortcut icon" href="../img/b25logo/favicon.ico"><style type="text/css">html{height: 100%}*{box-sizing: border-box;margin: 0;}body{font-size: 16px;color: #383838;line-height: 1.5;font-family: BlinkMacSystemFont,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin: 0;display: table;width: 100%;height: 100%;}body > *{display: table-row;height: 1px;}header{background-color: #003580}.container{displa
+[31mHotel cards not found on the page. Selector might be incorrect.[0m
+[31mError scraping Booking.com:[0m Waiting for selector `[data-testid="property-card"]` failed: Waiting failed: 20000ms exceeded
+[33m[MakeMyTrip] No hotel cards found. Site may be blocking or selectors changed.[0m
+[33m[Agoda] No hotel cards found. Site may be blocking or selectors changed.[0m
+[32mBooking.com: Found 0 hotels[0m
+[32mAgoda: Found 0 hotels[0m
+[32mMakeMyTrip: Found 0 hotels[0m
+[32mFound 0 unique hotels from 3 sources[0m
+[36mFinal sorted hotel results:[0m []
+{"attempt":2,"elapsed_ms":58544,"total_hotels":0,"booking_dot_com_count":0,"booking_sample":[]}
+[34mStarting hotel scraping for Prague, Czech Republic from 2026-10-01 to 2026-10-04[0m
+[34m[MakeMyTrip] Navigating to:[0m https://www.makemytrip.com/hotels/hotel-listing/?checkin=10012026&checkout=10042026&city=Prague%2C%20Czech%20Republic&roomStayQualifier=2e0e&locusId=&country=&locusType=&searchText=Prague%2C%20Czech%20Republic&regionNearByExp=3&s=popularity
+[34m[Agoda] Navigating to:[0m https://www.agoda.com/search?city=Prague%2C%20Czech%20Republic&checkIn=2026-10-01&checkOut=2026-10-04&rooms=1&adults=2&children=0
+[34mNavigating to Booking.com URL:[0m https://www.booking.com/searchresults.html?ss=Prague%2C%20Czech%20Republic&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&no_rooms=1&group_children=0
+[33mPage content loaded. First 500 characters:[0m
+<!DOCTYPE html><!--
+You know you could be getting paid to poke around in our code?
+We're hiring designers and developers to work in Amsterdam:
+https://careers.booking.com/
+--><!-- wdot-802 --><html lang="en-us" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# booking_com: http://ogp.me/ns/fb/booking_com#" class=" b_opera b_opera_11 supports_fontface  hasJS" dir="ltr"><head profile="http://a9.com/-/spec/opensearch/1.1/">
+<script async="" src="https://bat.bing.com/p/conversions/t/15005356" c
+[32mHotel cards found on the page.[0m
+[36mRaw results from page evaluation:[0m [
+  {
+    "name": "Avenue Legerova 19",
+    "price": 63594,
+    "bookingLink": "https://www.booking.com/hotel/cz/legerova-19.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=1&hapos=1&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=250764807_103557527_2_2_0&highlighted_blocks=250764807_103557527_2_2_0&matching_block_id=250764807_103557527_2_2_0&sr_pri_blocks=250764807_103557527_2_2_0__45087&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/411032504.webp?k=3a412328478fb6b57fae273d4b68c5f610d1e8f729fdcd9f3c4b18fddd6b5ec8&o="
+  },
+  {
+    "name": "a&o Prague Rhea",
+    "price": 29058,
+    "bookingLink": "https://www.booking.com/hotel/cz/fortunarhea.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=2&hapos=2&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7713408_91461871_0_2_0&highlighted_blocks=7713408_91461871_0_2_0&matching_block_id=7713408_91461871_0_2_0&sr_pri_blocks=7713408_91461871_0_2_0__501004&from_sustainable_property_sr=1&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/137903830.webp?k=e09dc48216cd5241e3a97ce5ae75fe781006daba5fd3f86a7c7bf9e40a8d3340&o="
+  },
+  {
+    "name": "Congress & Wellness Hotel Olsanka",
+    "price": 46080,
+    "bookingLink": "https://www.booking.com/hotel/cz/olsanka.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=3&hapos=3&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7763303_93707048_0_2_0&highlighted_blocks=7763303_93707048_0_2_0&matching_block_id=7763303_93707048_0_2_0&sr_pri_blocks=7763303_93707048_0_2_0__32670&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/22301233.webp?k=0bde4fd6ac0fcadf6db61a941c99a46e5bb7a9c898f30261b3b8a388ea4e7ecf&o="
+  },
+  {
+    "name": "Havelska Old Town Residence",
+    "price": 147254,
+    "bookingLink": "https://www.booking.com/hotel/cz/havelska-old-town-residence.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=4&hapos=4&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=1133342801_385991195_4_2_0&highlighted_blocks=1133342801_385991195_4_2_0&matching_block_id=1133342801_385991195_4_2_0&sr_pri_blocks=1133342801_385991195_4_2_0__104400&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/537770430.webp?k=d6eaa167ac9449879e1cb91a8f4ea9986fdee945d606266e9b2cee26ae0a3b5a&o="
+  },
+  {
+    "name": "Hotel Krystal",
+    "price": 49367,
+    "bookingLink": "https://www.booking.com/hotel/cz/krystal-praha-6.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=5&hapos=5&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=37948505_108033065_2_1_0&highlighted_blocks=37948505_108033065_2_1_0&matching_block_id=37948505_108033065_2_1_0&sr_pri_blocks=37948505_108033065_2_1_0__35000&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/253290420.webp?k=8219ea9c2b9e97b98077a57140d4c19c8185330a31f7dabc7cad411d185eb77a&o="
+  },
+  {
+    "name": "Admiral Botel",
+    "price": 54727,
+    "bookingLink": "https://www.booking.com/hotel/cz/admiral-botel.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=6&hapos=6&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7739602_174155488_0_1_0&highlighted_blocks=7739602_174155488_0_1_0&matching_block_id=7739602_174155488_0_1_0&sr_pri_blocks=7739602_174155488_0_1_0__38800&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/283198509.webp?k=652e9a8668c1e915ccabdd58249a15d57d9ae327d808a4024f029df2a106fe8a&o="
+  },
+  {
+    "name": "Perla Hotel",
+    "price": 88860,
+    "bookingLink": "https://www.booking.com/hotel/cz/perla.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=7&hapos=7&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7753002_93707022_2_2_0&highlighted_blocks=7753002_93707022_2_2_0&matching_block_id=7753002_93707022_2_2_0&sr_pri_blocks=7753002_93707022_2_2_0__63000&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/586158868.webp?k=a60d3a0453bf167b83d1667cd23521c34fb87d67403436bdd7534c833806bada&o="
+  },
+  {
+    "name": "Hotel Prague Star",
+    "price": 123699,
+    "bookingLink": "https://www.booking.com/hotel/cz/magic-centre-prague-accommodation.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=8&hapos=8&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=69339817_89042453_0_1_0&highlighted_blocks=69339817_89042453_0_1_0&matching_block_id=69339817_89042453_0_1_0&sr_pri_blocks=69339817_89042453_0_1_0__87700&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/33134026.webp?k=9288dae0f531eddc71d15717dd7cd79389a88f37c35d8aeeb9daf5bf529987f2&o="
+  },
+  {
+    "name": "Gallery Hotel SIS",
+    "price": 23186,
+    "bookingLink": "https://www.booking.com/hotel/cz/bonn.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=9&hapos=9&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7726416_89028068_0_2_0&highlighted_blocks=7726416_89028068_0_2_0&matching_block_id=7726416_89028068_0_2_0&sr_pri_blocks=7726416_89028068_0_2_0__16438&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/370775878.webp?k=ffe704aa11df4cfd7ead69aa9793eb054b73675c9ef86c8eb31cc37122c40009&o="
+  },
+  {
+    "name": "The Cloud One Prague, part of the Motel One Group",
+    "price": 56549,
+    "bookingLink": "https://www.booking.com/hotel/cz/the-cloud-one-prague.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=10&hapos=10&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=1149874101_387811508_2_2_0&highlighted_blocks=1149874101_387811508_2_2_0&matching_block_id=1149874101_387811508_2_2_0&sr_pri_blocks=1149874101_387811508_2_2_0__975000&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/914496825.webp?k=bf34ae41d19327c3ba7547501d5d916da9b862bb26a35f0890e61ba31c14717d&o="
+  },
+  {
+    "name": "TOP HOTEL Praha",
+    "price": 184959,
+    "bookingLink": "https://www.booking.com/hotel/cz/praha.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=11&hapos=11&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7700025_91906478_0_33_0&highlighted_blocks=7700025_91906478_0_33_0&matching_block_id=7700025_91906478_0_33_0&sr_pri_blocks=7700025_91906478_0_33_0__3188983&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/115664289.webp?k=191af17429d8da25529b336d657c8c1c9484efd2c273fe3fdbfdf17cec061a0a&o="
+  },
+  {
+    "name": "Hotel Kinsky Fountain",
+    "price": 82513,
+    "bookingLink": "https://www.booking.com/hotel/cz/hotelkinskygarden.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=12&hapos=12&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7704431_443459547_2_2_0_776783&highlighted_blocks=7704431_443459547_2_2_0_776783&matching_block_id=7704431_443459547_2_2_0_776783&sr_pri_blocks=7704431_443459547_2_2_0_776783_58500&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/911504064.webp?k=34ddc80668862f67cd990a6be531471fcbd5026fe764c055e9879ff00cf87a45&o="
+  },
+  {
+    "name": "Hotel Legie",
+    "price": 49367,
+    "bookingLink": "https://www.booking.com/hotel/cz/legie.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=13&hapos=13&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=32253521_91921705_2_2_0&highlighted_blocks=32253521_91921705_2_2_0&matching_block_id=32253521_91921705_2_2_0&sr_pri_blocks=32253521_91921705_2_2_0__35000&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/557400632.webp?k=655f0eef9628b2d0e688f000defec0acd4888fe78741572e4e893048d04fb518&o="
+  },
+  {
+    "name": "Antik Hotel Prague",
+    "price": 108663,
+    "bookingLink": "https://www.booking.com/hotel/cz/antik-prague.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=14&hapos=14&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=23608808_89030576_0_2_0&highlighted_blocks=23608808_89030576_0_2_0&matching_block_id=23608808_89030576_0_2_0&sr_pri_blocks=23608808_89030576_0_2_0__77040&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/553792948.webp?k=43c1d9562bd7bedb5426c9d5e7deefbec42f0291b4750050b960719a1fd3733e&o="
+  },
+  {
+    "name": "Michelangelo Grand Hotel",
+    "price": 106670,
+    "bookingLink": "https://www.booking.com/hotel/cz/michelangelograndhotel.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=15&hapos=15&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7770302_0_2_1_0&highlighted_blocks=7770302_0_2_1_0&matching_block_id=7770302_0_2_1_0&sr_pri_blocks=7770302_0_2_1_0__75627&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/194730076.webp?k=5a3a7f17522185b61cb206c26a7fd07b1f595d9474571c752530aa2bfb67a996&o="
+  },
+  {
+    "name": "Hotel Melantrich Old Town",
+    "price": 69855,
+    "bookingLink": "https://www.booking.com/hotel/cz/hotelmelantrich.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=16&hapos=16&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7723502_91906565_0_1_0&highlighted_blocks=7723502_91906565_0_1_0&matching_block_id=7723502_91906565_0_1_0&sr_pri_blocks=7723502_91906565_0_1_0__49526&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/719426560.webp?k=8d87f397e184fcbe48ad4b7b0cd50fec1feb146b9c1e83219ac23c1deebccadf&o="
+  },
+  {
+    "name": "Hilton Prague Atrium",
+    "price": 155904,
+    "bookingLink": "https://www.booking.com/hotel/cz/hilton-prague.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=17&hapos=17&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7756027_94291607_2_1_0&highlighted_blocks=7756027_94291607_2_1_0&matching_block_id=7756027_94291607_2_1_0&sr_pri_blocks=7756027_94291607_2_1_0__2688033&from_sustainable_property_sr=1&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/822498242.webp?k=97208f60814b820b3398c4cbac8848dfaa8ee211e2b5afccb4d22dd9f6d89022&o="
+  },
+  {
+    "name": "Origin Prague",
+    "price": 100412,
+    "bookingLink": "https://www.booking.com/hotel/cz/origin-prague.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=18&hapos=18&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=237945528_270323555_0_1_0&highlighted_blocks=237945528_270323555_0_1_0&matching_block_id=237945528_270323555_0_1_0&sr_pri_blocks=237945528_270323555_0_1_0__71190&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/890460608.webp?k=00621202cd17aa07ecc4973803829cfd93e95fdc9c84de97598e40f8d5eed82a&o="
+  },
+  {
+    "name": "Gregory House",
+    "price": 44766,
+    "bookingLink": "https://www.booking.com/hotel/cz/gregory-house.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=19&hapos=19&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=297269705_247650746_0_0_0&highlighted_blocks=297269705_247650746_0_0_0&matching_block_id=297269705_247650746_0_0_0&sr_pri_blocks=297269705_247650746_0_0_0__31738&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/128319540.webp?k=ee5f1b19798798c78afc5f5c9bf72aa30b79a2e14505323f21de1af243c97e16&o="
+  },
+  {
+    "name": "Safestay Prague Charles Bridge",
+    "price": 93572,
+    "bookingLink": "https://www.booking.com/hotel/cz/equity-point-prague.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=20&hapos=20&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=54308512_104202709_6_2_0_805561&highlighted_blocks=54308512_104202709_6_2_0_805561&matching_block_id=54308512_104202709_6_2_0_805561&sr_pri_blocks=54308512_104202709_6_2_0_805561_1613328&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/658314317.webp?k=566a7aa534ff117e9f895c0f42b498c52387ba9662dcfebdaea20a54f9585d36&o="
+  },
+  {
+    "name": "Áurea Legends by Eurostars Hotel Company",
+    "price": 130229,
+    "bookingLink": "https://www.booking.com/hotel/cz/eurostars-legends-hlavni-mesto-praha.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=21&hapos=21&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=560934401_0_2_0_0&highlighted_blocks=560934401_0_2_0_0&matching_block_id=560934401_0_2_0_0&sr_pri_blocks=560934401_0_2_0_0__92330&from_sustainable_property_sr=1&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/228385830.webp?k=6a8177da57ea55bd937eef146d6e0140f3ded0bf562af4d9fec620641f190a6b&o="
+  },
+  {
+    "name": "Charming 2BR Apartment in Prague 1 Free Parking",
+    "price": 243731,
+    "bookingLink": "https://www.booking.com/hotel/cz/charming-2br-apartment-in-prague-1-free-parking.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=22&hapos=22&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=1727553601_444388739_8_0_0&highlighted_blocks=1727553601_444388739_8_0_0&matching_block_id=1727553601_444388739_8_0_0&sr_pri_blocks=1727553601_444388739_8_0_0__172800&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/918911993.webp?k=77eeed4c2844a1b9a56b56ad2799d213379a7d1f13be91564762fc3b6dd2062f&o="
+  },
+  {
+    "name": "Wenceslas Hotel & Apartments",
+    "price": 98762,
+    "bookingLink": "https://www.booking.com/hotel/cz/myo-wenceslas.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=23&hapos=23&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=273540301_106408901_2_0_0&highlighted_blocks=273540301_106408901_2_0_0&matching_block_id=273540301_106408901_2_0_0&sr_pri_blocks=273540301_106408901_2_0_0__70020&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/873957885.webp?k=399af9f0103564e4685f5ab69683f4a0ae30af3813d7204781848ca5c896c803&o="
+  },
+  {
+    "name": "Ibis Praha Mala Strana",
+    "price": 50210,
+    "bookingLink": "https://www.booking.com/hotel/cz/ibis-praha-mala-strana.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=24&hapos=24&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=27346003_94384959_2_2_0&highlighted_blocks=27346003_94384959_2_2_0&matching_block_id=27346003_94384959_2_2_0&sr_pri_blocks=27346003_94384959_2_2_0__865697&from_sustainable_property_sr=1&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/749877251.webp?k=5b87595f670ce939ed8c687fed4afa0f4c888f65cd05f85c5d8411463460424f&o="
+  },
+  {
+    "name": "Hotel Duo & Wellness",
+    "price": 53947,
+    "bookingLink": "https://www.booking.com/hotel/cz/duo.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=25&hapos=25&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7732011_91906602_2_2_0&highlighted_blocks=7732011_91906602_2_2_0&matching_block_id=7732011_91906602_2_2_0&sr_pri_blocks=7732011_91906602_2_2_0__38247&from_sustainable_property_sr=1&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/573842627.webp?k=6903dd33baf5b0dea241db06325fb87b9ab11ccc317dd6f4db7d6c7ba29243c0&o="
+  }
+]
+[33m[MakeMyTrip] No hotel cards found. Site may be blocking or selectors changed.[0m
+[33m[Agoda] No hotel cards found. Site may be blocking or selectors changed.[0m
+[32mBooking.com: Found 25 hotels[0m
+[32mAgoda: Found 0 hotels[0m
+[32mMakeMyTrip: Found 0 hotels[0m
+[32mFound 25 unique hotels from 3 sources[0m
+[36mFinal sorted hotel results:[0m [
+  {
+    "name": "Gallery Hotel SIS",
+    "price": 23186,
+    "bookingLink": "https://www.booking.com/hotel/cz/bonn.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=9&hapos=9&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7726416_89028068_0_2_0&highlighted_blocks=7726416_89028068_0_2_0&matching_block_id=7726416_89028068_0_2_0&sr_pri_blocks=7726416_89028068_0_2_0__16438&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/370775878.webp?k=ffe704aa11df4cfd7ead69aa9793eb054b73675c9ef86c8eb31cc37122c40009&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "a&o Prague Rhea",
+    "price": 29058,
+    "bookingLink": "https://www.booking.com/hotel/cz/fortunarhea.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=2&hapos=2&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7713408_91461871_0_2_0&highlighted_blocks=7713408_91461871_0_2_0&matching_block_id=7713408_91461871_0_2_0&sr_pri_blocks=7713408_91461871_0_2_0__501004&from_sustainable_property_sr=1&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/137903830.webp?k=e09dc48216cd5241e3a97ce5ae75fe781006daba5fd3f86a7c7bf9e40a8d3340&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Gregory House",
+    "price": 44766,
+    "bookingLink": "https://www.booking.com/hotel/cz/gregory-house.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=19&hapos=19&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=297269705_247650746_0_0_0&highlighted_blocks=297269705_247650746_0_0_0&matching_block_id=297269705_247650746_0_0_0&sr_pri_blocks=297269705_247650746_0_0_0__31738&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/128319540.webp?k=ee5f1b19798798c78afc5f5c9bf72aa30b79a2e14505323f21de1af243c97e16&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Congress & Wellness Hotel Olsanka",
+    "price": 46080,
+    "bookingLink": "https://www.booking.com/hotel/cz/olsanka.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=3&hapos=3&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7763303_93707048_0_2_0&highlighted_blocks=7763303_93707048_0_2_0&matching_block_id=7763303_93707048_0_2_0&sr_pri_blocks=7763303_93707048_0_2_0__32670&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/22301233.webp?k=0bde4fd6ac0fcadf6db61a941c99a46e5bb7a9c898f30261b3b8a388ea4e7ecf&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Hotel Krystal",
+    "price": 49367,
+    "bookingLink": "https://www.booking.com/hotel/cz/krystal-praha-6.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=5&hapos=5&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=37948505_108033065_2_1_0&highlighted_blocks=37948505_108033065_2_1_0&matching_block_id=37948505_108033065_2_1_0&sr_pri_blocks=37948505_108033065_2_1_0__35000&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/253290420.webp?k=8219ea9c2b9e97b98077a57140d4c19c8185330a31f7dabc7cad411d185eb77a&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Hotel Legie",
+    "price": 49367,
+    "bookingLink": "https://www.booking.com/hotel/cz/legie.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=13&hapos=13&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=32253521_91921705_2_2_0&highlighted_blocks=32253521_91921705_2_2_0&matching_block_id=32253521_91921705_2_2_0&sr_pri_blocks=32253521_91921705_2_2_0__35000&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/557400632.webp?k=655f0eef9628b2d0e688f000defec0acd4888fe78741572e4e893048d04fb518&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Ibis Praha Mala Strana",
+    "price": 50210,
+    "bookingLink": "https://www.booking.com/hotel/cz/ibis-praha-mala-strana.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=24&hapos=24&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=27346003_94384959_2_2_0&highlighted_blocks=27346003_94384959_2_2_0&matching_block_id=27346003_94384959_2_2_0&sr_pri_blocks=27346003_94384959_2_2_0__865697&from_sustainable_property_sr=1&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/749877251.webp?k=5b87595f670ce939ed8c687fed4afa0f4c888f65cd05f85c5d8411463460424f&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Hotel Duo & Wellness",
+    "price": 53947,
+    "bookingLink": "https://www.booking.com/hotel/cz/duo.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=25&hapos=25&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7732011_91906602_2_2_0&highlighted_blocks=7732011_91906602_2_2_0&matching_block_id=7732011_91906602_2_2_0&sr_pri_blocks=7732011_91906602_2_2_0__38247&from_sustainable_property_sr=1&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/573842627.webp?k=6903dd33baf5b0dea241db06325fb87b9ab11ccc317dd6f4db7d6c7ba29243c0&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Admiral Botel",
+    "price": 54727,
+    "bookingLink": "https://www.booking.com/hotel/cz/admiral-botel.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=6&hapos=6&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7739602_174155488_0_1_0&highlighted_blocks=7739602_174155488_0_1_0&matching_block_id=7739602_174155488_0_1_0&sr_pri_blocks=7739602_174155488_0_1_0__38800&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/283198509.webp?k=652e9a8668c1e915ccabdd58249a15d57d9ae327d808a4024f029df2a106fe8a&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "The Cloud One Prague, part of the Motel One Group",
+    "price": 56549,
+    "bookingLink": "https://www.booking.com/hotel/cz/the-cloud-one-prague.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=10&hapos=10&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=1149874101_387811508_2_2_0&highlighted_blocks=1149874101_387811508_2_2_0&matching_block_id=1149874101_387811508_2_2_0&sr_pri_blocks=1149874101_387811508_2_2_0__975000&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/914496825.webp?k=bf34ae41d19327c3ba7547501d5d916da9b862bb26a35f0890e61ba31c14717d&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Avenue Legerova 19",
+    "price": 63594,
+    "bookingLink": "https://www.booking.com/hotel/cz/legerova-19.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=1&hapos=1&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=250764807_103557527_2_2_0&highlighted_blocks=250764807_103557527_2_2_0&matching_block_id=250764807_103557527_2_2_0&sr_pri_blocks=250764807_103557527_2_2_0__45087&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/411032504.webp?k=3a412328478fb6b57fae273d4b68c5f610d1e8f729fdcd9f3c4b18fddd6b5ec8&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Hotel Melantrich Old Town",
+    "price": 69855,
+    "bookingLink": "https://www.booking.com/hotel/cz/hotelmelantrich.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=16&hapos=16&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7723502_91906565_0_1_0&highlighted_blocks=7723502_91906565_0_1_0&matching_block_id=7723502_91906565_0_1_0&sr_pri_blocks=7723502_91906565_0_1_0__49526&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/719426560.webp?k=8d87f397e184fcbe48ad4b7b0cd50fec1feb146b9c1e83219ac23c1deebccadf&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Hotel Kinsky Fountain",
+    "price": 82513,
+    "bookingLink": "https://www.booking.com/hotel/cz/hotelkinskygarden.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=12&hapos=12&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7704431_443459547_2_2_0_776783&highlighted_blocks=7704431_443459547_2_2_0_776783&matching_block_id=7704431_443459547_2_2_0_776783&sr_pri_blocks=7704431_443459547_2_2_0_776783_58500&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/911504064.webp?k=34ddc80668862f67cd990a6be531471fcbd5026fe764c055e9879ff00cf87a45&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Perla Hotel",
+    "price": 88860,
+    "bookingLink": "https://www.booking.com/hotel/cz/perla.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=7&hapos=7&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7753002_93707022_2_2_0&highlighted_blocks=7753002_93707022_2_2_0&matching_block_id=7753002_93707022_2_2_0&sr_pri_blocks=7753002_93707022_2_2_0__63000&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/586158868.webp?k=a60d3a0453bf167b83d1667cd23521c34fb87d67403436bdd7534c833806bada&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Safestay Prague Charles Bridge",
+    "price": 93572,
+    "bookingLink": "https://www.booking.com/hotel/cz/equity-point-prague.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=20&hapos=20&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=54308512_104202709_6_2_0_805561&highlighted_blocks=54308512_104202709_6_2_0_805561&matching_block_id=54308512_104202709_6_2_0_805561&sr_pri_blocks=54308512_104202709_6_2_0_805561_1613328&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/658314317.webp?k=566a7aa534ff117e9f895c0f42b498c52387ba9662dcfebdaea20a54f9585d36&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Wenceslas Hotel & Apartments",
+    "price": 98762,
+    "bookingLink": "https://www.booking.com/hotel/cz/myo-wenceslas.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=23&hapos=23&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=273540301_106408901_2_0_0&highlighted_blocks=273540301_106408901_2_0_0&matching_block_id=273540301_106408901_2_0_0&sr_pri_blocks=273540301_106408901_2_0_0__70020&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/873957885.webp?k=399af9f0103564e4685f5ab69683f4a0ae30af3813d7204781848ca5c896c803&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Origin Prague",
+    "price": 100412,
+    "bookingLink": "https://www.booking.com/hotel/cz/origin-prague.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=18&hapos=18&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=237945528_270323555_0_1_0&highlighted_blocks=237945528_270323555_0_1_0&matching_block_id=237945528_270323555_0_1_0&sr_pri_blocks=237945528_270323555_0_1_0__71190&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/890460608.webp?k=00621202cd17aa07ecc4973803829cfd93e95fdc9c84de97598e40f8d5eed82a&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Michelangelo Grand Hotel",
+    "price": 106670,
+    "bookingLink": "https://www.booking.com/hotel/cz/michelangelograndhotel.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=15&hapos=15&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7770302_0_2_1_0&highlighted_blocks=7770302_0_2_1_0&matching_block_id=7770302_0_2_1_0&sr_pri_blocks=7770302_0_2_1_0__75627&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/194730076.webp?k=5a3a7f17522185b61cb206c26a7fd07b1f595d9474571c752530aa2bfb67a996&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Antik Hotel Prague",
+    "price": 108663,
+    "bookingLink": "https://www.booking.com/hotel/cz/antik-prague.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=14&hapos=14&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=23608808_89030576_0_2_0&highlighted_blocks=23608808_89030576_0_2_0&matching_block_id=23608808_89030576_0_2_0&sr_pri_blocks=23608808_89030576_0_2_0__77040&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/553792948.webp?k=43c1d9562bd7bedb5426c9d5e7deefbec42f0291b4750050b960719a1fd3733e&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Hotel Prague Star",
+    "price": 123699,
+    "bookingLink": "https://www.booking.com/hotel/cz/magic-centre-prague-accommodation.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=8&hapos=8&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=69339817_89042453_0_1_0&highlighted_blocks=69339817_89042453_0_1_0&matching_block_id=69339817_89042453_0_1_0&sr_pri_blocks=69339817_89042453_0_1_0__87700&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/33134026.webp?k=9288dae0f531eddc71d15717dd7cd79389a88f37c35d8aeeb9daf5bf529987f2&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Áurea Legends by Eurostars Hotel Company",
+    "price": 130229,
+    "bookingLink": "https://www.booking.com/hotel/cz/eurostars-legends-hlavni-mesto-praha.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=21&hapos=21&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=560934401_0_2_0_0&highlighted_blocks=560934401_0_2_0_0&matching_block_id=560934401_0_2_0_0&sr_pri_blocks=560934401_0_2_0_0__92330&from_sustainable_property_sr=1&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/228385830.webp?k=6a8177da57ea55bd937eef146d6e0140f3ded0bf562af4d9fec620641f190a6b&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Havelska Old Town Residence",
+    "price": 147254,
+    "bookingLink": "https://www.booking.com/hotel/cz/havelska-old-town-residence.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=4&hapos=4&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=1133342801_385991195_4_2_0&highlighted_blocks=1133342801_385991195_4_2_0&matching_block_id=1133342801_385991195_4_2_0&sr_pri_blocks=1133342801_385991195_4_2_0__104400&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/537770430.webp?k=d6eaa167ac9449879e1cb91a8f4ea9986fdee945d606266e9b2cee26ae0a3b5a&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Hilton Prague Atrium",
+    "price": 155904,
+    "bookingLink": "https://www.booking.com/hotel/cz/hilton-prague.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=17&hapos=17&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7756027_94291607_2_1_0&highlighted_blocks=7756027_94291607_2_1_0&matching_block_id=7756027_94291607_2_1_0&sr_pri_blocks=7756027_94291607_2_1_0__2688033&from_sustainable_property_sr=1&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/822498242.webp?k=97208f60814b820b3398c4cbac8848dfaa8ee211e2b5afccb4d22dd9f6d89022&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "TOP HOTEL Praha",
+    "price": 184959,
+    "bookingLink": "https://www.booking.com/hotel/cz/praha.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=11&hapos=11&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7700025_91906478_0_33_0&highlighted_blocks=7700025_91906478_0_33_0&matching_block_id=7700025_91906478_0_33_0&sr_pri_blocks=7700025_91906478_0_33_0__3188983&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/115664289.webp?k=191af17429d8da25529b336d657c8c1c9484efd2c273fe3fdbfdf17cec061a0a&o=",
+    "source": "Booking.com"
+  },
+  {
+    "name": "Charming 2BR Apartment in Prague 1 Free Parking",
+    "price": 243731,
+    "bookingLink": "https://www.booking.com/hotel/cz/charming-2br-apartment-in-prague-1-free-parking.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=22&hapos=22&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=1727553601_444388739_8_0_0&highlighted_blocks=1727553601_444388739_8_0_0&matching_block_id=1727553601_444388739_8_0_0&sr_pri_blocks=1727553601_444388739_8_0_0__172800&from=searchresults",
+    "amenities": [],
+    "imageUrl": "https://cf.bstatic.com/xdata/images/hotel/square240/918911993.webp?k=77eeed4c2844a1b9a56b56ad2799d213379a7d1f13be91564762fc3b6dd2062f&o=",
+    "source": "Booking.com"
+  }
+]
+{"attempt":3,"elapsed_ms":57667,"total_hotels":25,"booking_dot_com_count":25,"booking_sample":[{"name":"Gallery Hotel SIS","price":23186,"bookingLink":"https://www.booking.com/hotel/cz/bonn.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=9&hapos=9&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7726416_89028068_0_2_0&highlighted_blocks=7726416_89028068_0_2_0&matching_block_id=7726416_89028068_0_2_0&sr_pri_blocks=7726416_89028068_0_2_0__16438&from=searchresults","amenities":[],"imageUrl":"https://cf.bstatic.com/xdata/images/hotel/square240/370775878.webp?k=ffe704aa11df4cfd7ead69aa9793eb054b73675c9ef86c8eb31cc37122c40009&o=","source":"Booking.com"},{"name":"a&o Prague Rhea","price":29058,"bookingLink":"https://www.booking.com/hotel/cz/fortunarhea.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=2&hapos=2&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=7713408_91461871_0_2_0&highlighted_blocks=7713408_91461871_0_2_0&matching_block_id=7713408_91461871_0_2_0&sr_pri_blocks=7713408_91461871_0_2_0__501004&from_sustainable_property_sr=1&from=searchresults","amenities":[],"imageUrl":"https://cf.bstatic.com/xdata/images/hotel/square240/137903830.webp?k=e09dc48216cd5241e3a97ce5ae75fe781006daba5fd3f86a7c7bf9e40a8d3340&o=","source":"Booking.com"},{"name":"Gregory House","price":44766,"bookingLink":"https://www.booking.com/hotel/cz/gregory-house.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEZyAEV2AED6AEB-AEBiAIBqAIBuAK2p7TVBsACAdICJDllYjE1ZmY4LTdhYWYtNDBlZi05ZDg4LTkxYWFkMWIzOTAyMtgCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=19&hapos=19&sr_order=popularity&srpvid=5ea64a5b2c7e046f&srepoch=1789727676&all_sr_blocks=297269705_247650746_0_0_0&highlighted_blocks=297269705_247650746_0_0_0&matching_block_id=297269705_247650746_0_0_0&sr_pri_blocks=297269705_247650746_0_0_0__31738&from=searchresults","amenities":[],"imageUrl":"https://cf.bstatic.com/xdata/images/hotel/square240/128319540.webp?k=ee5f1b19798798c78afc5f5c9bf72aa30b79a2e14505323f21de1af243c97e16&o=","source":"Booking.com"}]}

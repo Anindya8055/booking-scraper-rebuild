@@ -1,0 +1,64 @@
+{
+  "hotels": [
+    {
+      "title": "Avenue Legerova 19",
+      "price": "BDT\u00a063,594",
+      "rating": "Scored 9.0",
+      "link": "https://www.booking.com/hotel/cz/legerova-19.en-gb.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEM2AED6AEB-AEBiAIBqAIBuAL2pLTVBsACAdICJDZjN2U4NDBiLWFhMzItNGY4Yy1hOTEzLTg4MDM1YWQxMjk0M9gCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=1&hapos=1&sr_order=popularity&srpvid=01b149bb2de00373&srepoch=1789727351&all_sr_blocks=250764807_103557527_2_2_0&highlighted_blocks=250764807_103557527_2_2_0&matching_block_id=250764807_103557527_2_2_0&sr_pri_blocks=250764807_103557527_2_2_0__45087&from=searchresults"
+    },
+    {
+      "title": "a&o Prague Rhea",
+      "price": "BDT\u00a029,058",
+      "rating": "Scored 7.5",
+      "link": "https://www.booking.com/hotel/cz/fortunarhea.en-gb.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEM2AED6AEB-AEBiAIBqAIBuAL2pLTVBsACAdICJDZjN2U4NDBiLWFhMzItNGY4Yy1hOTEzLTg4MDM1YWQxMjk0M9gCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=2&hapos=2&sr_order=popularity&srpvid=01b149bb2de00373&srepoch=1789727351&all_sr_blocks=7713408_91461871_0_2_0&highlighted_blocks=7713408_91461871_0_2_0&matching_block_id=7713408_91461871_0_2_0&sr_pri_blocks=7713408_91461871_0_2_0__501004&from_sustainable_property_sr=1&from=searchresults"
+    },
+    {
+      "title": "Congress & Wellness Hotel Olsanka",
+      "price": "BDT\u00a046,080",
+      "rating": "Scored 7.9 7.9Good 8,681 reviews",
+      "link": "https://www.booking.com/hotel/cz/olsanka.en-gb.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEM2AED6AEB-AEBiAIBqAIBuAL2pLTVBsACAdICJDZjN2U4NDBiLWFhMzItNGY4Yy1hOTEzLTg4MDM1YWQxMjk0M9gCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=3&hapos=3&sr_order=popularity&srpvid=01b149bb2de00373&srepoch=1789727351&all_sr_blocks=7763303_93707048_0_2_0&highlighted_blocks=7763303_93707048_0_2_0&matching_block_id=7763303_93707048_0_2_0&sr_pri_blocks=7763303_93707048_0_2_0__32670&from=searchresults"
+    },
+    {
+      "title": "Havelska Old Town Residence",
+      "price": "BDT\u00a0147,254",
+      "rating": "Scored 8.0 8.0Very good 1,283 reviews",
+      "link": "https://www.booking.com/hotel/cz/havelska-old-town-residence.en-gb.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEM2AED6AEB-AEBiAIBqAIBuAL2pLTVBsACAdICJDZjN2U4NDBiLWFhMzItNGY4Yy1hOTEzLTg4MDM1YWQxMjk0M9gCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=4&hapos=4&sr_order=popularity&srpvid=01b149bb2de00373&srepoch=1789727351&all_sr_blocks=1133342801_385991195_4_2_0&highlighted_blocks=1133342801_385991195_4_2_0&matching_block_id=1133342801_385991195_4_2_0&sr_pri_blocks=1133342801_385991195_4_2_0__104400&from=searchresults"
+    },
+    {
+      "title": "Hotel Krystal",
+      "price": "BDT\u00a049,367",
+      "rating": "Scored 7.9 7.9Good 4,323 reviews",
+      "link": "https://www.booking.com/hotel/cz/krystal-praha-6.en-gb.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEM2AED6AEB-AEBiAIBqAIBuAL2pLTVBsACAdICJDZjN2U4NDBiLWFhMzItNGY4Yy1hOTEzLTg4MDM1YWQxMjk0M9gCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=5&hapos=5&sr_order=popularity&srpvid=01b149bb2de00373&srepoch=1789727351&all_sr_blocks=37948505_108033065_2_1_0&highlighted_blocks=37948505_108033065_2_1_0&matching_block_id=37948505_108033065_2_1_0&sr_pri_blocks=37948505_108033065_2_1_0__35000&from=searchresults"
+    },
+    {
+      "title": "Admiral Botel",
+      "price": "BDT\u00a054,727",
+      "rating": "Scored 8.7 8.7Fabulous 3,072 reviews",
+      "link": "https://www.booking.com/hotel/cz/admiral-botel.en-gb.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEM2AED6AEB-AEBiAIBqAIBuAL2pLTVBsACAdICJDZjN2U4NDBiLWFhMzItNGY4Yy1hOTEzLTg4MDM1YWQxMjk0M9gCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=6&hapos=6&sr_order=popularity&srpvid=01b149bb2de00373&srepoch=1789727351&all_sr_blocks=7739602_174155488_0_1_0&highlighted_blocks=7739602_174155488_0_1_0&matching_block_id=7739602_174155488_0_1_0&sr_pri_blocks=7739602_174155488_0_1_0__38800&from=searchresults"
+    },
+    {
+      "title": "Hotel Prague Star",
+      "price": "BDT\u00a0123,699",
+      "rating": "Scored 8.4 8.4Very good 6,404 reviews",
+      "link": "https://www.booking.com/hotel/cz/magic-centre-prague-accommodation.en-gb.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEM2AED6AEB-AEBiAIBqAIBuAL2pLTVBsACAdICJDZjN2U4NDBiLWFhMzItNGY4Yy1hOTEzLTg4MDM1YWQxMjk0M9gCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=7&hapos=7&sr_order=popularity&srpvid=01b149bb2de00373&srepoch=1789727351&all_sr_blocks=69339817_89042453_0_1_0&highlighted_blocks=69339817_89042453_0_1_0&matching_block_id=69339817_89042453_0_1_0&sr_pri_blocks=69339817_89042453_0_1_0__87700&from=searchresults"
+    },
+    {
+      "title": "Perla Hotel",
+      "price": "BDT\u00a088,860",
+      "rating": "Scored 8.8 8.8Fabulous 5,667 reviews",
+      "link": "https://www.booking.com/hotel/cz/perla.en-gb.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEM2AED6AEB-AEBiAIBqAIBuAL2pLTVBsACAdICJDZjN2U4NDBiLWFhMzItNGY4Yy1hOTEzLTg4MDM1YWQxMjk0M9gCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=8&hapos=8&sr_order=popularity&srpvid=01b149bb2de00373&srepoch=1789727351&all_sr_blocks=7753002_93707022_2_2_0&highlighted_blocks=7753002_93707022_2_2_0&matching_block_id=7753002_93707022_2_2_0&sr_pri_blocks=7753002_93707022_2_2_0__63000&from=searchresults"
+    },
+    {
+      "title": "Gallery Hotel SIS",
+      "price": "BDT\u00a023,186",
+      "rating": "Scored 6.8 6.8Review score 5,925 reviews",
+      "link": "https://www.booking.com/hotel/cz/bonn.en-gb.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEM2AED6AEB-AEBiAIBqAIBuAL2pLTVBsACAdICJDZjN2U4NDBiLWFhMzItNGY4Yy1hOTEzLTg4MDM1YWQxMjk0M9gCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=9&hapos=9&sr_order=popularity&srpvid=01b149bb2de00373&srepoch=1789727351&all_sr_blocks=7726416_89028068_0_2_0&highlighted_blocks=7726416_89028068_0_2_0&matching_block_id=7726416_89028068_0_2_0&sr_pri_blocks=7726416_89028068_0_2_0__16438&from=searchresults"
+    },
+    {
+      "title": "The Cloud One Prague, part of the Motel One Group",
+      "price": "BDT\u00a056,549",
+      "rating": "Scored 8.6 8.6Fabulous 6,546 reviews",
+      "link": "https://www.booking.com/hotel/cz/the-cloud-one-prague.en-gb.html?aid=304142&label=gen173nr-10CAQoggJCHXNlYXJjaF9wcmFndWUsIGN6ZWNoIHJlcHVibGljSDNYBGgUiAEBmAEzuAEHyAEM2AED6AEB-AEBiAIBqAIBuAL2pLTVBsACAdICJDZjN2U4NDBiLWFhMzItNGY4Yy1hOTEzLTg4MDM1YWQxMjk0M9gCAeACAQ&ucfs=1&arphpl=1&checkin=2026-10-01&checkout=2026-10-04&group_adults=2&req_adults=2&no_rooms=1&group_children=0&req_children=0&hpos=10&hapos=10&sr_order=popularity&srpvid=01b149bb2de00373&srepoch=1789727351&all_sr_blocks=1149874101_387811508_2_2_0&highlighted_blocks=1149874101_387811508_2_2_0&matching_block_id=1149874101_387811508_2_2_0&sr_pri_blocks=1149874101_387811508_2_2_0__975000&from=searchresults"
+    }
+  ]
+}

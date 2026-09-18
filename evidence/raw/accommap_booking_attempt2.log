@@ -1,0 +1,20 @@
+Timeout loading page 0
+{
+  "base_url": "https://www.booking.com/searchresults.cs.html",
+  "search_params": {
+    "ss": "Jihomoravsk\u00fd kraj, \u010cesk\u00e1 republika",
+    "lang": "en-gb",
+    "sb": "1",
+    "src_elem": "sb",
+    "src": "searchresults",
+    "dest_type": "region",
+    "ac_position": "0",
+    "ac_langcode": "cs",
+    "rows": "25"
+  },
+  "constructed_url": "https://www.booking.com/searchresults.cs.html?ss=Jihomoravsk%C3%BD+kraj%2C+%C4%8Cesk%C3%A1+republika&lang=en-gb&sb=1&src_elem=sb&src=searchresults&dest_type=region&ac_position=0&ac_langcode=cs&rows=25"
+}
+{
+  "records_count": 0,
+  "records": []
+}

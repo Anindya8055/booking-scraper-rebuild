@@ -1,0 +1,18 @@
+{
+  "constructed_search_url": "https://www.booking.com/searchresults.es.html?dest_id=-592318&dest_type=city&group_adults=2&group_children=0&no_rooms=1&checkin=2026-09-19&checkout=2026-09-21&order=price&lang=es&selected_currency=COP"
+}
+[2026-09-18 16:29:15] modals.wait_closed {"ms": 713}
+[2026-09-18 16:29:46] serp.cards.ok {"count": 25}
+{
+  "cards_on_page": 25,
+  "extracted_hotel_urls": [
+    "https://www.booking.com/hotel/co/medellin-continental.es.html",
+    "https://www.booking.com/hotel/co/country-medellin.es.html",
+    "https://www.booking.com/hotel/co/canela-house-medellin.es.html",
+    "https://www.booking.com/hotel/co/habitacion-central-con-cama-doble-1.es.html",
+    "https://www.booking.com/hotel/co/le-couple-suite.es.html"
+  ],
+  "first_card_title": "Medellin Continental Hotel",
+  "first_card_price": "COP\u00a090.000",
+  "page_url": "https://www.booking.com/searchresults.es.html?dest_id=-592318&dest_type=city&group_adults=2&group_children=0&no_rooms=1&checkin=2026-09-19&checkout=2026-09-21&order=price&lang=es&selected_currency=COP&chal_t=1789727351310&force_referer="
+}
