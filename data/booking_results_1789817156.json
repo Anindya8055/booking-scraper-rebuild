@@ -1,0 +1,216 @@
+[
+  {
+    "run_id": 1789817156,
+    "hotel": {
+      "hotel_id": "medellin-continental",
+      "hotel_name": "Medellin Continental Hotel",
+      "description": "Medellin Continental Hotel se encuentra en Medellín, en el barrio de La Candelaria. Este hotel de 2 estrellas ofrece recepción 24 horas.",
+      "booking_url": "https://www.booking.com/hotel/co/medellin-continental.es.html?checkin=2026-09-20&checkout=2026-09-21&group_adults=2&group_children=0&no_rooms=1&lang=es&selected_currency=COP",
+      "address": "Carrera 45 #45-26 edificio, La Candelaria, 050016 Medellín, Colombia",
+      "city": "Medellín",
+      "country": "Colombia",
+      "latitude": 6.2447319,
+      "longitude": -75.5664159,
+      "property_type": "APARTMENT",
+      "listing_status": "FOR_RENT",
+      "amenities": [
+        "WiFi gratis",
+        "Habitaciones sin humo",
+        "Habitaciones familiares",
+        "Recepción 24 horas"
+      ],
+      "amenity_flags": {
+        "has_fireplace": false,
+        "has_private_pool": false,
+        "has_view": null,
+        "has_air_conditioning": null,
+        "has_elevator": null,
+        "has_security_24h": true,
+        "has_bbq_area": null,
+        "has_balcony": null,
+        "has_storage_room": null,
+        "has_garden": null,
+        "has_office_space": null
+      },
+      "images": [
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/676182891.jpg?k=44f0f6fc2d4be03302e61955938328b706a3de928e7ad8a6a97c0e7e836301b2&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/676182882.jpg?k=2a2f6de1c69a0a5497bd86259ce2ac14a991e3b89df69348ae063b0fff5f0e7e&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/676182918.jpg?k=5480bdcc13868c595d78231fa950ff61ffaf9c039854a16b13f7be00ff60f5e4&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/square60/676182891.jpg?k=44f0f6fc2d4be03302e61955938328b706a3de928e7ad8a6a97c0e7e836301b2&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/square60/676182882.jpg?k=2a2f6de1c69a0a5497bd86259ce2ac14a991e3b89df69348ae063b0fff5f0e7e&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/square60/676182918.jpg?k=5480bdcc13868c595d78231fa950ff61ffaf9c039854a16b13f7be00ff60f5e4&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/square60/676182975.jpg?k=ab8ac291d1f762473e85a9c1cb51377722c95173b91875c535718b2833f86a41&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/square60/679448319.jpg?k=fcb5142a85513e98be9a5a71843f340facb4985b9217eca44622a7e31888376c&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/676183009.jpg?k=45f569ac629c1541a4cca6fb4300ac688bba7bf5e38cccb4a6e78b1739c5ece9&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/676183019.jpg?k=b7e72e5880abbd521afaba736a7edcb50459bbb7b325dc5b7c127e1b0064ba48&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/676183029.jpg?k=a0883b80014d7023815a62e0314db4fa675836c7ed985656a641755768cf82ce&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/676183057.jpg?k=a4ea8be3d52bb56187c2b1906d30981de8aa06ab613f3ac81146725757574490&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/square60/676183009.jpg?k=45f569ac629c1541a4cca6fb4300ac688bba7bf5e38cccb4a6e78b1739c5ece9&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/square60/676183019.jpg?k=b7e72e5880abbd521afaba736a7edcb50459bbb7b325dc5b7c127e1b0064ba48&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/square60/676183029.jpg?k=a0883b80014d7023815a62e0314db4fa675836c7ed985656a641755768cf82ce&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/square60/676183057.jpg?k=a4ea8be3d52bb56187c2b1906d30981de8aa06ab613f3ac81146725757574490&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/676183148.jpg?k=f352dd941c14d5c6351a34c5bbccec9f16782cbde741d7efda05c6e3aabb7c4c&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/max1024x768/676183196.jpg?k=20f70a2decea9935434cf7e3bc66b69aa486b4797f0727eb6e593a457775ebb2&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/square60/676183148.jpg?k=f352dd941c14d5c6351a34c5bbccec9f16782cbde741d7efda05c6e3aabb7c4c&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/square60/676183196.jpg?k=20f70a2decea9935434cf7e3bc66b69aa486b4797f0727eb6e593a457775ebb2&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/square60/679449286.jpg?k=eab3575118a7a9b56db01dfb88d5ca339a23d8855b7836e1f2c9b34f54f723c7&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/square60/679449164.jpg?k=cc7e23d698415751a2eef68567364ba16a289ef481d254158ce50ad95291f55a&o="
+      ]
+    },
+    "units": [
+      {
+        "unit_id": "1403364201_412141595_2_0_0",
+        "unit_name": "Habitación Doble",
+        "price_amount": 45000.0,
+        "price_currency": "COP",
+        "price_text": "COP 45.000",
+        "price_row_text": "COP 45.000",
+        "plan_name": null,
+        "cancellation": null,
+        "beds_text": "1 cama doble",
+        "size_m2": null,
+        "amenities": [
+          "Balcón",
+          "Vistas",
+          "Baño privado",
+          "TV de pantalla plana",
+          "WiFi gratis",
+          "1 cama doble",
+          "Artículos de aseo gratis",
+          "Ducha",
+          "Aseo",
+          "Papel higiénico",
+          "TV",
+          "Ropa de cama",
+          "Se puede acceder a las plantas superiores en ascensor",
+          "Ventilador",
+          "Toallas",
+          "Toda la unidad es accesible en silla de ruedas"
+        ],
+        "header_chips": [
+          "Balcón",
+          "Vistas",
+          "Baño privado",
+          "TV de pantalla plana",
+          "WiFi gratis"
+        ],
+        "sections": null,
+        "long_desc": "Esta habitación doble tiene baño privado con artículos de aseo gratuitos y ducha. El ascensor llega a las habitaciones de las plantas superiores. El alojamiento cuenta con 1 cama.",
+        "comfort_score": null,
+        "unique_url": "https://www.booking.com/hotel/co/medellin-continental.es.html?checkin=2026-09-20&checkout=2026-09-21&group_adults=2&group_children=0&no_rooms=1&lang=es&selected_currency=COP#unit-1403364201_412141595_2_0_0",
+        "changes_tracking_data": {
+          "price": {
+            "amount": 45000.0,
+            "currency": "COP",
+            "text": "COP 45.000"
+          },
+          "description": "Esta habitación doble tiene baño privado con artículos de aseo gratuitos y ducha. El ascensor llega a las habitaciones de las plantas superiores. El alojamiento cuenta con 1 cama."
+        }
+      },
+      {
+        "unit_id": "1403364202_412141595_3_0_0",
+        "unit_name": "Habitación Triple",
+        "price_amount": 81000.0,
+        "price_currency": "COP",
+        "price_text": "COP 81.000",
+        "price_row_text": "COP 81.000",
+        "plan_name": null,
+        "cancellation": null,
+        "beds_text": "1 cama individual y 1 cama doble",
+        "size_m2": 15.0,
+        "amenities": [
+          "Balcón",
+          "Vistas",
+          "Baño privado",
+          "TV de pantalla plana",
+          "WiFi gratis",
+          "1 cama individual y",
+          "1 cama doble",
+          "Artículos de aseo gratis",
+          "Ducha",
+          "Aseo",
+          "Papel higiénico",
+          "TV",
+          "Ropa de cama",
+          "Caja de seguridad",
+          "Se puede acceder a las plantas superiores en ascensor",
+          "Ventilador",
+          "Toallas",
+          "Toda la unidad es accesible en silla de ruedas"
+        ],
+        "header_chips": [
+          "15 m²",
+          "Balcón",
+          "Vistas",
+          "Baño privado",
+          "TV de pantalla plana",
+          "WiFi gratis"
+        ],
+        "sections": null,
+        "long_desc": "Esta habitación triple cuenta con baño privado con artículos de aseo gratuitos y ducha. Habitación triple con caja fuerte, TV de pantalla plana y balcón. La unidad tiene 2 camas.",
+        "comfort_score": null,
+        "unique_url": "https://www.booking.com/hotel/co/medellin-continental.es.html?checkin=2026-09-20&checkout=2026-09-21&group_adults=2&group_children=0&no_rooms=1&lang=es&selected_currency=COP#unit-1403364202_412141595_3_0_0",
+        "changes_tracking_data": {
+          "price": {
+            "amount": 81000.0,
+            "currency": "COP",
+            "text": "COP 81.000"
+          },
+          "description": "Esta habitación triple cuenta con baño privado con artículos de aseo gratuitos y ducha. Habitación triple con caja fuerte, TV de pantalla plana y balcón. La unidad tiene 2 camas."
+        }
+      },
+      {
+        "unit_id": "1403364203_412141595_4_0_0",
+        "unit_name": "Habitación cuádruple",
+        "price_amount": 99000.0,
+        "price_currency": "COP",
+        "price_text": "COP 99.000",
+        "price_row_text": "COP 99.000",
+        "plan_name": null,
+        "cancellation": null,
+        "beds_text": "2 camas dobles",
+        "size_m2": 18.0,
+        "amenities": [
+          "Vistas",
+          "Baño privado",
+          "TV de pantalla plana",
+          "WiFi gratis",
+          "2 camas dobles",
+          "Artículos de aseo gratis",
+          "Ducha",
+          "Aseo",
+          "Papel higiénico",
+          "TV",
+          "Ropa de cama",
+          "Se puede acceder a las plantas superiores en ascensor",
+          "Ventilador",
+          "Toallas",
+          "Toda la unidad es accesible en silla de ruedas"
+        ],
+        "header_chips": [
+          "18 m²",
+          "Vistas",
+          "Baño privado",
+          "TV de pantalla plana",
+          "WiFi gratis"
+        ],
+        "sections": null,
+        "long_desc": "Esta habitación cuádruple tiene baño privado con artículos de aseo gratuitos y ducha. Se puede acceder a las habitaciones de las plantas superiores en ascensor. La unidad tiene 2 camas.",
+        "comfort_score": null,
+        "unique_url": "https://www.booking.com/hotel/co/medellin-continental.es.html?checkin=2026-09-20&checkout=2026-09-21&group_adults=2&group_children=0&no_rooms=1&lang=es&selected_currency=COP#unit-1403364203_412141595_4_0_0",
+        "changes_tracking_data": {
+          "price": {
+            "amount": 99000.0,
+            "currency": "COP",
+            "text": "COP 99.000"
+          },
+          "description": "Esta habitación cuádruple tiene baño privado con artículos de aseo gratuitos y ducha. Se puede acceder a las habitaciones de las plantas superiores en ascensor. La unidad tiene 2 camas."
+        }
+      }
+    ],
+    "source_url": "https://www.booking.com/hotel/co/medellin-continental.es.html?checkin=2026-09-20&checkout=2026-09-21&group_adults=2&group_children=0&no_rooms=1&lang=es&selected_currency=COP",
+    "collected_at": "2026-09-19T11:29:05Z",
+    "data_version": 2,
+    "upload_status": "pending"
+  }
+]

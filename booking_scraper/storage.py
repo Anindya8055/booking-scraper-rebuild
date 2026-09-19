@@ -1,4 +1,9 @@
-"""Local storage: accumulates scrape results and writes them to JSON."""
+"""Local storage: accumulates scrape results and writes them to JSON.
+
+Output is grouped per hotel: hotel-level fields live on the ``hotel`` record,
+room-level fields on the ``units`` list. Page-level data (amenities, images,
+location) is stored once per hotel, not duplicated per unit.
+"""
 
 import json
 import time
@@ -24,7 +29,10 @@ class DB:
         return self._run_id
 
     def add_rental(self, run_id: int, parent_url: str, unit: UnitRow, parent: ParentCtx) -> int:
-        result: Dict[str, Any] = {
+        collected_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+        unit_url = f"{parent_url}#unit-{unit.unit_id}"
+
+        unit_dict: Dict[str, Any] = {
             "unit_id": unit.unit_id,
             "unit_name": unit.unit_name,
             "price_amount": unit.price_amount,
@@ -35,51 +43,62 @@ class DB:
             "cancellation": unit.cancellation,
             "beds_text": unit.beds_text,
             "size_m2": unit.size_m2,
-            "amenities_parent": parent.parent_amenities,
-            "amenities_unit": list(unit.amenities or []),
+            "amenities": list(unit.amenities or []),
             "header_chips": unit.header_chips,
             "sections": unit.sections,
             "long_desc": unit.long_desc,
             "comfort_score": unit.comfort_score,
-            "images": unit.images or [],
-            "listing_status": parent.listing_status,
-            "property_type": parent.property_type,
+            "unique_url": unit_url,
+            "changes_tracking_data": {
+                "price": {
+                    "amount": unit.price_amount,
+                    "currency": unit.price_currency or parent.currency,
+                    "text": unit.price_text,
+                },
+                "description": unit.long_desc or unit.unit_name or "",
+            },
+        }
+
+        for rec in self._results:
+            if rec["hotel"].get("booking_url") == parent_url:
+                rec["units"].append(unit_dict)
+                for img in (unit.images or []):
+                    if img not in rec["hotel"].setdefault("images", []):
+                        rec["hotel"]["images"].append(img)
+                row_id = len(rec["units"])
+                log(f"{self.source} detail_saved", unique_url=unit_url, row_id=row_id)
+                return row_id
+
+        hotel: Dict[str, Any] = {
+            "hotel_id": hotel_key(parent_url),
+            "hotel_name": parent.parent_title,
+            "description": parent.parent_desc,
+            "booking_url": parent_url,
             "address": parent.address,
             "city": parent.city_name,
             "country": parent.country_name,
             "latitude": parent.lat,
             "longitude": parent.lon,
-            "_source": {
-                "url": f"{parent_url}#unit-{unit.unit_id}",
-                "collected_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-            },
-        }
-
-        unique_url = f"{parent_url}#unit-{unit.unit_id}"
-
-        tracking = {
-            "price": {
-                "amount": unit.price_amount,
-                "currency": unit.price_currency or parent.currency,
-                "text": unit.price_text,
-            },
-            "description": unit.long_desc or unit.unit_name or "",
+            "property_type": parent.property_type,
+            "listing_status": parent.listing_status,
+            "amenities": list(parent.parent_amenities or []),
+            "amenity_flags": dict(parent.parent_amenity_flags or {}),
+            "images": list(unit.images or []),
         }
 
         detail = {
             "run_id": run_id,
-            "unique_url": unique_url,
-            "latitude": parent.lat,
-            "longitude": parent.lon,
-            "data": result,
-            "data_version": 1,
-            "changes_tracking_data": tracking,
+            "hotel": hotel,
+            "units": [unit_dict],
+            "source_url": parent_url,
+            "collected_at": collected_at,
+            "data_version": 2,
             "upload_status": "pending",
         }
 
         self._results.append(detail)
-        row_id = len(self._results)
-        log(f"{self.source} detail_saved", unique_url=unique_url, row_id=row_id)
+        row_id = 1
+        log(f"{self.source} detail_saved", unique_url=unit_url, row_id=row_id)
         return row_id
 
     def run_end(self) -> Optional[Path]:
@@ -93,5 +112,5 @@ class DB:
             json.dumps(self._results, ensure_ascii=False, indent=2, default=str),
             encoding="utf-8",
         )
-        log(f"{self.source} run_end: saved {len(self._results)} results to {out_path}")
+        log(f"{self.source} run_end: saved {len(self._results)} hotels to {out_path}")
         return out_path

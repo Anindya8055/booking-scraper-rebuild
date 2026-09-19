@@ -59,6 +59,7 @@ from .search import (
 from .detail import (
     extract_units,
     extract_lat_lon_from_ldjson,
+    extract_city_country_from_ldjson,
     extract_amenities,
     ensure_availability_loaded,
     get_meta,
@@ -161,7 +162,9 @@ class BookingComCrawler:
         og_title = await get_meta(page, 'meta[property="og:title"]')
         og_desc = await get_meta(page, 'meta[property="og:description"]')
         h1_text = await safe_first_text(page, "h1, h2")
-        address = await safe_first_text(page, '[data-testid="address"]') or await safe_first_text(page, "#showMap2 span")
+        hp_name = await safe_first_text(page, "#hp_hotel_name")
+        city_ld, country_ld, street_ld = await extract_city_country_from_ldjson(page)
+        address = await safe_first_text(page, '[data-testid="address"]') or await safe_first_text(page, "#showMap2 span") or street_ld
         lat, lon = await extract_lat_lon_from_ldjson(page)
 
         amenities = await extract_amenities(page)
@@ -183,13 +186,8 @@ class BookingComCrawler:
             if f and f in amenity_flags:
                 amenity_flags[f] = True
 
-        title_for_loc = og_title or h1_text or ""
-        city_name = city.name if city else None
-        country_name = None
-        parts = [p.strip() for p in title_for_loc.split(",")]
-        if len(parts) >= 2:
-            city_name = city_name or (parts[-2] or None)
-            country_name = parts[-1] or None
+        city_name = city_ld or (city.name if city else None)
+        country_name = country_ld
 
         units = await extract_units(page)
 
@@ -206,7 +204,7 @@ class BookingComCrawler:
 
         parent = ParentCtx(
             parent_url=detail_url,
-            parent_title=(og_title or h1_text or "") or "",
+            parent_title=((hp_name or og_title or h1_text) or "")[:120],
             parent_desc=og_desc,
             parent_amenities=amenities,
             parent_amenity_flags=amenity_flags,
@@ -222,7 +220,6 @@ class BookingComCrawler:
         )
 
         for idx, u in enumerate(units):
-            value = f"{hotel_key(detail_url)}__unit-{u.unit_id}__{idx}"
             unit_url = f"{detail_url}#unit-{u.unit_id}"
             self.db.add_rental(run_id, detail_url, u, parent)
 
@@ -290,7 +287,7 @@ class BookingComCrawler:
 
     # -- city processing (producer / worker) --------------------------------
 
-    async def process_city(self, run_id: int, city: CityCfg, p):
+    async def process_city(self, run_id: int, city: CityCfg, p, max_hotels: Optional[int] = None):
         list_ctx = await self.new_context(city)
         list_page = await list_ctx.new_page()
         await self._post_open_housekeeping(list_page)
@@ -341,6 +338,12 @@ class BookingComCrawler:
                         seen.add(slug)
                         await q.put((slug, u, "FOR_RENT", "APARTMENT"))
                         new_this_wave += 1
+                        if max_hotels is not None and len(seen) >= max_hotels:
+                            break
+
+                    if max_hotels is not None and len(seen) >= max_hotels:
+                        log("list max_hotels reached", total=len(seen), max_hotels=max_hotels)
+                        break
 
                     cards_now = await count_cards(list_page)
                     metr = await get_scroll_metrics(list_page, scroll_sel)
@@ -447,7 +450,7 @@ class BookingComCrawler:
 
     # -- top-level run ------------------------------------------------------
 
-    async def run(self):
+    async def run(self, max_hotels: Optional[int] = None):
         run_id = self.db.run_start()
         success = True
         notes = ""
@@ -470,7 +473,7 @@ class BookingComCrawler:
                     log("city start", idx=idx, name=city.name, checkin=city.checkin,
                         checkout=city.checkout, nights=city.nights)
                     try:
-                        await self.process_city(run_id, city, p)
+                        await self.process_city(run_id, city, p, max_hotels=max_hotels)
                     except Exception as e:
                         success = False
                         msg = f"[city {city.name} error: {e}]"
@@ -491,11 +494,18 @@ class BookingComCrawler:
 # ---------------------------------------------------------------------------
 
 async def main():
+    import os
+    max_hotels = os.getenv("MAX_HOTELS")
+    if max_hotels is not None:
+        max_hotels = int(max_hotels)
+    else:
+        max_hotels = None
+
     cities = load_cities()
     if not cities:
         return
 
     db = DB(source="booking_col")
     crawler = BookingComCrawler(db, cities)
-    await crawler.run()
+    await crawler.run(max_hotels=max_hotels)
     log("Crawler finalizado. Revisa data/booking_results_*.json para los resultados.")

@@ -17,17 +17,22 @@ from .config import (
 from .models import CityCfg, ParentCtx, UnitRow
 from .logger import log
 from .utils import (
+    clean_amenity_text,
+    clean_beds_text,
+    clean_room_name,
+    genuine_plan_name,
+    is_property_amenity,
     norm_amenity_flag,
+    normalize_ws,
     parse_money_to_number,
     safe_count,
     safe_visible,
     safe_inner_text,
     safe_text_content,
+    safe_all_texts,
     safe_attr,
     safe_scroll_into_view,
     text_or_none,
-    hotel_key,
-    build_detail_url_with_params,
 )
 from .browser import (
     _js_click_force,
@@ -55,6 +60,67 @@ def _parse_comfort_score(text_like: Optional[str]) -> Optional[float]:
         return v if (v == v) and (abs(v) != float("inf")) else None
     except:
         return None
+
+
+# ---------------------------------------------------------------------------
+# Unit-level amenities
+# ---------------------------------------------------------------------------
+
+_SIZE_CHIP_RE = re.compile(r"^[\d.,]+\s*m\u00b2$", re.I)
+_BED_AMENITY_RE = re.compile(r"^(?:\d+\s*[×x]?\s*)?camas?\b|camas?\s+(?:dobles?|individuales?|extras?|supletorias?|verticales?|literas?)", re.I)
+
+
+def _is_bed_amenity(text: str) -> bool:
+    return bool(_BED_AMENITY_RE.search(text or ""))
+
+
+def _dedupe_preserve(items: List[str]) -> List[str]:
+    out: List[str] = []
+    seen: set[str] = set()
+    for it in items:
+        key = (it or "").lower()
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        out.append(it)
+    return out
+
+
+def _unit_amenities(chips: Optional[List[str]],
+                    sections: Optional[Dict[str, Any]] = None) -> List[str]:
+    """Combine room-level chips/badges and room facility sections into the
+    unit amenity list (never property/page-level items)."""
+    items: List[str] = []
+    for c in (chips or []):
+        c2 = clean_amenity_text(c)
+        if c2 and not _SIZE_CHIP_RE.match(c2) and not _is_bed_amenity(c2):
+            items.append(c2)
+    sec = sections or {}
+    for key in ("bano_privado", "vista", "equipamiento"):
+        for t in (sec.get(key) or []):
+            c2 = clean_amenity_text(t)
+            if c2 and not _is_bed_amenity(c2):
+                items.append(c2)
+    if sec.get("politica_humo"):
+        c2 = clean_amenity_text(sec.get("politica_humo"))
+        if c2 and not _is_bed_amenity(c2):
+            items.append(c2)
+    return _dedupe_preserve(items)
+
+
+def _unit_id_for(raw_id: str, taken: set) -> str:
+    """Normalize a Booking block id to the room id.
+
+    Booking block ids look like ``{roomid}_{rateid}_{adults}_{children}_{extras}``.
+    Collapse to the room id; keep the full id only to disambiguate rows that
+    would otherwise collide (same room, distinct rate plans)."""
+    base = raw_id
+    if base and "_" in base:
+        base = base.split("_")[0]
+    if base in taken and base != raw_id:
+        base = raw_id
+    taken.add(base)
+    return base
 
 
 # ---------------------------------------------------------------------------
@@ -134,17 +200,23 @@ async def extract_units_via_js(page: Page) -> List[UnitRow]:
             beds = r.get("beds")
             if isinstance(beds, list) and beds:
                 beds_text = " | ".join(beds[:6])
+            raw_amenities = r.get("amenities") or []
+            amenities = []
+            for a in raw_amenities:
+                c = clean_amenity_text(a)
+                if c and not _is_bed_amenity(c) and c.lower() not in [x.lower() for x in amenities]:
+                    amenities.append(c)
             out.append(UnitRow(
                 unit_id=str(r.get("unit_id") or ""),
                 unit_name=text_or_none(r.get("unit_name")),
                 price_amount=price_amount,
                 price_currency=price_currency,
                 price_text=text_or_none(price_text),
-                plan_name=text_or_none(r.get("plan_name")),
+                plan_name=genuine_plan_name(r.get("plan_name")),
                 cancellation=text_or_none(r.get("cancellation")),
-                beds_text=text_or_none(beds_text),
+                beds_text=clean_beds_text(beds_text),
                 size_m2=(float(r["size_m2"]) if (r.get("size_m2") is not None) else None),
-                amenities=[],
+                amenities=amenities,
                 images=list(images),
                 sections=sections,
                 header_chips=list(header_chips) if header_chips else None,
@@ -160,6 +232,31 @@ async def extract_units_via_js(page: Page) -> List[UnitRow]:
 # ---------------------------------------------------------------------------
 # Modal open / close helpers
 # ---------------------------------------------------------------------------
+
+async def _collect_img_sources(gal: Any, max_count: int = 12) -> List[str]:
+    """Collect image URLs from a set of <img> nodes, covering lazy-loading
+    attributes (data-src, srcset) used inside room modals."""
+    imgs: List[str] = []
+    try:
+        n = await gal.count()
+        for i in range(min(n, max_count)):
+            img = gal.nth(i)
+            with contextlib.suppress(Exception):
+                src = (await img.get_attribute("src")) or ""
+                if not src.startswith("http"):
+                    src = (await img.get_attribute("data-src")) or ""
+                if not src.startswith("http"):
+                    srcset = (await img.get_attribute("srcset")) or ""
+                    if srcset:
+                        cand = srcset.split(",")[0].strip().split(" ")[0]
+                        if cand.startswith("http"):
+                            src = cand
+                if src and src.startswith("http"):
+                    imgs.append(src)
+    except Exception:
+        pass
+    return imgs
+
 
 async def wait_for_modal_open(page: Page, timeout: int = 9000) -> Optional[Locator]:
     t0 = time.time()
@@ -268,10 +365,10 @@ async def _parse_rp_content(rp: Locator, page: Page) -> Dict[str, Any]:
 
     res: Dict[str, Any] = {}
 
-    name = await safe_text_content(rp.locator('[data-testid="room-name"] , h2, h3').first, timeout=1200)
+    name = await safe_text_content(rp.locator('[data-testid="room-name"]').first, timeout=1200)
     if not name:
         name = await safe_text_content(rp.locator('[class*="room_name"], [class*="rt-name"]').first, timeout=1200)
-    res["unit_name"] = text_or_none(name)
+    res["unit_name"] = clean_room_name(name)
 
     chips = await rp.locator('[data-testid*="badge"], [class*="Chip"], [class*="badge"]').all_text_contents() if await safe_count(rp.locator('[data-testid*="badge"], [class*="Chip"], [class*="badge"]')) else []
     res["header_chips"] = _norm_list(chips)
@@ -316,7 +413,7 @@ async def _parse_rp_content(rp: Locator, page: Page) -> Dict[str, Any]:
 
     plan = await safe_text_content(rp.locator('[data-testid*="mealplan"], [data-testid*="plan"], [class*="plan"]').first, timeout=800)
     cancel = await safe_text_content(rp.locator('[data-testid*="cancellation"], [class*="cancellation"]').first, timeout=800)
-    res["plan_name"] = text_or_none(plan)
+    res["plan_name"] = genuine_plan_name(plan)
     res["cancellation"] = text_or_none(cancel)
 
     info_blob = await safe_text_content(rp.locator('[data-testid*="bed"], [data-testid*="size"], [class*="bed"], [class*="size"]').first, timeout=800)
@@ -338,7 +435,7 @@ async def _parse_rp_content(rp: Locator, page: Page) -> Dict[str, Any]:
             with contextlib.suppress(Exception):
                 size_m2 = float(m.group(1).replace(",", "."))
 
-    res["beds_text"] = text_or_none(beds_text)
+    res["beds_text"] = clean_beds_text(beds_text)
     res["size_m2"] = size_m2
 
     sections: Dict[str, Any] = {"bano_privado": [], "vista": [], "equipamiento": [], "politica_humo": None}
@@ -364,13 +461,9 @@ async def _parse_rp_content(rp: Locator, page: Page) -> Dict[str, Any]:
     imgs = []
     gal = rp.locator('img')
     if await safe_count(gal):
-        n = await gal.count()
-        for i in range(min(n, 12)):
-            with contextlib.suppress(Exception):
-                src = await gal.nth(i).get_attribute("src")
-                if src and src.startswith("http"):
-                    imgs.append(src)
+        imgs = await _collect_img_sources(gal)
     res["images"] = imgs
+    res["unit_amenities"] = _unit_amenities(res.get("header_chips"), sections)
 
     any_text_blob = " ".join([
         text_or_none(long_desc) or "",
@@ -436,7 +529,7 @@ async def _parse_legacy_modal(modal_root: Locator) -> Dict[str, Any]:
                 beds_text = await safe_text_content(beds_loc.first, timeout=800)
                 if beds_text:
                     break
-    res["beds_text"] = text_or_none(beds_text)
+    res["beds_text"] = clean_beds_text(beds_text)
 
     size_m2 = None
     size_badge = await safe_text_content(modal_root.locator('.bui-badge:has-text("m\u00b2"), span:has-text("m\u00b2")').first, timeout=500)
@@ -472,20 +565,35 @@ async def _parse_legacy_modal(modal_root: Locator) -> Dict[str, Any]:
             texts = await badge_loc.all_text_contents()
             chips.extend([t.strip() for t in texts if t and t.strip() and t.strip() not in chips])
     res["header_chips"] = chips[:15]
-    plan = await safe_text_content(modal_root.locator(':text("plan"), :text("desayuno"), :text("meal")').first, timeout=500)
+
+    plan = None
+    for plan_sel in (':text("desayuno")', ':text("meal")', ':text("r\u00e9gimen")',
+                     ':text("regimen")', '.hprt-lightbox-rateplan', '[data-testid*="mealplan"]'):
+        p_loc = modal_root.locator(plan_sel).first
+        if await safe_count(p_loc):
+            cand = await safe_text_content(p_loc, timeout=500)
+            cand = genuine_plan_name(cand)
+            if cand:
+                plan = cand
+                break
     cancel = await safe_text_content(modal_root.locator(':text("cancel"), :text("cancelaci\u00f3n"), :text("reembolso")').first, timeout=500)
-    res["plan_name"] = text_or_none(plan)
+    res["plan_name"] = plan
     res["cancellation"] = text_or_none(cancel)
+
+    unit_amenities = [c for c in (chips or [])]
+    fac_loc = modal_root.locator(
+        '.hprt-room-facilities-block li, [data-testid*="facility"] li, '
+        '[class*="facilities"] li, [class*="amenities"] li'
+    )
+    if await safe_count(fac_loc):
+        for t in await safe_all_texts(fac_loc):
+            unit_amenities.append(t)
+    res["unit_amenities"] = _unit_amenities(unit_amenities)
 
     imgs = []
     gal = modal_root.locator('img')
     if await safe_count(gal):
-        n = await gal.count()
-        for i in range(min(n, 12)):
-            with contextlib.suppress(Exception):
-                src = await gal.nth(i).get_attribute("src")
-                if src and src.startswith("http"):
-                    imgs.append(src)
+        imgs = await _collect_img_sources(gal)
     res["images"] = imgs
 
     long_desc = None
@@ -580,6 +688,7 @@ async def extract_units(page: Page) -> List[UnitRow]:
     if await safe_count(legacy):
         rows = await legacy.locator("tr[data-block-id], tr[id]").all()
         out: List[UnitRow] = []
+        taken_ids: set = set()
         for tr in rows:
             with contextlib.suppress(Exception):
                 await page.keyboard.press("Escape")
@@ -589,6 +698,7 @@ async def extract_units(page: Page) -> List[UnitRow]:
             unit_id = (unit_id or "").strip()
             if not unit_id:
                 continue
+            unit_id = _unit_id_for(unit_id, taken_ids)
             name = text_or_none(await safe_inner_text(tr.locator("a.hprt-roomtype-link, .hprt-roomtype-name, .hprt-roomtype").first))
             left = (await safe_inner_text(tr.locator(".hprt-roomtype-bed, .hprt-roomtype-block, .hprt-facilities-block").first)) or ""
             beds_text = text_or_none(left)
@@ -642,9 +752,9 @@ async def extract_units(page: Page) -> List[UnitRow]:
                 price_text=text_or_none(modal_data.get("price_text") or price_text),
                 plan_name=modal_data.get("plan_name"),
                 cancellation=modal_data.get("cancellation"),
-                beds_text=modal_data.get("beds_text") or beds_text,
+                beds_text=clean_beds_text(modal_data.get("beds_text") or beds_text),
                 size_m2=modal_data.get("size_m2") or m2,
-                amenities=[],
+                amenities=modal_data.get("unit_amenities") or [],
                 images=modal_data.get("images") or [],
                 sections=modal_data.get("sections"),
                 header_chips=modal_data.get("header_chips"),
@@ -658,6 +768,7 @@ async def extract_units(page: Page) -> List[UnitRow]:
     modern_root = page.locator("#rooms_table .roomstable")
     if await safe_count(modern_root):
         out: List[UnitRow] = []
+        taken_ids = set()
         links = await page.locator('#rooms_table .roomstable a[data-testid="rt-name-link"]').all()
         for a in links:
             with contextlib.suppress(Exception):
@@ -665,6 +776,7 @@ async def extract_units(page: Page) -> List[UnitRow]:
                 await wait_modal_closed_fast(page, 400)
             href = (await safe_attr(a, "href")) or ""
             unit_id = href.replace("#", "").strip() or f"room-{len(out)}"
+            unit_id = _unit_id_for(unit_id, taken_ids)
             base_name = text_or_none(await safe_inner_text(a))
             lookup_id = unit_id.strip()
             if not lookup_id.upper().startswith("RD"):
@@ -700,9 +812,9 @@ async def extract_units(page: Page) -> List[UnitRow]:
                 price_text=text_or_none(modal_data.get("price_text")),
                 plan_name=modal_data.get("plan_name"),
                 cancellation=modal_data.get("cancellation"),
-                beds_text=modal_data.get("beds_text"),
+                beds_text=clean_beds_text(modal_data.get("beds_text")),
                 size_m2=modal_data.get("size_m2"),
-                amenities=[],
+                amenities=modal_data.get("unit_amenities") or [],
                 images=modal_data.get("images") or [],
                 sections=modal_data.get("sections"),
                 header_chips=modal_data.get("header_chips"),
@@ -852,21 +964,203 @@ async def extract_lat_lon_from_ldjson(page: Page) -> Tuple[Optional[float], Opti
 
 
 # ---------------------------------------------------------------------------
+# City / country extraction
+# ---------------------------------------------------------------------------
+
+_COUNTRY_CODE_TO_NAME = {
+    "CO": "Colombia", "AR": "Argentina", "MX": "M\u00e9xico", "ES": "Espa\u00f1a",
+    "US": "Estados Unidos", "GB": "Reino Unido", "PE": "Per\u00fa",
+    "CL": "Chile", "BR": "Brasil", "UY": "Uruguay", "EC": "Ecuador",
+    "VE": "Venezuela", "FR": "Francia", "IT": "Italia", "DE": "Alemania",
+    "PT": "Portugal", "CA": "Canad\u00e1", "CR": "Costa Rica",
+    "PA": "Panam\u00e1", "DO": "Rep\u00fablica Dominicana", "GT": "Guatemala",
+}
+_COUNTRY_CODE_RE = re.compile(r"^[A-Za-z]{2}$")
+_STREETISH_RE = re.compile(
+    r"\d|\b(?:calle|carrera|cra\.?|avenida|av\.?|transversal|diagonal|"
+    r"circular|autopista|carretera|km|v[aí]a)\b|#",
+    re.I,
+)
+
+
+def _clean_locality(text: Optional[str]) -> Optional[str]:
+    t = normalize_ws(text)
+    if not t:
+        return None
+    if _STREETISH_RE.search(t):
+        return None
+    return t
+
+
+async def extract_city_country_from_ldjson(page: Page) -> Tuple[Optional[str], Optional[str], Optional[str]]:
+    """Extract city, country and street address from Booking.com structured
+    data (JSON-LD `address`).
+
+    Booking sometimes places the street address inside ``addressLocality``
+    (e.g. '52135 Calle 19'); in that case the real city is recovered from
+    ``streetAddress`` ('52135 Calle 19, Medellín, Colombia')."""
+    city: Optional[str] = None
+    country: Optional[str] = None
+    street: Optional[str] = None
+    scripts = await page.locator('script[type="application/ld+json"]').all()
+    for h in scripts:
+        raw = await h.text_content()
+        if not raw:
+            continue
+        with contextlib.suppress(Exception):
+            jd = json.loads(raw)
+            nodes = jd if isinstance(jd, list) else [jd]
+            for node in nodes:
+                if not isinstance(node, dict):
+                    continue
+                addr = node.get("address")
+                if not isinstance(addr, dict):
+                    continue
+                if city is None:
+                    cand = _clean_locality(addr.get("addressLocality"))
+                    if cand:
+                        city = cand
+                if street is None:
+                    sa = addr.get("streetAddress")
+                    if isinstance(sa, str) and sa.strip():
+                        street = sa.strip() or None
+                if country is None:
+                    ctry = addr.get("addressCountry")
+                    if isinstance(ctry, str) and ctry.strip():
+                        country = ctry.strip()
+    if country is None and street:
+        last = street.split(",")[-1].strip()
+        if last and not _STREETISH_RE.search(last):
+            country = last
+    if city is None and street:
+        parts = [p.strip() for p in street.split(",") if p.strip()]
+        if parts and country and (parts[-1].lower() == country.lower()
+                                  or _COUNTRY_CODE_RE.match(parts[-1])):
+            parts = parts[:-1]
+        for part in reversed(parts):
+            cand = part
+            toks = cand.split()
+            if toks and toks[0].isdigit() and len(toks[0]) >= 3:
+                cand = " ".join(toks[1:]).strip() or None
+            if cand and not _STREETISH_RE.search(cand):
+                city = cand
+                break
+    if country and _COUNTRY_CODE_RE.match(country):
+        country = _COUNTRY_CODE_TO_NAME.get(country, country)
+    return text_or_none(city), text_or_none(country), text_or_none(street)
+
+
+# ---------------------------------------------------------------------------
+# Property type extraction
+# ---------------------------------------------------------------------------
+
+_KNOWN_PROPERTY_TYPES = {
+    "Hotel", "Apartment", "Resort", "Hostel", "GuestHouse", "BedAndBreakfast",
+    "Motel", "Aparthotel", "Inn", "Ryokan", "Villa", "House", "Bungalow",
+    "Cottage", "Cabin", "Chalet", "FarmStay", "Campground",
+}
+
+
+async def extract_property_type_from_ldjson(page: Page) -> Optional[str]:
+    """Return the property type from Booking.com structured data.
+
+    Only values that Booking actually emits as a property type (``@type`` of the
+    accommodation entity) are accepted; no inference or fallback is applied."""
+    scripts = await page.locator('script[type="application/ld+json"]').all()
+    for h in scripts:
+        raw = await h.text_content()
+        if not raw:
+            continue
+        with contextlib.suppress(Exception):
+            jd = json.loads(raw)
+            nodes: List[Any] = []
+            if isinstance(jd, list):
+                nodes.extend(jd)
+            elif isinstance(jd, dict):
+                graph = jd.get("@graph")
+                if isinstance(graph, list):
+                    nodes.extend(graph)
+                else:
+                    nodes.append(jd)
+            for node in nodes:
+                if not isinstance(node, dict):
+                    continue
+                typ = node.get("@type")
+                if isinstance(typ, list):
+                    for t in typ:
+                        if isinstance(t, str) and t in _KNOWN_PROPERTY_TYPES:
+                            return t
+                elif isinstance(typ, str) and typ in _KNOWN_PROPERTY_TYPES:
+                    return typ
+    return None
+
+
+# ---------------------------------------------------------------------------
 # Amenities extraction
 # ---------------------------------------------------------------------------
 
+_FACILITY_ROOT_SELECTORS = [
+    'section[data-testid="property-facilities"]',
+    '[data-testid="property-facilities"]',
+    '[data-testid="property-amenities"]',
+    'div[id="facilities"]',
+    'section[id="facilities"]',
+    '#facilities',
+]
+
+
+async def _facility_roots(page: Page) -> List[Locator]:
+    roots: List[Locator] = []
+    for sel in _FACILITY_ROOT_SELECTORS:
+        loc = page.locator(sel).first
+        if await safe_count(loc) and await safe_visible(loc):
+            roots.append(loc)
+    cls = page.locator('[class*="facilities"], [class*="amenities"]')
+    n = await safe_count(cls)
+    for i in range(min(n, 8)):
+        node = cls.nth(i)
+        try:
+            text = (await node.inner_text() or "")
+            if not text.strip():
+                continue
+            if await safe_count(node.locator("li")) == 0:
+                continue
+            low = text[:400].lower()
+            if any(k in low for k in ("instalaciones", "facilities", "amenities", "servicios")):
+                roots.append(node)
+        except Exception:
+            continue
+    return roots
+
+
 async def extract_amenities(page: Page) -> List[str]:
+    """Property-level facilities/services only.
+
+    Scopes extraction to the hotel facilities section and filters out
+    breadcrumbs, navigation, footer links, review scores, FAQ text, nearby
+    attractions and room-level amenities."""
     try:
-        loc = page.locator((
-            '[data-testid*="facility"] li,'
-            '[data-testid*="property-facilities"] li,'
-            '[data-testid*="sustainability"] li,'
-            '[data-testid*="amenities"] li,'
-            '[aria-labelledby*="facilities"] li,'
-            '[class*="facilities"] li'
-        ))
-        texts = await loc.all_text_contents()
-        return [t.strip() for t in texts if t.strip()]
+        roots = await _facility_roots(page)
+        if not roots:
+            roots = [page.locator("body")]
+        collected: List[str] = []
+        seen: set[str] = set()
+        for root in roots:
+            lis = root.locator("li")
+            if await safe_count(lis) == 0:
+                continue
+            for t in await safe_all_texts(lis):
+                if not is_property_amenity(t):
+                    continue
+                clean = clean_amenity_text(t)
+                if not clean:
+                    continue
+                key = clean.lower()
+                if key in seen:
+                    continue
+                seen.add(key)
+                collected.append(clean)
+        return collected
     except Exception:
         return []
 

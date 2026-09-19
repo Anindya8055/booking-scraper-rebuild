@@ -1,0 +1,346 @@
+[
+  {
+    "run_id": 1789816043,
+    "hotel": {
+      "hotel_id": "casa-san-pablo",
+      "hotel_name": "Hotel Casa San Pablo, Medellín (precios actualizados en 2026)",
+      "description": "Hotel Casa San Pablo está en Medellín y ofrece alojamiento con wifi gratis y TV de pantalla plana.",
+      "booking_url": "https://www.booking.com/hotel/co/casa-san-pablo.es.html?checkin=2026-09-20&checkout=2026-09-21&group_adults=2&group_children=0&no_rooms=1&lang=es&selected_currency=COP",
+      "address": null,
+      "city": "52135 Calle 19",
+      "country": "Colombia",
+      "latitude": 6.221458959334204,
+      "longitude": -75.58130703187582,
+      "property_type": "APARTMENT",
+      "listing_status": "FOR_RENT",
+      "amenities": [
+        "WiFi gratis",
+        "Recepción 24 horas"
+      ],
+      "amenity_flags": {
+        "has_fireplace": false,
+        "has_private_pool": false,
+        "has_view": null,
+        "has_air_conditioning": null,
+        "has_elevator": null,
+        "has_security_24h": true,
+        "has_bbq_area": null,
+        "has_balcony": null,
+        "has_storage_room": null,
+        "has_garden": null,
+        "has_office_space": null
+      },
+      "images": [
+        "https://cf.bstatic.com/xdata/images/hotel/square60/331022244.jpg?k=0a36d836ad5e255fba2d596581aa858c251f3ae5b1263016f9ca507a9ea6e2b5&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/square60/331022245.jpg?k=78ff46b5f016ede8f251dce6a83f9b185271a5803b56ac50662d1fb5edada01a&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/square60/331022246.jpg?k=f0fcf3ca4c559f1569cce5eb2e3f7b0e66bb19b65f147c0ed412d4c4b2c643ef&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/square60/331022251.jpg?k=068a9ee5ec48bb4a3211b3f565f6a28df04058b0c276027b8d9ca16e55f48fc7&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/square60/331022329.jpg?k=9ee163c633ee96a99a8b951b89dd3a4356040209913c447db7e1fc92c29e1d32&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/square60/331022325.jpg?k=312f2760056a66bfa6f6bb5df3a56d746ed5f65e80acc48cd966dc50068823ba&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/square60/331022327.jpg?k=e99216815d60ca810dc929e3d90ac3354ddfe125c83c1f98c615aec25107f7b4&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/square60/331022328.jpg?k=630699f5fe5d7e130520f5def1b0d2b82d8e6d20bd12c8ccc93333b5952327a2&o=",
+        "https://cf.bstatic.com/xdata/images/hotel/square60/331022123.jpg?k=a9ddbc124fbc2d0365a368a701e7af1d09527b223418670704f3f6d794a75831&o="
+      ]
+    },
+    "units": [
+      {
+        "unit_id": "780520308_358275710_2_0_0",
+        "unit_name": "En el baño privado:",
+        "price_amount": 91340.0,
+        "price_currency": "COP",
+        "price_text": "COP 91.340",
+        "price_row_text": "COP 91.340",
+        "plan_name": null,
+        "cancellation": null,
+        "beds_text": "Camas cómodas: 7,9, según 12 comentarios",
+        "size_m2": 22.0,
+        "amenities": [
+          "Baño privado",
+          "TV de pantalla plana",
+          "WiFi gratis",
+          "Ducha",
+          "Aseo",
+          "Toallas",
+          "Papel higiénico",
+          "Ropa de cama",
+          "Enchufe cerca de la cama",
+          "TV",
+          "Servicio de despertador"
+        ],
+        "header_chips": [
+          "Baño privado",
+          "TV de pantalla plana",
+          "WiFi gratis",
+          "Ducha",
+          "Aseo",
+          "Toallas",
+          "Papel higiénico",
+          "Ropa de cama",
+          "Enchufe cerca de la cama",
+          "TV",
+          "TV de pantalla plana",
+          "Servicio de despertador"
+        ],
+        "sections": {
+          "bano_privado": [],
+          "vista": [],
+          "equipamiento": [],
+          "politica_humo": null
+        },
+        "long_desc": "The double room includes a private bathroom fitted with a shower. This double room features a flat-screen TV.",
+        "comfort_score": null,
+        "unique_url": "https://www.booking.com/hotel/co/casa-san-pablo.es.html?checkin=2026-09-20&checkout=2026-09-21&group_adults=2&group_children=0&no_rooms=1&lang=es&selected_currency=COP#unit-780520308_358275710_2_0_0",
+        "changes_tracking_data": {
+          "price": {
+            "amount": 91340.0,
+            "currency": "COP",
+            "text": "COP 91.340"
+          },
+          "description": "The double room includes a private bathroom fitted with a shower. This double room features a flat-screen TV."
+        }
+      },
+      {
+        "unit_id": "780520308_362196014_2_0_0",
+        "unit_name": null,
+        "price_amount": 91340.0,
+        "price_currency": "COP",
+        "price_text": "COP 91.340",
+        "price_row_text": "COP 91.340",
+        "plan_name": null,
+        "cancellation": null,
+        "beds_text": null,
+        "size_m2": null,
+        "amenities": [],
+        "header_chips": null,
+        "sections": null,
+        "long_desc": null,
+        "comfort_score": null,
+        "unique_url": "https://www.booking.com/hotel/co/casa-san-pablo.es.html?checkin=2026-09-20&checkout=2026-09-21&group_adults=2&group_children=0&no_rooms=1&lang=es&selected_currency=COP#unit-780520308_362196014_2_0_0",
+        "changes_tracking_data": {
+          "price": {
+            "amount": 91340.0,
+            "currency": "COP",
+            "text": "COP 91.340"
+          },
+          "description": ""
+        }
+      },
+      {
+        "unit_id": "780520308_358534663_2_0_0",
+        "unit_name": null,
+        "price_amount": 91340.0,
+        "price_currency": "COP",
+        "price_text": "COP 91.340",
+        "price_row_text": "COP 91.340",
+        "plan_name": null,
+        "cancellation": null,
+        "beds_text": null,
+        "size_m2": null,
+        "amenities": [],
+        "header_chips": null,
+        "sections": null,
+        "long_desc": null,
+        "comfort_score": null,
+        "unique_url": "https://www.booking.com/hotel/co/casa-san-pablo.es.html?checkin=2026-09-20&checkout=2026-09-21&group_adults=2&group_children=0&no_rooms=1&lang=es&selected_currency=COP#unit-780520308_358534663_2_0_0",
+        "changes_tracking_data": {
+          "price": {
+            "amount": 91340.0,
+            "currency": "COP",
+            "text": "COP 91.340"
+          },
+          "description": ""
+        }
+      },
+      {
+        "unit_id": "780520308_358275710_1_0_0",
+        "unit_name": null,
+        "price_amount": 91340.0,
+        "price_currency": "COP",
+        "price_text": "COP 91.340",
+        "price_row_text": "COP 91.340",
+        "plan_name": null,
+        "cancellation": null,
+        "beds_text": null,
+        "size_m2": null,
+        "amenities": [],
+        "header_chips": null,
+        "sections": null,
+        "long_desc": null,
+        "comfort_score": null,
+        "unique_url": "https://www.booking.com/hotel/co/casa-san-pablo.es.html?checkin=2026-09-20&checkout=2026-09-21&group_adults=2&group_children=0&no_rooms=1&lang=es&selected_currency=COP#unit-780520308_358275710_1_0_0",
+        "changes_tracking_data": {
+          "price": {
+            "amount": 91340.0,
+            "currency": "COP",
+            "text": "COP 91.340"
+          },
+          "description": ""
+        }
+      },
+      {
+        "unit_id": "780520308_362196014_1_0_0",
+        "unit_name": null,
+        "price_amount": 91340.0,
+        "price_currency": "COP",
+        "price_text": "COP 91.340",
+        "price_row_text": "COP 91.340",
+        "plan_name": null,
+        "cancellation": null,
+        "beds_text": null,
+        "size_m2": null,
+        "amenities": [],
+        "header_chips": null,
+        "sections": null,
+        "long_desc": null,
+        "comfort_score": null,
+        "unique_url": "https://www.booking.com/hotel/co/casa-san-pablo.es.html?checkin=2026-09-20&checkout=2026-09-21&group_adults=2&group_children=0&no_rooms=1&lang=es&selected_currency=COP#unit-780520308_362196014_1_0_0",
+        "changes_tracking_data": {
+          "price": {
+            "amount": 91340.0,
+            "currency": "COP",
+            "text": "COP 91.340"
+          },
+          "description": ""
+        }
+      },
+      {
+        "unit_id": "780520308_358534663_1_0_0",
+        "unit_name": null,
+        "price_amount": 91340.0,
+        "price_currency": "COP",
+        "price_text": "COP 91.340",
+        "price_row_text": "COP 91.340",
+        "plan_name": null,
+        "cancellation": null,
+        "beds_text": null,
+        "size_m2": null,
+        "amenities": [],
+        "header_chips": null,
+        "sections": null,
+        "long_desc": null,
+        "comfort_score": null,
+        "unique_url": "https://www.booking.com/hotel/co/casa-san-pablo.es.html?checkin=2026-09-20&checkout=2026-09-21&group_adults=2&group_children=0&no_rooms=1&lang=es&selected_currency=COP#unit-780520308_358534663_1_0_0",
+        "changes_tracking_data": {
+          "price": {
+            "amount": 91340.0,
+            "currency": "COP",
+            "text": "COP 91.340"
+          },
+          "description": ""
+        }
+      },
+      {
+        "unit_id": "780520309_358275710_2_0_0",
+        "unit_name": "En el baño privado:",
+        "price_amount": 141660.0,
+        "price_currency": "COP",
+        "price_text": "COP 141.660",
+        "price_row_text": "COP 141.660",
+        "plan_name": null,
+        "cancellation": null,
+        "beds_text": "Camas cómodas: 7,9, según 12 comentarios",
+        "size_m2": 24.0,
+        "amenities": [
+          "Baño privado",
+          "TV de pantalla plana",
+          "WiFi gratis",
+          "Ducha",
+          "Aseo",
+          "Toallas",
+          "Papel higiénico",
+          "Ropa de cama",
+          "Enchufe cerca de la cama",
+          "TV",
+          "Servicio de despertador"
+        ],
+        "header_chips": [
+          "Baño privado",
+          "TV de pantalla plana",
+          "WiFi gratis",
+          "Ducha",
+          "Aseo",
+          "Toallas",
+          "Papel higiénico",
+          "Ropa de cama",
+          "Enchufe cerca de la cama",
+          "TV",
+          "TV de pantalla plana",
+          "Servicio de despertador"
+        ],
+        "sections": {
+          "bano_privado": [],
+          "vista": [],
+          "equipamiento": [],
+          "politica_humo": null
+        },
+        "long_desc": "The triple room includes a private bathroom equipped with a shower. This triple room provides a flat-screen TV. The unit offers 2 beds.",
+        "comfort_score": null,
+        "unique_url": "https://www.booking.com/hotel/co/casa-san-pablo.es.html?checkin=2026-09-20&checkout=2026-09-21&group_adults=2&group_children=0&no_rooms=1&lang=es&selected_currency=COP#unit-780520309_358275710_2_0_0",
+        "changes_tracking_data": {
+          "price": {
+            "amount": 141660.0,
+            "currency": "COP",
+            "text": "COP 141.660"
+          },
+          "description": "The triple room includes a private bathroom equipped with a shower. This triple room provides a flat-screen TV. The unit offers 2 beds."
+        }
+      },
+      {
+        "unit_id": "780520309_362196014_2_0_0",
+        "unit_name": null,
+        "price_amount": 141660.0,
+        "price_currency": "COP",
+        "price_text": "COP 141.660",
+        "price_row_text": "COP 141.660",
+        "plan_name": null,
+        "cancellation": null,
+        "beds_text": null,
+        "size_m2": null,
+        "amenities": [],
+        "header_chips": null,
+        "sections": null,
+        "long_desc": null,
+        "comfort_score": null,
+        "unique_url": "https://www.booking.com/hotel/co/casa-san-pablo.es.html?checkin=2026-09-20&checkout=2026-09-21&group_adults=2&group_children=0&no_rooms=1&lang=es&selected_currency=COP#unit-780520309_362196014_2_0_0",
+        "changes_tracking_data": {
+          "price": {
+            "amount": 141660.0,
+            "currency": "COP",
+            "text": "COP 141.660"
+          },
+          "description": ""
+        }
+      },
+      {
+        "unit_id": "780520309_358534663_2_0_0",
+        "unit_name": null,
+        "price_amount": 141660.0,
+        "price_currency": "COP",
+        "price_text": "COP 141.660",
+        "price_row_text": "COP 141.660",
+        "plan_name": null,
+        "cancellation": null,
+        "beds_text": null,
+        "size_m2": null,
+        "amenities": [],
+        "header_chips": null,
+        "sections": null,
+        "long_desc": null,
+        "comfort_score": null,
+        "unique_url": "https://www.booking.com/hotel/co/casa-san-pablo.es.html?checkin=2026-09-20&checkout=2026-09-21&group_adults=2&group_children=0&no_rooms=1&lang=es&selected_currency=COP#unit-780520309_358534663_2_0_0",
+        "changes_tracking_data": {
+          "price": {
+            "amount": 141660.0,
+            "currency": "COP",
+            "text": "COP 141.660"
+          },
+          "description": ""
+        }
+      }
+    ],
+    "source_url": "https://www.booking.com/hotel/co/casa-san-pablo.es.html?checkin=2026-09-20&checkout=2026-09-21&group_adults=2&group_children=0&no_rooms=1&lang=es&selected_currency=COP",
+    "collected_at": "2026-09-19T11:15:26Z",
+    "data_version": 2,
+    "upload_status": "pending"
+  }
+]
