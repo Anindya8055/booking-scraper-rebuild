@@ -105,6 +105,15 @@ Run `.venv/bin/python -m src.cli --help` for the full help text. Detailed crawl
 tracing is kept out of the normal demo output and written to
 `data/logs/booking_debug.log` instead.
 
+## Performance notes
+
+- Hotel detail pages are fetched concurrently: up to `DETAIL_WORKERS` (default 3,
+  clamped to 1–4) hotels are opened at once, each in its own browser context, so the
+  workers never share a page. Set `DETAIL_WORKERS=1` for strictly sequential
+  behaviour.
+- Extraction lookups are bounded (short timeouts), so a missing field costs
+  milliseconds instead of Playwright's default 30s action timeout.
+
 ## Localhost browser UI
 
 The same scraper can be driven from a local web page instead of the CLI. The web app

@@ -48,18 +48,21 @@ from booking_scraper.utils import (
     build_detail_url_with_params,
 )
 from booking_scraper.logger import log
+import booking_scraper.timing as bl_timing
 from booking_scraper.config import (
     BROWSER_PER_DETAIL,
-    DETAIL_WORKERS,
     MAX_IDLE_WAVES,
-    ON_OPEN_ESC_WAIT_MS,
     VIEWPORT_W,
     VIEWPORT_H,
-    _KEEP_KEYS,
 )
 from booking_scraper.models import CityCfg, ParentCtx, UnitRow
 
 from .models import HotelSearchParams, Hotel, HotelUnit, ScrapedHotel
+
+
+# Pause (ms) before the post-navigation overlay-dismissal loop. Long enough
+# for late-rendered overlays to appear, short enough to not be a dead wait.
+PRE_DISMISS_WAIT_MS = 900
 
 
 class BookingScraperClient:
@@ -121,16 +124,17 @@ class BookingScraperClient:
                 close_any_map,
             )
             base_url = "https://www.booking.com/index.es.html"
-            log("goto BASE for resolution", url=base_url)
-            await page.goto(base_url, wait_until="domcontentloaded", timeout=60_000)
-            with contextlib.suppress(Exception):
-                await page.wait_for_timeout(ON_OPEN_ESC_WAIT_MS)
-                await page.keyboard.press("Escape")
-            await quick_dismiss_overlays(page, 2)
-            await close_any_map(page)
-            await kill_overlays(page)
-            await force_scale_1(page)
-            resolved = await self._resolver.resolve(page, params)
+            with bl_timing.timed("dest.resolve"):
+                log("goto BASE for resolution", url=base_url)
+                await page.goto(base_url, wait_until="domcontentloaded", timeout=60_000)
+                with contextlib.suppress(Exception):
+                    await page.wait_for_timeout(PRE_DISMISS_WAIT_MS)
+                    await page.keyboard.press("Escape")
+                await quick_dismiss_overlays(page, 2)
+                await close_any_map(page)
+                await kill_overlays(page)
+                await force_scale_1(page)
+                resolved = await self._resolver.resolve(page, params)
         finally:
             await page.close()
             await context.close()
@@ -166,23 +170,21 @@ class BookingScraperClient:
         page = await context.new_page()
 
         try:
-            await self._post_open_housekeeping(page)
-            await self._post_navigate_housekeeping(page)
+            with bl_timing.timed("serp.search"):
+                search_url = build_search_url(city_cfg)
+                log("goto LIST", url=search_url)
+                await page.goto(search_url, wait_until="domcontentloaded", timeout=60_000)
+                await self._post_navigate_housekeeping(page)
+                await quick_dismiss_overlays(page, 2)
+                await close_any_map(page)
+                await install_card_observer(page)
+                await self.wait_for_cards(page)
 
-            search_url = build_search_url(city_cfg)
-            log("goto LIST", url=search_url)
-            await page.goto(search_url, wait_until="domcontentloaded", timeout=60_000)
-            await self._post_navigate_housekeeping(page)
-            await quick_dismiss_overlays(page, 2)
-            await close_any_map(page)
-            await install_card_observer(page)
-            await self.wait_for_cards(page)
+                # Scroll to load more hotels
+                await self._scroll_to_load_hotels(page, max_hotels)
 
-            # Scroll to load more hotels
-            await self._scroll_to_load_hotels(page, max_hotels)
-
-            # Extract hotel URLs
-            urls = await extract_visible_urls(page)
+                # Extract hotel URLs
+                urls = await extract_visible_urls(page)
             # Deduplicate
             seen = set()
             unique_urls = []
@@ -326,21 +328,22 @@ class BookingScraperClient:
         Fetch the detail page for a hotel and return a ScrapedHotel.
         """
         city_cfg = await self._resolve_city(params)
+        slug = hotel_key(hotel_url)
 
-        context = await self._new_context(city_cfg)
-        page = await context.new_page()
+        with bl_timing.timed(f"detail.total.{slug}"):
+            context = await self._new_context(city_cfg)
+            page = await context.new_page()
 
-        try:
-            await self._post_open_housekeeping(page)
-            return await self._detail_core(
-                page, hotel_url, params, city_cfg
-            )
-        except Exception as e:
-            log("Detail error", hotel_url=hotel_url, error=str(e))
-            return None
-        finally:
-            await page.close()
-            await context.close()
+            try:
+                return await self._detail_core(
+                    page, hotel_url, params, city_cfg
+                )
+            except Exception as e:
+                log("Detail error", hotel_url=hotel_url, error=str(e))
+                return None
+            finally:
+                await page.close()
+                await context.close()
 
     async def _detail_core(
         self,
@@ -352,20 +355,23 @@ class BookingScraperClient:
         """Core detail extraction logic."""
         # Build the detail URL with parameters
         detail_url = build_detail_url_with_params(hotel_url, city)
-        log("goto DETAIL", url=detail_url)
-        await page.goto(detail_url, wait_until="domcontentloaded", timeout=60_000)
+        with bl_timing.timed("detail.nav"):
+            log("goto DETAIL", url=detail_url)
+            await page.goto(detail_url, wait_until="domcontentloaded", timeout=60_000)
 
-        await self._post_navigate_housekeeping(page)
-        await quick_dismiss_overlays(page, 2)
-        await close_any_map(page)
+            await self._post_navigate_housekeeping(page)
+            await quick_dismiss_overlays(page, 2)
+            await close_any_map(page)
 
         # Extract hotel information from the detail page
-        hotel = await self._extract_hotel_info(page, detail_url, city)
+        with bl_timing.timed("detail.info"):
+            hotel = await self._extract_hotel_info(page, detail_url, city)
         if not hotel:
             return None
 
         # Extract unit information
-        units = await self._extract_unit_info(page, hotel, city)
+        with bl_timing.timed("detail.units"):
+            units = await self._extract_unit_info(page, hotel, city)
         if not units:
             log("No units found for hotel", hotel_url=detail_url)
             # We can still return the hotel with no units?
@@ -481,21 +487,14 @@ class BookingScraperClient:
 
     # -- Housekeeping methods (copied from the existing runner) --
 
-    async def _post_open_housekeeping(self, page: Page):
-        import contextlib
-        from booking_scraper.browser import wait_modal_closed_fast
-        with contextlib.suppress(Exception):
-            await page.wait_for_timeout(ON_OPEN_ESC_WAIT_MS)
-            await page.keyboard.press("Escape")
-            await wait_modal_closed_fast(page, 600)
-        from booking_scraper.browser import force_scale_1
-        await force_scale_1(page)
-
     async def _post_navigate_housekeeping(self, page: Page):
         import contextlib
         from booking_scraper.browser import wait_modal_closed_fast, quick_dismiss_overlays, close_any_map
+        # Short pause so late-appearing overlays can render before we dismiss
+        # them; dismissal itself is a poll-and-click loop, so it does not need
+        # the full legacy escape wait.
         with contextlib.suppress(Exception):
-            await page.wait_for_timeout(ON_OPEN_ESC_WAIT_MS)
+            await page.wait_for_timeout(PRE_DISMISS_WAIT_MS)
             await page.keyboard.press("Escape")
             await wait_modal_closed_fast(page, 800)
         await quick_dismiss_overlays(page, 2)

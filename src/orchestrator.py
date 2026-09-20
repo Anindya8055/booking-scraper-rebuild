@@ -2,14 +2,28 @@
 Orchestrator for the Booking Scraper Rebuild.
 """
 
+import asyncio
 from typing import Callable, List, Optional
 from pathlib import Path
 
 from .client import BookingScraperClient
 from .models import HotelSearchParams, ScrapedHotel
 from .storage import Storage
+from booking_scraper.config import DETAIL_WORKERS
+import booking_scraper.timing as bl_timing
 
 ProgressCallback = Optional[Callable[[str], None]]
+
+# Cap detailed workers so we never hammer Booking.com too hard. The engine's
+# default (3) is already within this range.
+MAX_DETAIL_WORKERS = 4
+
+
+def derive_detail_workers() -> int:
+    try:
+        return max(1, min(int(DETAIL_WORKERS), MAX_DETAIL_WORKERS))
+    except (TypeError, ValueError):
+        return 3
 
 
 class ScrapeOrchestrator:
@@ -74,19 +88,44 @@ class ScrapeOrchestrator:
                 f"{'(max_hotels=%s reached)' % max_hotels if max_hotels and len(hotel_urls) >= max_hotels else ''}".rstrip(),
             )
             self._emit(progress, "")
+            self._emit(progress, f"Detail workers: {derive_detail_workers()} (concurrent)")
 
-            for i, url in enumerate(hotel_urls, start=1):
-                detail = await client.get_hotel_detail(url, params)
-                if detail:
+            # Fetch hotel details with a bounded number of concurrent contexts.
+            # Each fetch opens its own browser context, so parallel workers do
+            # not share a page. Ordering is preserved: we await all jobs, then
+            # emit results in input order. One failing hotel is logged and
+            # skipped without aborting the other workers.
+            workers = derive_detail_workers()
+            detail_semaphore = asyncio.Semaphore(workers)
+
+            async def fetch_detail(i: int, url: str):
+                try:
+                    async with detail_semaphore:
+                        detail = await client.get_hotel_detail(url, params)
+                    return i, detail, None
+                except Exception as exc:
+                    return i, None, exc
+
+            jobs = await asyncio.gather(
+                *(fetch_detail(i, url) for i, url in enumerate(hotel_urls))
+            )
+
+            for i, detail, exc in jobs:
+                if exc is not None:
+                    self._emit(
+                        progress,
+                        f"Failed to extract detail for hotel {i + 1}/{len(hotel_urls)} (skipped)",
+                    )
+                elif detail:
                     hotels.append(detail)
                     self._emit(
                         progress,
-                        f"Found hotel {i}/{len(hotel_urls)}: {detail.hotel.hotel_name}",
+                        f"Found hotel {i + 1}/{len(hotel_urls)}: {detail.hotel.hotel_name}",
                     )
                 else:
                     self._emit(
                         progress,
-                        f"Failed to extract detail for hotel {i}/{len(hotel_urls)} (skipped)",
+                        f"Failed to extract detail for hotel {i + 1}/{len(hotel_urls)} (skipped)",
                     )
 
         path = self.save_results(hotels, prefix=prefix, progress=progress)
@@ -97,6 +136,8 @@ class ScrapeOrchestrator:
         self._emit(progress, f"Hotels: {len(hotels)}")
         self._emit(progress, f"Rooms/units: {unit_count}")
         self._emit(progress, f"Output: {path}")
+        for line in bl_timing.summary():
+            self._emit(progress, line)
         return path
 
     def save_results(
@@ -112,5 +153,6 @@ class ScrapeOrchestrator:
         if not hotels:
             self._emit(progress, "No hotels were saved.")
             return ""
-        path = self.storage.save(hotels, prefix=prefix)
+        with bl_timing.timed("storage.save"):
+            path = self.storage.save(hotels, prefix=prefix)
         return str(path)

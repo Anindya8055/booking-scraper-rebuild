@@ -16,6 +16,7 @@ from .config import (
 )
 from .models import CityCfg, ParentCtx, UnitRow
 from .logger import log
+from . import timing as bl_timing
 from .utils import (
     clean_amenity_text,
     clean_beds_text,
@@ -737,11 +738,14 @@ async def extract_units(page: Page) -> List[UnitRow]:
                     await page.keyboard.press("Escape")
                     await wait_modal_closed_fast(page, 500)
                     await link.click(delay=20)
-                    modal_root = await wait_for_modal_open(page, 9000)
+                    with bl_timing.timed("unit.modal_wait"):
+                        modal_root = await wait_for_modal_open(page, 9000)
                     log("modal.opened", where="DETAIL/extract_units", ok=bool(modal_root))
                     if modal_root:
-                        modal_data = await parse_unit_in_modal_or_rp(page, modal_root)
-                        await close_modal_like(page, modal_root)
+                        with bl_timing.timed("unit.modal_parse"):
+                            modal_data = await parse_unit_in_modal_or_rp(page, modal_root)
+                        with bl_timing.timed("unit.modal_close"):
+                            await close_modal_like(page, modal_root)
                         log("modal.closed.requested", where="DETAIL/extract_units")
 
             out.append(UnitRow(
@@ -797,11 +801,14 @@ async def extract_units(page: Page) -> List[UnitRow]:
                 await page.keyboard.press("Escape")
                 await wait_modal_closed_fast(page, 500)
                 await a.click(delay=20)
-                modal_root = await wait_for_modal_open(page, 9000)
+                with bl_timing.timed("unit.modal_wait"):
+                    modal_root = await wait_for_modal_open(page, 9000)
                 log("modal.opened", where="DETAIL/extract_units", ok=bool(modal_root))
                 if modal_root:
-                    modal_data = await parse_unit_in_modal_or_rp(page, modal_root)
-                    await close_modal_like(page, modal_root)
+                    with bl_timing.timed("unit.modal_parse"):
+                        modal_data = await parse_unit_in_modal_or_rp(page, modal_root)
+                    with bl_timing.timed("unit.modal_close"):
+                        await close_modal_like(page, modal_root)
                     log("modal.closed.requested", where="DETAIL/extract_units")
 
             out.append(UnitRow(

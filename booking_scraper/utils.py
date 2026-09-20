@@ -39,9 +39,16 @@ async def safe_visible(locator: Locator) -> bool:
         return False
 
 
-async def safe_inner_text(locator: Locator) -> Optional[str]:
+async def safe_inner_text(locator: Locator, timeout: Optional[int] = 1500) -> Optional[str]:
+    # Playwright's default action timeout is 30s: on a missing element a
+    # bare inner_text() stalls for that long before raising. For extraction
+    # "read it if it exists" semantics a 1.5s cap is plenty and avoids
+    # multi-second stalls on negative locator lookups (measured bottleneck).
     try:
-        t = await locator.inner_text()
+        if timeout is None:
+            t = await locator.inner_text()
+        else:
+            t = await locator.inner_text(timeout=timeout)
         return t.strip()
     except:
         return None
