@@ -77,6 +77,11 @@
   .pill.running { background: #fef3c7; color: var(--warn); }
   .pill.done { background: #dcfce7; color: var(--ok); }
   .pill.error { background: #fee2e2; color: var(--err); }
+  .pill.cancelling { background: #fde68a; color: var(--warn); }
+  .pill.cancelled { background: #e2e8f0; color: var(--muted); }
+  .btn-cancel { background: var(--err); color: #fff; }
+  .btn-cancel:hover:not(:disabled) { background: #991b1b; }
+  .btn-cancel:disabled { opacity: .55; cursor: not-allowed; }
   .banner { padding: 12px 14px; border-radius: 8px; margin-bottom: 16px; font-size: 14px; }
   .banner.error { background: #fee2e2; color: var(--err); border: 1px solid #fecaca; }
   .banner.ok { background: #dcfce7; color: var(--ok); border: 1px solid #bbf7d0; }
@@ -165,7 +170,10 @@
       </div>
     </div>
     <div class="row-between" style="margin-top: 14px;">
-      <button id="search-btn" class="btn-primary">Search Booking.com</button>
+      <div>
+        <button id="search-btn" class="btn-primary">Search Booking.com</button>
+        <button id="cancel-btn" class="btn-cancel" hidden>Cancel</button>
+      </div>
       <div id="status-pill-wrap" class="hidden">
         <span id="status-pill" class="pill running">running</span>
         <span id="job-id-label" class="lbl"></span>
@@ -235,6 +243,9 @@ function setStatus(state, jobId) {
   pill.className = "pill " + state;
   pill.textContent = state;
   $("job-id-label").textContent = jobId ? `job ${jobId}` : "";
+  const active = state === "running" || state === "cancelling";
+  $("cancel-btn").hidden = !active;
+  $("cancel-btn").disabled = state === "cancelling";
 }
 
 function appendProgress(lines) {
@@ -247,20 +258,40 @@ function appendProgress(lines) {
 function renderResults(payload) {
   $("results-card").classList.remove("hidden");
   const hotels = Array.isArray(payload.results) ? payload.results : [];
+  const meta = payload.meta || {};
+  const summary = payload.summary || {};
   const unitCount = hotels.reduce((n, h) => n + (h.units ? h.units.length : 0), 0);
   const collected = hotels.find((h) => h.collected_at);
   const ts = collected ? collected.collected_at.replace("T", " ").replace("Z", "") : (payload.finished_at || "");
 
+  const requested = summary.requested_hotels != null ? summary.requested_hotels : hotels.length;
+  const failed = summary.failed_hotels || 0;
+  const retries = summary.retries_total || 0;
+  const misses = [];
+  if (failed > 0) misses.push(`<div class="stat"><b>${failed}</b><span>Failed / partial</span></div>`);
+  if (retries > 0) misses.push(`<div class="stat"><b>${retries}</b><span>Retries used</span></div>`);
+
   $("summary").innerHTML = `
+    <div class="stat"><b>${requested}</b><span>Requested hotels</span></div>
     <div class="stat"><b>${hotels.length}</b><span>Hotels</span></div>
     <div class="stat"><b>${unitCount}</b><span>Rooms / units</span></div>
+    ${misses.join("")}
     <div class="stat"><b>${esc(ts)}</b><span>Collection timestamp</span></div>
   `;
+
+  if (summary.failure_reason) {
+    $("summary").innerHTML += `<div class="meta" style="margin-top:8px;">Reason: ${esc(summary.failure_reason)}</div>`;
+  }
 
   const dl = $("download-link");
   if (payload.download_url) {
     dl.href = payload.download_url;
     dl.hidden = false;
+  }
+
+  if (!hotels.length) {
+    $("results").innerHTML = `<p style="color:var(--muted);">No results were saved.</p>`;
+    return;
   }
 
   $("results").innerHTML = hotels.map((item) => {
@@ -343,15 +374,47 @@ async function pollJob(jobId) {
       renderResults(payload);
       return;
     }
+    if (payload.status === "cancelled") {
+      setStatus("cancelled", jobId);
+      $("search-btn").disabled = false;
+      showBanner(
+        "Search cancelled; already-completed results were kept.",
+        "ok",
+      );
+      renderResults(payload);
+      return;
+    }
     if (payload.status === "error") {
       showBanner(`Search failed: ${payload.error || "unknown error"}`, "error");
       setStatus("error", jobId);
       $("search-btn").disabled = false;
       return;
     }
+    if (payload.status === "cancelling") {
+      setStatus("cancelling", jobId);
+    }
     await new Promise((r) => setTimeout(r, 1500));
   }
 }
+
+$("cancel-btn").addEventListener("click", async () => {
+  const jobId = $("job-id-label").textContent.replace(/^job /, "");
+  if (!jobId) return;
+  $("cancel-btn").disabled = true;
+  try {
+    const res = await fetch(`/api/search/${jobId}/cancel`, { method: "POST" });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ detail: `status ${res.status}` }));
+      showBanner(`Cancel failed: ${err.detail || "unknown"}`, "error");
+      $("cancel-btn").disabled = false;
+      return;
+    }
+    setStatus("cancelling", jobId);
+  } catch (err) {
+    showBanner(`Could not cancel: ${err.message}`, "error");
+    $("cancel-btn").disabled = false;
+  }
+});
 
 $("search-btn").addEventListener("click", async () => {
   hideBanner();

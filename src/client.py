@@ -57,6 +57,13 @@ from booking_scraper.config import (
 )
 from booking_scraper.models import CityCfg, ParentCtx, UnitRow
 
+from .errors import (
+    ExtractionError,
+    FetchError,
+    NavigationError,
+    RetryableError,
+    SearchPhaseError,
+)
 from .models import HotelSearchParams, Hotel, HotelUnit, ScrapedHotel
 
 
@@ -170,21 +177,29 @@ class BookingScraperClient:
         page = await context.new_page()
 
         try:
-            with bl_timing.timed("serp.search"):
-                search_url = build_search_url(city_cfg)
-                log("goto LIST", url=search_url)
-                await page.goto(search_url, wait_until="domcontentloaded", timeout=60_000)
-                await self._post_navigate_housekeeping(page)
-                await quick_dismiss_overlays(page, 2)
-                await close_any_map(page)
-                await install_card_observer(page)
-                await self.wait_for_cards(page)
+            try:
+                with bl_timing.timed("serp.search"):
+                    search_url = build_search_url(city_cfg)
+                    log("goto LIST", url=search_url)
+                    await page.goto(search_url, wait_until="domcontentloaded", timeout=60_000)
+                    await self._post_navigate_housekeeping(page)
+                    await quick_dismiss_overlays(page, 2)
+                    await close_any_map(page)
+                    await install_card_observer(page)
+                    await self.wait_for_cards(page)
 
-                # Scroll to load more hotels
-                await self._scroll_to_load_hotels(page, max_hotels)
+                    # Scroll to load more hotels
+                    await self._scroll_to_load_hotels(page, max_hotels)
 
-                # Extract hotel URLs
-                urls = await extract_visible_urls(page)
+                    # Extract hotel URLs
+                    urls = await extract_visible_urls(page)
+            except FetchError:
+                raise
+            except asyncio.CancelledError:
+                raise
+            except Exception as e:
+                log("Search phase error (retryable)", error=str(e))
+                raise SearchPhaseError(f"search failed: {e}") from e
             # Deduplicate
             seen = set()
             unique_urls = []
@@ -323,9 +338,14 @@ class BookingScraperClient:
         self,
         hotel_url: str,
         params: HotelSearchParams,
-    ) -> Optional[ScrapedHotel]:
+    ) -> ScrapedHotel:
         """
         Fetch the detail page for a hotel and return a ScrapedHotel.
+
+        Raises a typed FetchError instead of silently returning None: the
+        orchestrator uses the error class to decide whether a bounded retry is
+        worthwhile. Every attempt opens and closes its own page/context, so an
+        interrupted attempt leaves nothing behind.
         """
         city_cfg = await self._resolve_city(params)
         slug = hotel_key(hotel_url)
@@ -338,9 +358,15 @@ class BookingScraperClient:
                 return await self._detail_core(
                     page, hotel_url, params, city_cfg
                 )
+            except FetchError:
+                raise
+            except asyncio.CancelledError:
+                raise
             except Exception as e:
-                log("Detail error", hotel_url=hotel_url, error=str(e))
-                return None
+                log("Detail error (retryable)", hotel_url=hotel_url, error=str(e))
+                raise RetryableError(
+                    f"unexpected detail failure: {e}"
+                ) from e
             finally:
                 await page.close()
                 await context.close()
@@ -351,13 +377,19 @@ class BookingScraperClient:
         hotel_url: str,
         params: HotelSearchParams,
         city: CityCfg,
-    ) -> Optional[ScrapedHotel]:
+    ) -> ScrapedHotel:
         """Core detail extraction logic."""
         # Build the detail URL with parameters
         detail_url = build_detail_url_with_params(hotel_url, city)
         with bl_timing.timed("detail.nav"):
             log("goto DETAIL", url=detail_url)
-            await page.goto(detail_url, wait_until="domcontentloaded", timeout=60_000)
+            try:
+                await page.goto(detail_url, wait_until="domcontentloaded", timeout=60_000)
+            except asyncio.CancelledError:
+                raise
+            except Exception as e:
+                log("Navigation error (retryable)", url=detail_url, error=str(e))
+                raise NavigationError(f"navigation failed: {e}") from e
 
             await self._post_navigate_housekeeping(page)
             await quick_dismiss_overlays(page, 2)
@@ -367,16 +399,14 @@ class BookingScraperClient:
         with bl_timing.timed("detail.info"):
             hotel = await self._extract_hotel_info(page, detail_url, city)
         if not hotel:
-            return None
+            raise ExtractionError(f"no hotel info extracted for {detail_url}")
 
         # Extract unit information
         with bl_timing.timed("detail.units"):
             units = await self._extract_unit_info(page, hotel, city)
         if not units:
             log("No units found for hotel", hotel_url=detail_url)
-            # We can still return the hotel with no units?
-            # For now, we return None if no units.
-            return None
+            raise ExtractionError(f"no units extracted for {detail_url}")
 
         # Create the ScrapedHotel
         scraped = ScrapedHotel(

@@ -19,6 +19,15 @@ BROWSER_PER_DETAIL = os.getenv("BROWSER_PER_DETAIL", "1").strip().lower() in ("1
 ON_OPEN_ESC_WAIT_MS = int(os.getenv("ON_OPEN_ESC_WAIT_MS", "3000"))
 ABORT_MAP_RESOURCES = os.getenv("ABORT_MAP_RESOURCES", "0").strip().lower() in ("1", "true", "yes")
 
+# Phase 3 resilience knobs (application layer).
+# DETAIL_MAX_RETRIES: max extra attempts for a transiently failing hotel detail
+# fetch (0 = no retries). DETAIL_RETRY_BACKOFF_S: base sleep between retries;
+# each retry doubles it. JOB_TIMEOUT_S: overall cap for one search job; on
+# expiry the job is aborted cleanly and any completed hotels are saved.
+DETAIL_MAX_RETRIES = int(os.getenv("DETAIL_MAX_RETRIES", "2"))
+DETAIL_RETRY_BACKOFF_S = float(os.getenv("DETAIL_RETRY_BACKOFF_S", "4"))
+JOB_TIMEOUT_S = float(os.getenv("JOB_TIMEOUT_S", "900"))
+
 DETAIL_WORKERS = int(os.getenv("DETAIL_WORKERS", "3"))
 MAX_IDLE_WAVES = int(os.getenv("MAX_IDLE_WAVES", "5"))
 SCROLL_STEP_PX = int(os.getenv("SCROLL_STEP_PX", "1200"))

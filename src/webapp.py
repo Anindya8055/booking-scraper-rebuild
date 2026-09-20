@@ -28,7 +28,11 @@ from pydantic import BaseModel, Field, model_validator
 
 import booking_scraper.logger as scraper_log
 from .models import HotelSearchParams
-from .orchestrator import ScrapeOrchestrator
+from .orchestrator import (
+    ScrapeOrchestrator,
+    STATUS_CANCELLED,
+    STATUS_FAILED,
+)
 
 scraper_log.set_print_enabled(False)
 
@@ -36,6 +40,13 @@ APP_DIR = Path(__file__).resolve().parent
 INDEX_FILE = APP_DIR / "web" / "index.html"
 OUTPUT_DIR = "data"
 MAX_JOB_HISTORY = 20
+
+# Job lifecycle statuses used by the web layer.
+JS_RUNNING = "running"
+JS_CANCELLING = "cancelling"
+JS_DONE = "done"
+JS_ERROR = "error"
+JS_CANCELLED = "cancelled"
 
 
 # ---------------------------------------------------------------------------
@@ -92,13 +103,17 @@ class SearchRequest(BaseModel):
 class Job:
     id: str
     params: dict
-    status: str = "running"  # running | done | error
+    status: str = JS_RUNNING
     progress: List[str] = field(default_factory=list)
     error: Optional[str] = None
     output_path: Optional[str] = None
-    results: Optional[dict] = None
+    results: Optional[list] = None
+    meta: Optional[dict] = None
     started_at: str = field(default_factory=lambda: datetime.now().isoformat(timespec="seconds"))
     finished_at: Optional[str] = None
+    cancel_event: Optional[asyncio.Event] = None
+    loop: Optional[asyncio.AbstractEventLoop] = None
+    cancel_requested: bool = False
 
     def to_payload(self, include_results: bool = True) -> dict:
         payload = {
@@ -113,10 +128,23 @@ class Job:
             "download_url": (
                 f"/api/search/{self.id}/download" if self.output_path else None
             ),
+            "meta": self.meta,
+            "summary": self.summary(),
         }
-        if include_results and self.status == "done":
+        if include_results and self.status in (JS_DONE, JS_CANCELLED) and self.results is not None:
             payload["results"] = self.results
         return payload
+
+    def summary(self) -> dict:
+        meta = self.meta or {}
+        return {
+            "requested_hotels": meta.get("requested_hotels"),
+            "successful_hotels": meta.get("successful_hotels"),
+            "failed_hotels": meta.get("failed_hotels"),
+            "units": meta.get("units"),
+            "retries_total": meta.get("retries_total", 0),
+            "failure_reason": meta.get("failure_reason"),
+        }
 
 
 # ---------------------------------------------------------------------------
@@ -124,7 +152,6 @@ class Job:
 # ---------------------------------------------------------------------------
 
 _BUSY_LOCK = threading.Lock()
-_JOBS: Dict[str, Job] = {}  # old -> new; history kept for the download links
 _JOB_BY_ID: Dict[str, Job] = {}
 
 
@@ -136,9 +163,9 @@ def _register(job: Job) -> None:
 
 
 def _job_for_status() -> Optional[Job]:
-    """Return the currently running job, if any (there is only one at a time)."""
+    """Return the currently running/cancelling job, if any."""
     for job in _JOB_BY_ID.values():
-        if job.status == "running":
+        if job.status in (JS_RUNNING, JS_CANCELLING):
             return job
     return None
 
@@ -149,22 +176,53 @@ def _emit(job: Job, line: str) -> None:
 
 
 def _run_search(job: Job, params: HotelSearchParams, max_hotels: int) -> None:
-    try:
+    async def _inner() -> None:
+        job.loop = asyncio.get_running_loop()
+        job.cancel_event = asyncio.Event()
+        if job.cancel_requested:
+            job.cancel_event.set()
         orchestrator = ScrapeOrchestrator(headless=True, output_dir=OUTPUT_DIR)
-        path = asyncio.run(
-            orchestrator.run(params, max_hotels=max_hotels, progress=lambda l: _emit(job, l))
-        )
+        try:
+            path = await orchestrator.run(
+                params,
+                max_hotels=max_hotels,
+                progress=lambda line: _emit(job, line),
+                cancel_event=job.cancel_event,
+            )
+            meta = orchestrator.last_run_meta or {}
+        except Exception as exc:  # noqa: BLE001 - surface any scraper failure to the UI
+            with _BUSY_LOCK:
+                job.status = JS_ERROR
+                job.error = str(exc)
+                job.finished_at = datetime.now().isoformat(timespec="seconds")
+            return
+
         with _BUSY_LOCK:
-            job.status = "done"
+            meta_status = meta.get("status")
+            if meta_status == STATUS_CANCELLED:
+                job.status = JS_CANCELLED
+            elif meta_status == STATUS_FAILED:
+                job.status = JS_ERROR
+            else:
+                job.status = JS_DONE
+            job.meta = meta
             job.finished_at = datetime.now().isoformat(timespec="seconds")
             job.output_path = path or None
             if job.output_path:
                 out = Path(job.output_path)
                 if out.exists():
-                    job.results = json.loads(out.read_text(encoding="utf-8"))
-    except Exception as exc:  # noqa: BLE001 - surface any scraper failure to the UI
+                    try:
+                        job.results = json.loads(out.read_text(encoding="utf-8"))
+                    except Exception:
+                        job.results = None
+            if job.status == JS_ERROR and meta.get("failure_reason"):
+                job.error = meta.get("failure_reason")
+
+    try:
+        asyncio.run(_inner())
+    except Exception as exc:  # noqa: BLE001
         with _BUSY_LOCK:
-            job.status = "error"
+            job.status = JS_ERROR
             job.error = str(exc)
             job.finished_at = datetime.now().isoformat(timespec="seconds")
 
@@ -200,7 +258,7 @@ def _start_search(req: SearchRequest) -> Job:
 app = FastAPI(
     title="Booking Scraper Rebuild",
     description="Localhost UI that runs the existing Booking.com scraper.",
-    version="0.1.0",
+    version="0.2.0",
 )
 
 
@@ -220,7 +278,10 @@ def create_search(req: SearchRequest) -> JSONResponse:
     if running is not None:
         raise HTTPException(
             status_code=409,
-            detail=f"A search is already running ({running.id}). Wait for it to finish.",
+            detail=(
+                f"A search is already running ({running.id}). "
+                "Wait for it to finish or cancel it first."
+            ),
         )
     job = _start_search(req)
     return JSONResponse({"job_id": job.id, "status": job.status})
@@ -232,6 +293,31 @@ def job_status(job_id: str) -> dict:
     if job is None:
         raise HTTPException(status_code=404, detail="Unknown job id")
     return job.to_payload()
+
+
+@app.post("/api/search/{job_id}/cancel")
+def cancel_job(job_id: str):
+    """Request cancellation of a running search. The worker thread flips the
+    orchestrator's cancel event; the job ends with an explicit final state."""
+    job = _JOB_BY_ID.get(job_id)
+    if job is None:
+        raise HTTPException(status_code=404, detail="Unknown job id")
+    with _BUSY_LOCK:
+        if job.status not in (JS_RUNNING, JS_CANCELLING):
+            return JSONResponse(
+                {
+                    "job_id": job_id,
+                    "status": job.status,
+                    "message": "Job is not running; nothing to cancel.",
+                }
+            )
+        was_cancelling = job.status == JS_CANCELLING
+        job.cancel_requested = True
+        if not was_cancelling:
+            job.status = JS_CANCELLING
+    if job.loop is not None and job.cancel_event is not None:
+        job.loop.call_soon_threadsafe(job.cancel_event.set)
+    return JSONResponse({"job_id": job_id, "status": JS_CANCELLING})
 
 
 @app.get("/api/search/{job_id}/download")
@@ -252,3 +338,14 @@ def job_download(job_id: str):
         media_type="application/json",
         filename=out.name,
     )
+
+
+@app.get("/api/search/{job_id}/meta")
+def job_meta(job_id: str):
+    """Expose the companion metadata file for a finished job."""
+    job = _JOB_BY_ID.get(job_id)
+    if job is None:
+        raise HTTPException(status_code=404, detail="Unknown job id")
+    if job.meta is None:
+        raise HTTPException(status_code=404, detail="No metadata for this job yet")
+    return JSONResponse(job.meta)

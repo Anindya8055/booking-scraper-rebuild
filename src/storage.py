@@ -3,6 +3,7 @@ Storage for scraped data.
 """
 
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import List
 from .models import ScrapedHotel
@@ -14,15 +15,28 @@ class Storage:
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
     def save(self, hotels: List[ScrapedHotel], prefix: str = "booking_results") -> Path:
-        """Save scraped hotels to a JSON file."""
+        """Save scraped hotels to a JSON file (proven top-level-list schema)."""
         data = [self._hotel_to_dict(h) for h in hotels]
-        # Generate a filename with timestamp
-        from datetime import datetime
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         filename = f"{prefix}_{timestamp}.json"
         out_path = self.output_dir / filename
         out_path.write_text(
             json.dumps(data, indent=2, ensure_ascii=False, default=str),
+            encoding="utf-8"
+        )
+        return out_path
+
+    def save_metadata(self, meta: dict, prefix: str = "booking_results") -> Path:
+        """Write the run metadata (status, counts, failures, timing) to a
+        companion file next to the data file, using the same timestamp
+        granularity the data file uses."""
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"{prefix}_{timestamp}.meta.json"
+        out_path = self.output_dir / filename
+        payload = dict(meta)
+        payload.setdefault("collected_at", datetime.now(timezone.utc).isoformat())
+        out_path.write_text(
+            json.dumps(payload, indent=2, ensure_ascii=False, default=str),
             encoding="utf-8"
         )
         return out_path

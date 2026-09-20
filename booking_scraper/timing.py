@@ -70,3 +70,21 @@ def summary(floor: float = 0.01) -> List[str]:
             f"  {label:32s} total={totals[label]:7.2f}  n={n:3d}  avg={totals[label] / (n or 1):6.2f}"
         )
     return lines
+
+
+def labels() -> List[str]:
+    """Return the distinct timing labels recorded so far."""
+    with _LOCK:
+        return sorted({label for label, _ in _EVENTS})
+
+
+def totals(label: str) -> Tuple[float, int]:
+    """Return (total_seconds, call_count) accumulated under `label`."""
+    total = 0.0
+    count = 0
+    with _LOCK:
+        for lbl, sec in _EVENTS:
+            if lbl == label:
+                total += sec
+                count += 1
+    return total, count

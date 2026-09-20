@@ -99,6 +99,7 @@ Completed.
 Hotels: 3
 Rooms/units: 10
 Output: data/booking_results_20260920_104410.json
+Metadata: data/booking_results_20260920_104410.meta.json
 ```
 
 Run `.venv/bin/python -m src.cli --help` for the full help text. Detailed crawl
@@ -113,6 +114,37 @@ tracing is kept out of the normal demo output and written to
   behaviour.
 - Extraction lookups are bounded (short timeouts), so a missing field costs
   milliseconds instead of Playwright's default 30s action timeout.
+
+## Robustness (Phase 3)
+
+The application layer is hardened for repeated local use:
+
+- **Bounded retries.** Transient failures (navigation timeouts, per-hotel
+  extraction timeouts, live search-phase hiccups) are retried with exponential
+  backoff. Retry counts are configurable and capped — there are no retry loops.
+  Configuration (via environment variables):
+
+  | Env var                | Default | Meaning                        |
+  | ---------------------- | ------- | ------------------------------ |
+  | `DETAIL_MAX_RETRIES`   | 2       | Max retries per hotel detail   |
+  | `DETAIL_RETRY_BACKOFF_S` | 4       | Base backoff (doubles per retry) |
+  | `DETAIL_WORKERS`       | 3       | Concurrent detail fetches (1–4) |
+  | `JOB_TIMEOUT_S`        | 900     | Whole-job timeout in seconds   |
+
+- **Partial-failure recovery.** A hotel that fails permanently is recorded and
+  skipped; every successfully extracted hotel is still saved. Successful/failed
+  counts and the failed hotel ids, reasons, retry count and attempt count are
+  preserved (see [Output structure](#output-structure)).
+- **Cancellation.** `Ctrl+C` on the CLI, or the **Cancel** button in the web UI,
+  gracefully stops pending work: in-flight browser contexts are closed, already
+  completed hotels are kept, and the run ends with an explicit `cancelled`
+  status (exit code 130 on the CLI).
+- **Job timeout protection.** Every job has a deadline (`JOB_TIMEOUT_S`); a job
+  that exceeds it is marked `failed` with the timeout reason instead of running
+  forever.
+- **Explicit, user-facing error states.** Failures surface as short messages
+  (CLI: exit code + one line; UI: banner + status pill). Raw tracebacks never
+  reach the terminal or the browser; they go to the debug log.
 
 ## Localhost browser UI
 
@@ -133,6 +165,13 @@ Then open <http://127.0.0.1:8000>.
 - One search can run at a time. A second submission while a search is already running
   is rejected with a clear message. Searches run in a background worker (own event
   loop), so the browser stays responsive and progress is polled from the server.
+- While a search is running the page shows a **Cancel** button. Clicks are applied
+  gracefully: the status pill moves to `cancelling` and then `cancelled`, and any
+  hotels already extracted are shown and downloadable.
+- The status pill reflects the actual job state (`running`, `cancelling`, `done`,
+  `cancelled`, `error`), and the summary shows requested/successful/failed hotel
+  counts plus the number of retries used. A failed or partial run explains why
+  (e.g. timeout reason, list of failed hotel ids).
 - Detailed crawl tracing is not shown in the browser; it still goes to
   `data/logs/booking_debug.log`.
 
@@ -161,7 +200,14 @@ hotel), and when finished:
 | GET    | `/api/health`                | Health check                     |
 | POST   | `/api/search`                | Start a search (JSON payload)    |
 | GET    | `/api/search/{job_id}`       | Poll status/progress/results     |
+| POST   | `/api/search/{job_id}/cancel` | Request graceful cancellation    |
 | GET    | `/api/search/{job_id}/download` | Download the generated JSON    |
+| GET    | `/api/search/{job_id}/meta`  | Run metadata (companion file)    |
+
+Request validation mirrors the CLI rules (empty destination, past check-in,
+check-in ≥ check-out, out-of-range occupants). Starting a second concurrent
+search returns `409`. Job ids are 12-hex identifiers returned by `POST /api/search`.
+Job statuses: `running`, `cancelling`, `done`, `cancelled`, `error`.
 
 ## Output structure
 
@@ -208,6 +254,66 @@ top-level list of hotel records:
 
 Fields are omitted/`null` when the live page does not expose them for that hotel.
 
+### Companion metadata file
+
+Each successful run also writes `data/booking_results_<timestamp>.meta.json`
+next to the data file. It describes the run and stays valid JSON:
+
+```jsonc
+{
+  "status": "completed_with_partial_failures",   // | "completed" | "cancelled" | "failed"
+  "requested_hotels": 3,
+  "successful_hotels": 2,
+  "failed_hotels": 1,
+  "units": 6,
+  "retries_total": 1,
+  "cancelled": false,
+  "timeout_s": null,
+  "failure_reason": null,
+  "params": { "destination": "Dhaka", "checkin": "2026-09-21", /* ... */ },
+  "max_hotels": 3,
+  "destination": { "label": "Dhaka", "dest_id": -2092392, "dest_type": "city", "source": "live" },
+  "failures": [
+    {
+      "index": 1,
+      "hotel_id": "some-slug",
+      "hotel_name": null,
+      "reason": "no units extracted",
+      "retries": 0,
+      "attempts": 1
+    }
+  ],
+  "timing": { "storage.save": { "total_s": 0.4, "count": 1 } },
+  "collected_at": "2026-09-20T04:35:00.000000Z"
+}
+```
+
+A `cancelled` run keeps its completed hotels; its `failures` list marks the
+hotels that never finished (reason `cancelled before completion`).
+
+## Testing
+
+Application-control logic (retries, partial-failure handling, cancellation,
+job timeout, metadata/schema validity, web API behaviour) is unit-tested with a
+fake client — no Booking traffic — so it is fast and deterministic:
+
+```bash
+.venv/bin/pip install -r requirements-dev.txt
+.venv/bin/python -m pytest tests -q
+```
+
+The real retrieval path is deliberately **not** unit-tested; the only valid
+proof is a live run against Booking.com (see Basic CLI usage). A live
+failure/recovery demo is included:
+
+```bash
+.venv/bin/python scripts/partial_failure_demo.py "Dhaka" --max-hotels 3
+```
+
+It performs a real search but injects one transient failure (recovered by a
+retry) and one permanent failure, to demonstrate the retry + partial-failure
+metadata on live data.
+
 ## Destination resolution
 
 Destinations are resolved against Booking.com's live `AutoComplete` GraphQL endpoint
@@ -233,13 +339,17 @@ fallback.
 
 ```
 src/cli.py           CLI (arguments, defaults, demo output)
-src/orchestrator.py  orchestration: search -> details -> storage
+src/orchestrator.py  orchestration: search -> details -> storage (retries,
+                     partial-failure recovery, cancellation, timeout, metadata)
 src/client.py        Booking.com browser client (search + detail extraction)
+src/errors.py        typed failure classes (retryable vs permanent)
 src/destination.py   live destination resolution + config fallback
 src/models.py        normalized data models
-src/storage.py       grouped JSON writer
+src/storage.py       grouped JSON writer + companion metadata writer
 src/webapp.py        localhost FastAPI app (thin wrapper over the orchestrator)
 src/web/index.html   localhost browser UI
 booking_scraper/     proven extraction layer (search, detail, browser, utils)
+tests/               unit tests for the application-control logic (fake client)
+scripts/             live failure/recovery demo (real Booking data)
 data/                generated JSON output + debug logs (git-ignored)
 ```

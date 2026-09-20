@@ -8,11 +8,17 @@ to resolve it to the destination Booking needs internally.
 
 import argparse
 import asyncio
+import signal
 import sys
 from datetime import date, datetime, timedelta
 
 import booking_scraper.logger as scraper_log
-from .orchestrator import ScrapeOrchestrator
+from .orchestrator import (
+    ScrapeOrchestrator,
+    STATUS_CANCELLED,
+    STATUS_FAILED,
+    STATUS_PARTIAL,
+)
 from .models import HotelSearchParams
 
 
@@ -175,13 +181,24 @@ def main():
         # Keep the noisy scraper detail on stdout out of the demo run; it
         # still goes to the debug log file.
         scraper_log.set_print_enabled(False)
+        cancel_event = asyncio.Event()
+        installed = False
+        try:
+            loop = asyncio.get_running_loop()
+            loop.add_signal_handler(signal.SIGINT, cancel_event.set)
+            installed = True
+        except (NotImplementedError, RuntimeError):
+            pass  # signal registration unavailable; cancellation stays optional
         try:
             result_path = await orchestrator.run(
                 params,
                 max_hotels=args.max_hotels,
                 prefix=args.prefix,
+                cancel_event=cancel_event,
             )
         finally:
+            if installed:
+                asyncio.get_running_loop().remove_signal_handler(signal.SIGINT)
             scraper_log.set_print_enabled(True)
         return result_path
 
@@ -194,9 +211,30 @@ def main():
         print(f"Error: {e}")
         sys.exit(1)
 
+    meta = orchestrator.last_run_meta or {}
+    status = meta.get("status")
+    if status == STATUS_CANCELLED:
+        print("Search cancelled by the user.")
+        if result_path:
+            print(f"Partial results kept: {result_path}")
+            print(f"Hotels: {meta.get('successful_hotels')}, " f"Rooms/units: {meta.get('units')}")
+        else:
+            print("No results were available before cancellation.")
+        sys.exit(130)
+    if status == STATUS_FAILED:
+        print(f"Search failed: {meta.get('failure_reason') or 'no results'}")
+        print("Technical details are in data/logs/booking_debug.log.")
+        sys.exit(1)
+
     if not result_path:
         print("No results were saved.")
         sys.exit(1)
+    if status == STATUS_PARTIAL:
+        print(
+            f"Partial results: {meta.get('successful_hotels')}/{meta.get('requested_hotels')} "
+            f"hotels completed; {meta.get('failed_hotels')} failed. "
+            "Details in metadata file."
+        )
 
 
 if __name__ == "__main__":
