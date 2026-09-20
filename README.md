@@ -178,19 +178,34 @@ Then open <http://127.0.0.1:8000>.
 ### The form
 
 Fields match the CLI defaults: Destination, Check-in (tomorrow), Check-out (+1 day),
-Adults (2), Children (0), Rooms (1), Currency (USD), Max hotels (5). Press
+Adults (2), Children (0), Rooms (1), Currency (USD), Hotel limit (5). Press
 **Search Booking.com** to start.
 
-The page then shows live progress (destination resolution → search phase → hotel by
-hotel), and when finished:
+### Progress
 
-- a summary (number of hotels, number of rooms/units, collection timestamp);
-- one card per hotel with name, property type, city, country, address, a
-  **Booking.com** link, and property amenities;
-- a table of rooms per hotel with room name, beds, size, price, plan, cancellation,
-  room amenities, and photos;
+A 4-step tracker (Destination → Search hotels → Extract rooms → Done) is derived
+live from the orchestrator's own progress lines, alongside running counts of hotels
+found, the search target, failures and retries. The raw log lines are still available
+under a collapsible **Technical log** panel. A **Cancel** button is shown while the
+job is `running`/`cancelling`.
+
+### Results
+
+When the job finishes:
+
+- summary stats (hotels, rooms/units, requested count, retries, collection timestamp);
+- an expandable card per hotel — name, property type, location/address, a room-type
+  count, property amenity chips, and a link to the live Booking.com page — with a
+  scannable room list underneath (name, beds, size, plan, price, cancellation policy,
+  room amenities, photo);
+- a warning banner + a list of hotel ids/reasons when a run completed with partial
+  failures, and a distinct message when a run was cancelled or produced no results;
 - a **Download JSON** button that serves the very file written by the existing
   storage layer (`data/booking_results_<timestamp>.json`).
+
+No field is invented: a hotel/room attribute Booking's page didn't expose (rating,
+image, size, cancellation policy, etc.) is simply omitted from the card instead of
+being filled with a placeholder value.
 
 ### API
 
@@ -314,6 +329,24 @@ It performs a real search but injects one transient failure (recovered by a
 retry) and one permanent failure, to demonstrate the retry + partial-failure
 metadata on live data.
 
+A standalone schema/QA validator checks any collected result + metadata files for
+structural correctness (required keys, correct types, hotel → unit grouping,
+provenance, no fabricated values in place of genuinely missing fields):
+
+```bash
+.venv/bin/python scripts/validate_results.py data/booking_results_*.json
+```
+
+### Known extraction fix (Phase 4)
+
+Live QA across Dhaka, Bogota, Bangkok and Singapore (hotel limits 1–10, varying
+dates/guests/rooms) surfaced one real defect: `hotel_name` could absorb hidden DOM
+text — once an inline SVG badge's CSS rules, once a promo banner — because the
+name was read with raw `textContent` instead of rendered text. Fixed by reading
+rendered text (`inner_text`) and preferring the name's own child element under
+`#hp_hotel_name` so sibling badges never leak in; pinned with a regression test
+(`tests/test_dom_extraction.py`) against a static DOM fixture (no live traffic).
+
 ## Destination resolution
 
 Destinations are resolved against Booking.com's live `AutoComplete` GraphQL endpoint
@@ -333,7 +366,16 @@ fallback.
   basic headless-browser housekeeping it already does, no distributed queueing.
 - **Prices are live "as shown" values** for the given dates/occupancy; they change and
   are not authoritative booking quotes.
-- Entry point is `python -m src.cli` from the repository root.
+- **Some room rows genuinely have no price.** A small share of rate rows (observed on
+  partner/collaborator content) render without a visible price on Booking's own page;
+  the scraper leaves `price_amount`/`price_text` `null` rather than guessing.
+- **A single hotel can fail while the rest of a run succeeds** (e.g. a page that never
+  renders a room table); this is reported per-hotel in the run metadata's `failures`
+  list, not treated as a whole-run failure.
+- **No star rating / review score is captured.** Booking's rating widget is not parsed,
+  so hotel cards intentionally omit a rating rather than show a placeholder.
+- Entry point is `python -m src.cli` from the repository root; the web UI is a thin
+  wrapper over the same code path (`src.webapp` + `src/web/index.html`).
 
 ## Layout
 
