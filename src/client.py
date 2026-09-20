@@ -432,7 +432,11 @@ class BookingScraperClient:
         og_title = await get_meta(page, 'meta[property="og:title"]')
         og_desc = await get_meta(page, 'meta[property="og:description"]')
         h1_text = await safe_first_text(page, "h1, h2")
-        hp_name = await safe_first_text(page, "#hp_hotel_name")
+        # #hp_hotel_name can also hold a sibling badge span (e.g. a "Travel
+        # Proud" certification badge) ahead of the name; prefer the name's
+        # own child container when present, else the whole heading.
+        hp_name = await safe_first_text(page, "#hp_hotel_name > div") or \
+                  await safe_first_text(page, "#hp_hotel_name")
 
         city_ld, country_ld, street_ld = await extract_city_country_from_ldjson(page)
 

@@ -1275,10 +1275,14 @@ async def get_meta(page: Page, sel: str) -> Optional[str]:
 
 
 async def safe_first_text(page_or_loc, sel: str, timeout: int = 1500) -> Optional[str]:
+    """Rendered, visible text of the first match (not raw DOM textContent) so
+    hidden descendants such as inline SVG <style> blocks never leak into
+    headings/addresses (observed live: an SVG badge icon's CSS text ending up
+    inside a hotel_name)."""
     with contextlib.suppress(Exception):
         loc = page_or_loc.locator(sel).first
         if await safe_count(loc):
-            t = await safe_text_content(loc, timeout=timeout)
+            t = await safe_inner_text(loc, timeout=timeout)
             return text_or_none(t)
     return None
 
