@@ -157,6 +157,36 @@ def test_lifecycle_and_download(client, monkeypatch):
     assert meta.json()["status"] == "completed"
 
 
+def test_export_endpoints(client, monkeypatch):
+    monkeypatch.setattr(webapp_mod, "ScrapeOrchestrator", FakeFastOrchestrator)
+    r = client.post("/api/search", json={"destination": "Dhaka", "max_hotels": 3})
+    job_id = r.json()["job_id"]
+    wait_status(client, job_id, {"done"})
+
+    xlsx = client.get(f"/api/search/{job_id}/export.xlsx")
+    assert xlsx.status_code == 200
+    assert xlsx.headers["content-type"].startswith(
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+    assert xlsx.content[:2] == b"PK"
+
+    psv = client.get(f"/api/search/{job_id}/export.psv")
+    assert psv.status_code == 200
+    assert "|" in psv.text.splitlines()[0]
+    assert "Hotel Name" in psv.text.splitlines()[0]
+
+    # JSON download must keep working unchanged
+    dl = client.get(f"/api/search/{job_id}/download")
+    assert dl.status_code == 200
+
+
+def test_export_unknown_job_404(client):
+    r = client.get("/api/search/does-not-exist/export.xlsx")
+    assert r.status_code == 404
+    r = client.get("/api/search/does-not-exist/export.psv")
+    assert r.status_code == 404
+
+
 def test_one_search_at_a_time_returns_409(client, monkeypatch):
     monkeypatch.setattr(webapp_mod, "ScrapeOrchestrator", FakeSlowOrchestrator)
     r1 = client.post("/api/search", json={"destination": "Dhaka", "max_hotels": 3})

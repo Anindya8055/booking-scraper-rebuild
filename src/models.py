@@ -39,6 +39,15 @@ class Hotel:
     amenities: List[str] = field(default_factory=list)
     amenity_flags: dict = field(default_factory=dict)
     images: List[str] = field(default_factory=list)
+    # Guest review score (0-10) read from the search-results card's own
+    # accessible aria-label when Booking exposes one; None when absent.
+    # See booking_scraper.search.extract_visible_ratings for provenance.
+    rating_score: Optional[float] = None
+    rating_label: Optional[str] = None
+    review_count: Optional[int] = None
+    # Booking's own scarcity/urgency text (e.g. "We have 2 left"), only set
+    # when genuinely present on the page. Never a fabricated "Available".
+    availability: Optional[str] = None
 
 
 @dataclass

@@ -23,6 +23,7 @@ from .utils import (
     clean_room_name,
     genuine_plan_name,
     is_property_amenity,
+    is_scarcity_message,
     norm_amenity_flag,
     normalize_ws,
     parse_money_to_number,
@@ -1157,12 +1158,16 @@ async def _facility_roots(page: Page) -> List[Locator]:
     return roots
 
 
-async def extract_amenities(page: Page) -> List[str]:
-    """Property-level facilities/services only.
+async def extract_amenities(page: Page) -> Tuple[List[str], Optional[str]]:
+    """Property-level facilities/services, plus any scarcity/urgency line.
 
     Scopes extraction to the hotel facilities section and filters out
     breadcrumbs, navigation, footer links, review scores, FAQ text, nearby
-    attractions and room-level amenities."""
+    attractions and room-level amenities. Returns ``(amenities, scarcity)``
+    where *scarcity* is Booking's own urgency text (e.g. "We have 2 left")
+    when genuinely present in the same list-item sweep, else ``None`` -- it
+    is never fabricated, and it is excluded from *amenities* itself (see
+    ``is_property_amenity``) so the same fact isn't shown twice."""
     try:
         roots = await _facility_roots(page)
         if not roots:
@@ -1173,6 +1178,7 @@ async def extract_amenities(page: Page) -> List[str]:
                 roots = [page.locator("body")]
         collected: List[str] = []
         seen: set[str] = set()
+        scarcity: Optional[str] = None
         for root in roots:
             lis = root.locator("li")
             if await safe_count(lis) == 0:
@@ -1182,6 +1188,8 @@ async def extract_amenities(page: Page) -> List[str]:
                 if await _li_in_bad_section(li):
                     continue
                 t = await safe_inner_text(li)
+                if scarcity is None and is_scarcity_message(t):
+                    scarcity = clean_amenity_text(t)
                 if not is_property_amenity(t):
                     continue
                 clean = clean_amenity_text(t)
@@ -1192,9 +1200,9 @@ async def extract_amenities(page: Page) -> List[str]:
                     continue
                 seen.add(key)
                 collected.append(clean)
-        return collected
+        return collected, scarcity
     except Exception:
-        return []
+        return [], None
 
 
 # ---------------------------------------------------------------------------

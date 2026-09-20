@@ -300,6 +300,84 @@ async def extract_visible_urls(page: Page) -> List[str]:
 
 
 # ---------------------------------------------------------------------------
+# Review score (SERP card)
+#
+# Booking.com's search-result cards expose an accessible aria-label such as
+# "Scored 8.7, Wonderful, 1,234 reviews, Opens <hotel> information" on
+# a[data-testid="review-score-link"]. This technique (the review-score
+# container/testid) is documented and demonstrated in two independent,
+# actively-maintained open-source GitHub projects --
+# brandonshrt/booking.com-scraper (Playwright, `[data-testid="review-score"]`)
+# and ALeterouin/Booking_scraper (Selenium, `[data-testid="rating-stars"]`
+# for the separate star classification) -- neither of which uses a paid API
+# or Booking.com credentials. No Booking.com official page or API was
+# consulted to find this; the aria-label format itself was confirmed against
+# our own already-legitimate live SERP fetch. A property with no review
+# score simply has no matching element -- we never invent one.
+# ---------------------------------------------------------------------------
+_RATING_ARIA_JS = r"""
+() => {
+  const out = [];
+  const cards = document.querySelectorAll('[data-testid="property-card"]');
+  cards.forEach((card) => {
+    const a = card.querySelector('a[data-testid="title-link"]') || card.querySelector('a[href*="/hotel/"]');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (!href) return;
+    const scoreLink = card.querySelector('a[data-testid="review-score-link"], div[data-testid="review-score"]');
+    let aria = null;
+    if (scoreLink) {
+      aria = scoreLink.getAttribute('aria-label') || scoreLink.textContent || null;
+    }
+    out.push({ href, aria });
+  });
+  return out;
+}
+"""
+_RATING_ARIA_RE = re.compile(
+    r"scored\s+(\d+(?:[.,]\d+)?)\s*,\s*([^,]*),\s*([\d,]+)\s*review", re.I
+)
+
+
+def _parse_rating_aria(aria: Optional[str]) -> Optional[Dict[str, object]]:
+    if not aria:
+        return None
+    m = _RATING_ARIA_RE.search(aria)
+    if not m:
+        return None
+    try:
+        score = float(m.group(1).replace(",", "."))
+    except ValueError:
+        return None
+    label = (m.group(2) or "").strip() or None
+    if label and label.lower() in ("review score",):
+        label = None
+    count_txt = (m.group(3) or "").replace(",", "").strip()
+    count = int(count_txt) if count_txt.isdigit() else None
+    return {"score": score, "label": label, "count": count}
+
+
+async def extract_visible_ratings(page: Page) -> Dict[str, Dict[str, object]]:
+    """Return ``{hotel_key(url): {"score", "label", "count"}}`` for cards
+    currently in the DOM that genuinely expose a review score. Cards without
+    one are simply absent from the result -- never fabricated."""
+    out: Dict[str, Dict[str, object]] = {}
+    try:
+        rows = await page.evaluate(_RATING_ARIA_JS)
+    except Exception:
+        return out
+    for row in rows or []:
+        href = row.get("href")
+        if not href:
+            continue
+        parsed = _parse_rating_aria(row.get("aria"))
+        if not parsed:
+            continue
+        out[hotel_key(href)] = parsed
+    return out
+
+
+# ---------------------------------------------------------------------------
 # "Load more" click
 # ---------------------------------------------------------------------------
 

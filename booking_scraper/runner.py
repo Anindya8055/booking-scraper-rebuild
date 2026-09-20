@@ -168,7 +168,7 @@ class BookingComCrawler:
         address = await safe_first_text(page, '[data-testid="address"]') or await safe_first_text(page, "#showMap2 span") or street_ld
         lat, lon = await extract_lat_lon_from_ldjson(page)
 
-        amenities = await extract_amenities(page)
+        amenities, _scarcity = await extract_amenities(page)
         amenity_flags = {
             "has_fireplace": False,
             "has_private_pool": False,

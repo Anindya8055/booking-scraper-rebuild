@@ -13,6 +13,7 @@ from playwright.async_api import Browser, BrowserContext, Page, async_playwright
 from booking_scraper.search import (
     count_cards,
     extract_visible_urls,
+    extract_visible_ratings,
     install_card_observer,
     detect_serp_scroll_container,
     get_scroll_metrics,
@@ -80,6 +81,9 @@ class BookingScraperClient:
         from .destination import DestinationResolver
         self._resolver = DestinationResolver()
         self.last_resolved: Optional[dict] = None
+        # hotel_key(url) -> {"score": float, "label": str|None, "count": int}
+        # gathered from the search-results page during search_hotel_urls().
+        self._serp_ratings: dict = {}
 
     async def __aenter__(self):
         await self._start_browser()
@@ -194,6 +198,11 @@ class BookingScraperClient:
 
                     # Extract hotel URLs
                     urls = await extract_visible_urls(page)
+                    # Best-effort SERP review scores, gathered from the same
+                    # page (no extra request); absent entries are just
+                    # skipped later, never fabricated.
+                    with contextlib.suppress(Exception):
+                        self._serp_ratings.update(await extract_visible_ratings(page))
             except FetchError:
                 raise
             except asyncio.CancelledError:
@@ -464,7 +473,7 @@ class BookingScraperClient:
         property_type = await extract_property_type_from_ldjson(page)
 
         # Filter property facilities (property-level only, cleaned of page garbage)
-        amenities = await extract_amenities(page)
+        amenities, availability = await extract_amenities(page)
         amenity_flags = {}
         for a in amenities:
             f = norm_amenity_flag(a)
@@ -473,6 +482,11 @@ class BookingScraperClient:
 
         # Extract hotel id from the URL
         hotel_id = hotel_key(detail_url)
+
+        # SERP-sourced review score, gathered during search_hotel_urls() from
+        # the same search-results page visit (no extra request). Left absent
+        # when Booking didn't expose one for this property -- never guessed.
+        serp_rating = self._serp_ratings.get(hotel_id)
 
         return Hotel(
             hotel_id=hotel_id,
@@ -487,6 +501,10 @@ class BookingScraperClient:
             description=og_desc,
             amenities=amenities,
             amenity_flags=amenity_flags,
+            rating_score=serp_rating.get("score") if serp_rating else None,
+            rating_label=serp_rating.get("label") if serp_rating else None,
+            review_count=serp_rating.get("count") if serp_rating else None,
+            availability=availability,
         )
 
     async def _extract_unit_info(

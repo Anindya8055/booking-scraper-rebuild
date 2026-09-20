@@ -3,20 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Booking Scraper — Localhost</title>
+<title>Booking Scraper — Live Hotel Search</title>
 <style>
   :root {
-    --bg: #f3f5f9;
+    --bg: #f7f5f2;
     --surface: #ffffff;
-    --surface-2: #f8fafc;
-    --border: #e4e9f1;
-    --border-strong: #d3dbe8;
-    --text: #0f172a;
-    --muted: #64748b;
-    --muted-2: #94a3b8;
-    --accent: #2563eb;
-    --accent-dark: #1d4ed8;
-    --accent-bg: #eef2ff;
+    --surface-2: #faf8f4;
+    --border: #ece6dd;
+    --border-strong: #ddd4c6;
+    --text: #1c1917;
+    --muted: #78716c;
+    --muted-2: #a8a29e;
+    --accent: #4f46e5;
+    --accent-dark: #3730a3;
+    --accent-bg: #eef0fe;
+    --coral: #fb5607;
+    --coral-dark: #d84a06;
+    --coral-bg: #fff1ea;
+    --gold: #b45309;
+    --gold-bg: #fef3c7;
     --ok: #15803d;
     --ok-bg: #ecfdf3;
     --ok-border: #bbf7d0;
@@ -26,11 +31,14 @@
     --warn: #b45309;
     --warn-bg: #fffbeb;
     --warn-border: #fde68a;
-    --chip-bg: #eef2ff;
-    --chip-text: #3730a3;
-    --radius: 14px;
-    --radius-sm: 9px;
-    --shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 8px 24px -12px rgba(15, 23, 42, .10);
+    --chip-bg: #f1effc;
+    --chip-text: #4338ca;
+    --radius: 18px;
+    --radius-sm: 12px;
+    --radius-xs: 8px;
+    --shadow: 0 1px 2px rgba(28, 25, 23, .05), 0 12px 32px -14px rgba(28, 25, 23, .16);
+    --shadow-lg: 0 20px 50px -18px rgba(30, 20, 60, .35);
+    --focus-ring: 0 0 0 3px rgba(79, 70, 229, .35);
   }
   * { box-sizing: border-box; }
   html, body { height: 100%; }
@@ -38,49 +46,89 @@
     margin: 0;
     background: var(--bg);
     color: var(--text);
-    font: 15px/1.5 -apple-system, system-ui, "Segoe UI", Roboto, sans-serif;
+    font: 15px/1.5 -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
   a { color: var(--accent); }
+  img { max-width: 100%; }
+  button { font-family: inherit; }
+  :focus-visible { outline: 3px solid rgba(79, 70, 229, .55); outline-offset: 2px; border-radius: 6px; }
 
-  header.top {
-    background: linear-gradient(135deg, #0f2a5e, #2563eb 65%, #3b82f6);
-    color: #fff;
-    padding: 28px 24px 34px;
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
   }
-  header.top .wrap { max-width: 1080px; margin: 0 auto; }
-  header.top h1 { margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -.01em; }
-  header.top p { margin: 6px 0 0; opacity: .85; font-size: 13.5px; }
 
-  main { max-width: 1080px; margin: -18px auto 0; padding: 0 20px 48px; position: relative; }
+  /* ---- Hero / header ---- */
+  header.hero {
+    position: relative;
+    background: radial-gradient(120% 160% at 15% 0%, #6d28d9 0%, transparent 55%),
+                linear-gradient(135deg, #3730a3 0%, #5b21b6 45%, #fb5607 120%);
+    color: #fff;
+    padding: 44px 20px 150px;
+    overflow: hidden;
+  }
+  header.hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,.12) 1.5px, transparent 1.5px);
+    background-size: 26px 26px;
+    opacity: .35;
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 1080px; margin: 0 auto; position: relative; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.28);
+    padding: 6px 13px; border-radius: 999px; backdrop-filter: blur(4px);
+  }
+  .hero h1 {
+    margin: 18px 0 0; font-size: clamp(28px, 4.4vw, 44px); font-weight: 800;
+    letter-spacing: -.02em; line-height: 1.08; max-width: 720px;
+  }
+  .hero p.sub {
+    margin: 14px 0 0; font-size: 16px; color: rgba(255,255,255,.86); max-width: 560px;
+  }
+
+  main { max-width: 1080px; margin: -110px auto 0; padding: 0 20px 56px; position: relative; }
 
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
-    padding: 22px 22px 20px;
+    padding: 26px 24px 24px;
     margin-bottom: 18px;
   }
-  .card h2 { margin: 0; font-size: 15.5px; font-weight: 700; }
+  .search-card { box-shadow: var(--shadow-lg); }
+  .card h2 { margin: 0; font-size: 16px; font-weight: 800; }
   .card .sub { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
 
   /* ---- Search form ---- */
   .field-group { margin-bottom: 14px; }
-  .field-group.dest { margin-bottom: 16px; }
-  label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 5px; letter-spacing: .01em; }
+  .field-group.dest { margin-bottom: 16px; position: relative; }
+  label { display: block; font-size: 11.5px; font-weight: 700; color: var(--muted); margin-bottom: 6px; letter-spacing: .03em; text-transform: uppercase; }
   input, select {
     width: 100%;
-    padding: 10px 12px;
+    padding: 11px 13px;
     border: 1.5px solid var(--border-strong);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-xs);
     font-size: 14.5px;
     background: #fff;
     color: var(--text);
     font-family: inherit;
+    min-height: 44px;
   }
-  input#destination { font-size: 16px; font-weight: 600; padding: 12px 14px; }
-  input:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-bg); }
+  .dest-input-wrap { position: relative; }
+  .dest-input-wrap .dest-icon {
+    position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+    font-size: 19px; pointer-events: none;
+  }
+  input#destination {
+    font-size: 18px; font-weight: 700; padding: 15px 16px 15px 46px; min-height: 56px;
+  }
+  input:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: var(--focus-ring); }
   .grid-trip {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -90,31 +138,37 @@
     .grid-trip { grid-template-columns: repeat(2, 1fr); }
   }
 
-  button { cursor: pointer; border: none; border-radius: var(--radius-sm); font-size: 14.5px; font-family: inherit; }
+  button { cursor: pointer; border: none; border-radius: var(--radius-xs); font-size: 14.5px; }
   .btn-primary {
-    background: var(--accent); color: #fff; font-weight: 700;
-    padding: 13px 22px; width: 100%; margin-top: 16px;
-    transition: background .12s ease;
+    background: linear-gradient(135deg, var(--accent), #7c3aed 60%, var(--coral));
+    color: #fff; font-weight: 800;
+    padding: 16px 22px; width: 100%; margin-top: 18px;
+    min-height: 54px; font-size: 16px; letter-spacing: .01em;
+    box-shadow: 0 10px 24px -8px rgba(79, 70, 229, .55);
+    transition: transform .12s ease, box-shadow .12s ease;
   }
-  .btn-primary:hover:not(:disabled) { background: var(--accent-dark); }
-  .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
-  .btn-cancel { background: #fff; color: var(--err); border: 1.5px solid var(--err-border); padding: 8px 16px; font-weight: 600; }
+  .btn-primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 14px 28px -8px rgba(79, 70, 229, .6); }
+  .btn-primary:active:not(:disabled) { transform: translateY(0); }
+  .btn-primary:disabled { opacity: .55; cursor: not-allowed; box-shadow: none; }
+  .btn-cancel { background: #fff; color: var(--err); border: 1.5px solid var(--err-border); padding: 9px 16px; font-weight: 700; min-height: 40px; }
   .btn-cancel:hover:not(:disabled) { background: var(--err-bg); }
   .btn-cancel:disabled { opacity: .5; cursor: not-allowed; }
-  .btn-ghost { background: transparent; color: var(--accent); padding: 6px 10px; font-weight: 600; font-size: 13px; }
+  .btn-ghost { background: transparent; color: var(--accent); padding: 8px 12px; font-weight: 700; font-size: 13px; min-height: 40px; }
   .btn-ghost:hover { background: var(--accent-bg); }
-  .btn-link {
-    display: inline-flex; align-items: center; gap: 5px;
+  .btn-chip {
+    display: inline-flex; align-items: center; gap: 6px;
     background: var(--surface-2); color: var(--text); border: 1px solid var(--border-strong);
-    padding: 7px 13px; font-weight: 600; font-size: 13px; text-decoration: none; border-radius: var(--radius-sm);
+    padding: 9px 14px; font-weight: 700; font-size: 13px; text-decoration: none; border-radius: 999px;
+    min-height: 40px;
   }
-  .btn-link:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+  .btn-chip.coral:hover { border-color: var(--coral); color: var(--coral-dark); background: var(--coral-bg); }
 
   /* ---- Status / banners ---- */
   .row-between { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
   .pill {
     display: inline-flex; align-items: center; gap: 6px;
-    padding: 4px 12px; border-radius: 999px; font-size: 12.5px; font-weight: 700;
+    padding: 5px 13px; border-radius: 999px; font-size: 12.5px; font-weight: 800;
   }
   .pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
   .pill.running, .pill.cancelling { background: var(--warn-bg); color: var(--warn); }
@@ -133,15 +187,15 @@
   .hidden { display: none !important; }
 
   /* ---- Progress ---- */
-  .stepper { display: flex; align-items: center; gap: 0; margin: 14px 0 4px; }
+  .stepper { display: flex; align-items: center; gap: 0; margin: 16px 0 4px; }
   .step { display: flex; align-items: center; gap: 9px; flex: 1; min-width: 0; }
   .step .dot {
-    width: 26px; height: 26px; border-radius: 50%; flex: none;
+    width: 27px; height: 27px; border-radius: 50%; flex: none;
     display: flex; align-items: center; justify-content: center;
-    font-size: 12px; font-weight: 700; color: var(--muted-2);
+    font-size: 12px; font-weight: 800; color: var(--muted-2);
     background: var(--surface-2); border: 2px solid var(--border-strong);
   }
-  .step .label { font-size: 12.5px; font-weight: 600; color: var(--muted-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .step .label { font-size: 12.5px; font-weight: 700; color: var(--muted-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .step .bar { flex: 1; height: 2px; background: var(--border-strong); margin: 0 2px; min-width: 12px; }
   .step:last-child .bar { display: none; }
   .step.done .dot { background: var(--ok); border-color: var(--ok); color: #fff; }
@@ -152,18 +206,18 @@
   .step.error .dot { background: var(--err); border-color: var(--err); color: #fff; }
   @media (max-width: 640px) { .step .label { display: none; } }
 
-  .live-counts { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 16px; }
-  .live-counts .stat b { display: block; font-size: 21px; color: var(--text); }
-  .live-counts .stat span { font-size: 11.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  .live-counts { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 18px; }
+  .live-counts .stat b { display: block; font-size: 22px; color: var(--text); font-weight: 800; }
+  .live-counts .stat span { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; font-weight: 700; }
   .live-counts .stat.warn-stat b { color: var(--warn); }
   .live-counts .stat.err-stat b { color: var(--err); }
 
-  details.techlog { margin-top: 14px; }
-  details.techlog summary { cursor: pointer; font-size: 12.5px; color: var(--muted); font-weight: 600; user-select: none; }
+  details.techlog { margin-top: 16px; }
+  details.techlog summary { cursor: pointer; font-size: 12.5px; color: var(--muted); font-weight: 700; user-select: none; }
   .progress {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size: 12px;
-    background: #0b1220;
+    background: #171321;
     color: #93e5f5;
     border-radius: 10px;
     padding: 12px 14px;
@@ -173,78 +227,151 @@
     margin-top: 8px;
   }
 
-  /* ---- Results ---- */
-  .summary { display: flex; gap: 26px; flex-wrap: wrap; margin: 4px 0 6px; }
-  .summary .stat b { display: block; font-size: 24px; color: var(--accent-dark); }
-  .summary .stat span { font-size: 11.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
-  .summary .stat.warn-stat b { color: var(--warn); }
+  /* ---- Results toolbar ---- */
+  .results-summary-row { display: flex; gap: 26px; flex-wrap: wrap; align-items: flex-end; margin-bottom: 4px; }
+  .results-summary-row .stat b { display: block; font-size: 25px; color: var(--accent-dark); font-weight: 800; }
+  .results-summary-row .stat span { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; font-weight: 700; }
+  .results-summary-row .stat.warn-stat b { color: var(--warn); }
+  .search-recap { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .search-recap b { color: var(--text); }
   .fail-list { margin-top: 10px; padding: 10px 12px; background: var(--warn-bg); border: 1px solid var(--warn-border); border-radius: var(--radius-sm); font-size: 12.5px; color: #92400e; }
   .fail-list div { padding: 2px 0; }
 
-  .hotel-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
-  .hotel-card { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface); transition: box-shadow .15s ease, border-color .15s ease; }
-  .hotel-card.open, .hotel-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow); }
-  .hotel-head { display: flex; gap: 12px; padding: 11px 12px; cursor: pointer; align-items: center; }
-  .hotel-head:hover { background: var(--surface-2); }
-  .hotel-thumb {
-    width: 76px; height: 76px; flex: none; border-radius: var(--radius-sm); overflow: hidden;
-    background: linear-gradient(135deg, #dbeafe, #e0e7ff);
-    display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 24px;
+  .toolbar {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    flex-wrap: wrap; margin: 16px 0 4px; padding-top: 14px; border-top: 1px solid var(--border);
   }
-  .hotel-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .hotel-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-  .hotel-title-row { display: flex; align-items: baseline; gap: 7px; flex-wrap: wrap; }
+  .toolbar-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .sort-select {
+    min-height: 40px; width: auto; padding: 8px 30px 8px 12px; font-weight: 700; font-size: 13px;
+  }
+  .export-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .copy-feedback {
+    font-size: 12px; font-weight: 700; color: var(--ok); margin-left: 4px;
+    opacity: 0; transition: opacity .15s ease;
+  }
+  .copy-feedback.show { opacity: 1; }
+
+  /* ---- Hotel cards ---- */
+  .hotel-list { display: flex; flex-direction: column; gap: 16px; margin-top: 16px; }
+  .hotel-card {
+    border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
+    background: var(--surface); transition: box-shadow .15s ease, border-color .15s ease;
+  }
+  .hotel-card.open, .hotel-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow); }
+  .hotel-card-head {
+    display: block; width: 100%; text-align: left; background: none;
+    padding: 0; border-radius: 0; color: inherit; cursor: pointer;
+  }
+  .hotel-card-head:hover .hotel-card-top-row { background: var(--surface-2); }
+  .hotel-card-top-row { display: flex; gap: 13px; align-items: center; padding: 13px; }
+  .hotel-image-wrap {
+    position: relative; width: 108px; height: 108px; flex: none; border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, #ddd6fe, #fecdd3);
+    overflow: hidden;
+  }
+  .hotel-image-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hotel-image-fallback {
+    width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+    font-size: 26px; color: rgba(255,255,255,.9);
+  }
+  .badge-row { position: static; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 800;
+    padding: 3px 9px; border-radius: 999px; line-height: 1.4;
+  }
+  .badge.rating { background: var(--accent-bg); color: var(--accent-dark); }
+  .badge.availability { background: var(--coral-bg); color: var(--coral-dark); }
+  .hotel-card-body { flex: 1; min-width: 0; }
+  .hotel-title-row { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
   .hotel-title-row h3 {
-    margin: 0; font-size: 14.5px; font-weight: 700; line-height: 1.3;
+    margin: 0; font-size: 15.5px; font-weight: 800; line-height: 1.3;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%;
   }
-  .type-chip { flex: none; font-size: 10px; font-weight: 700; color: var(--accent-dark); background: var(--accent-bg); padding: 2px 7px; border-radius: 999px; white-space: nowrap; }
-  .hotel-loc { color: var(--muted); font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .hotel-sub-row { font-size: 11.5px; color: var(--muted-2); font-weight: 600; }
-
-  .hotel-price-block { flex: none; display: flex; align-items: center; gap: 8px; padding-left: 4px; }
-  .hotel-price-block .price-wrap { text-align: right; line-height: 1.2; }
-  .hotel-price-block .from-label { display: block; font-size: 9.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; font-weight: 600; }
-  .hotel-price-block .price-big { display: block; font-size: 18px; font-weight: 800; color: var(--accent-dark); white-space: nowrap; }
-  .chevron { flex: none; color: var(--muted-2); transition: transform .15s ease; font-size: 12px; }
+  .type-chip { font-size: 10.5px; font-weight: 800; color: var(--accent-dark); background: var(--accent-bg); padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
+  .hotel-loc { display: flex; align-items: center; gap: 4px; color: var(--muted); font-size: 12.5px; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .hotel-highlights { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .hotel-card-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; margin-top: 10px; }
+  .room-count { font-size: 12px; color: var(--muted); font-weight: 700; }
+  .price-block { text-align: right; flex: none; }
+  .price-block .from-label { display: block; font-size: 9.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; font-weight: 700; }
+  .price-block .price-big { display: block; font-size: 19px; font-weight: 800; color: var(--coral-dark); white-space: nowrap; line-height: 1.15; }
+  .expand-affordance {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 9px; font-size: 12px; font-weight: 700; color: var(--accent-dark);
+    border-top: 1px solid var(--border); background: var(--surface-2);
+  }
+  .hotel-card-head .chevron { transition: transform .15s ease; font-size: 12px; }
   .hotel-card.open .chevron { transform: rotate(180deg); }
 
-  .hotel-detail { border-top: 1px solid var(--border); background: var(--surface-2); padding: 12px; display: none; }
-  .hotel-card.open .hotel-detail { display: block; }
-  .hotel-address { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
-  .amenity-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-  .chip { background: var(--chip-bg); color: var(--chip-text); border-radius: 999px; padding: 3px 10px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+  @media (max-width: 480px) {
+    .hotel-image-wrap { width: 76px; height: 76px; }
+    .hotel-card-head { gap: 10px; padding: 11px; }
+  }
+
+  /* ---- Expanded hotel detail ---- */
+  .hotel-detail { border-top: 1px solid var(--border); background: var(--surface-2); padding: 16px; }
+  .expand-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+  .expand-head .badges-inline { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+  .badges-inline .badge.rating { background: var(--accent-bg); color: var(--accent-dark); box-shadow: none; }
+  .badges-inline .badge.availability { background: var(--coral-bg); color: var(--coral-dark); box-shadow: none; }
+  .hotel-address { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+  .expand-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .gallery { margin-bottom: 16px; }
+  .gallery-main {
+    width: 100%; aspect-ratio: 16 / 9; border-radius: var(--radius-sm); overflow: hidden;
+    background: var(--surface); border: 1px solid var(--border); margin-bottom: 8px;
+  }
+  .gallery-main img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gallery-thumbs { display: flex; gap: 7px; overflow-x: auto; padding-bottom: 2px; }
+  .gallery-thumbs button {
+    flex: none; width: 64px; height: 48px; padding: 0; border-radius: 8px; overflow: hidden;
+    border: 2px solid transparent; background: var(--surface-2); opacity: .7;
+  }
+  .gallery-thumbs button.active { border-color: var(--accent); opacity: 1; }
+  .gallery-thumbs img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .section-heading { font-size: 12.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin: 0 0 10px; }
+  .facility-groups { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+  .facility-group-title { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+  .amenity-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { background: var(--chip-bg); color: var(--chip-text); border-radius: 999px; padding: 4px 11px; font-size: 11.5px; font-weight: 700; }
   .chip.more { background: transparent; color: var(--muted); }
 
-  .room-list { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; }
-  .no-rooms { padding: 14px; color: var(--muted); font-size: 12.5px; }
-  .room-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 13px; border-bottom: 1px solid var(--border); }
-  .room-row:last-child { border-bottom: none; }
+  .room-list { display: flex; flex-direction: column; gap: 10px; }
+  .room-card {
+    display: flex; gap: 12px; padding: 12px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+  .room-thumb {
+    width: 68px; height: 68px; flex: none; border-radius: 8px; overflow: hidden;
+    background: var(--surface-2); display: flex; align-items: center; justify-content: center; color: var(--muted-2); font-size: 22px;
+  }
+  .room-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .room-main { flex: 1; min-width: 0; }
-  .room-main .name { font-weight: 700; font-size: 13px; margin-bottom: 3px; }
-  .room-facts { display: flex; flex-wrap: wrap; gap: 3px 10px; font-size: 11.5px; color: var(--muted); }
+  .room-main .name { font-weight: 800; font-size: 13.5px; margin-bottom: 3px; }
+  .room-facts { display: flex; flex-wrap: wrap; gap: 3px 10px; font-size: 12px; color: var(--muted); }
   .room-facts span.fact::before { content: "•"; margin-right: 10px; color: var(--border-strong); }
   .room-facts span.fact:first-child::before { content: none; margin-right: 0; }
   .room-amenities { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
-  .room-amenities .chip { font-size: 10px; padding: 2px 7px; }
-  .room-price-col { flex: none; text-align: right; }
-  .room-price-col .price { display: block; font-weight: 800; font-size: 14.5px; color: var(--accent-dark); white-space: nowrap; }
-  .room-price-col .cancel-note { display: block; font-size: 10px; color: var(--ok); font-weight: 600; margin-top: 2px; white-space: nowrap; }
+  .room-amenities .chip { font-size: 10px; padding: 2px 8px; }
+  .room-price-col { flex: none; text-align: right; align-self: center; }
+  .room-price-col .price { display: block; font-weight: 800; font-size: 15px; color: var(--coral-dark); white-space: nowrap; }
+  .room-price-col .cancel-note { display: block; font-size: 10px; color: var(--ok); font-weight: 700; margin-top: 2px; white-space: nowrap; }
   .room-price-col .no-price { font-size: 11px; color: var(--muted-2); font-style: italic; white-space: nowrap; }
 
   @media (max-width: 480px) {
-    .hotel-thumb { width: 58px; height: 58px; font-size: 19px; }
-    .hotel-title-row h3 { font-size: 13.5px; }
-    .hotel-loc { max-width: 46vw; }
-    .hotel-price-block .from-label { display: none; }
-    .hotel-price-block .price-big { font-size: 15px; }
+    .room-card { flex-wrap: wrap; }
+    .room-thumb { width: 52px; height: 52px; }
+    .room-price-col { text-align: left; align-self: auto; width: 100%; padding-top: 6px; border-top: 1px dashed var(--border); }
+    .hotel-title-row h3 { font-size: 15px; }
+    .price-block .price-big { font-size: 19px; }
   }
 
-  .hotel-link-row { margin-top: 12px; }
-
-  .empty-state, .center-note { text-align: center; padding: 36px 20px; color: var(--muted); }
-  .empty-state .big-ico { font-size: 34px; margin-bottom: 10px; }
-  .empty-state h3 { margin: 0 0 4px; color: var(--text); font-size: 15.5px; }
+  .empty-state, .center-note { text-align: center; padding: 40px 20px; color: var(--muted); }
+  .empty-state .big-ico { font-size: 36px; margin-bottom: 10px; }
+  .empty-state h3 { margin: 0 0 4px; color: var(--text); font-size: 16px; font-weight: 800; }
   .empty-state p { margin: 0; font-size: 13.5px; }
 
   footer.foot { max-width: 1080px; margin: 8px auto 0; padding: 0 20px 32px; color: var(--muted-2); font-size: 12px; }
@@ -252,18 +379,22 @@
 </style>
 </head>
 <body>
-<header class="top">
-  <div class="wrap">
-    <h1>Booking Scraper</h1>
-    <p>Localhost search UI — every result comes from a live Booking.com search, right now.</p>
+<header class="hero">
+  <div class="hero-inner">
+    <span class="hero-eyebrow">● Live from Booking.com</span>
+    <h1>Find real hotel prices, in seconds — not tabs.</h1>
+    <p class="sub">Every search here hits Booking.com live, right now — real hotels, real rooms, real prices, in English, in your currency.</p>
   </div>
 </header>
 
 <main>
-  <section class="card">
+  <section class="card search-card" aria-label="Search hotels">
     <div class="field-group dest">
       <label for="destination">Destination</label>
-      <input id="destination" name="destination" placeholder="e.g. Dhaka, Bogota, Singapore" autocomplete="off">
+      <div class="dest-input-wrap">
+        <span class="dest-icon" aria-hidden="true">📍</span>
+        <input id="destination" name="destination" placeholder="Where to? e.g. Dhaka, Bogota, Singapore" autocomplete="off">
+      </div>
     </div>
     <div class="grid-trip">
       <div class="field-group">
@@ -276,15 +407,15 @@
       </div>
       <div class="field-group">
         <label for="adults">Adults</label>
-        <input id="adults" name="adults" type="number" min="1" max="10" value="2">
+        <input id="adults" name="adults" type="number" min="1" max="10" value="2" inputmode="numeric">
       </div>
       <div class="field-group">
         <label for="children">Children</label>
-        <input id="children" name="children" type="number" min="0" max="10" value="0">
+        <input id="children" name="children" type="number" min="0" max="10" value="0" inputmode="numeric">
       </div>
       <div class="field-group">
         <label for="rooms">Rooms</label>
-        <input id="rooms" name="rooms" type="number" min="1" max="5" value="1">
+        <input id="rooms" name="rooms" type="number" min="1" max="5" value="1" inputmode="numeric">
       </div>
       <div class="field-group">
         <label for="currency">Currency</label>
@@ -294,26 +425,27 @@
           <option value="COP"></option><option value="BDT"></option><option value="THB"></option>
           <option value="SGD"></option><option value="MXN"></option><option value="BRL"></option>
           <option value="INR"></option><option value="AUD"></option><option value="JPY"></option>
+          <option value="AED"></option>
         </datalist>
       </div>
       <div class="field-group">
         <label for="max_hotels">Hotel limit</label>
-        <input id="max_hotels" name="max_hotels" type="number" min="1" max="50" value="5">
+        <input id="max_hotels" name="max_hotels" type="number" min="1" max="50" value="5" inputmode="numeric">
       </div>
     </div>
-    <button id="search-btn" class="btn-primary">Search Booking.com</button>
+    <button id="search-btn" class="btn-primary">🔎 Search Booking.com</button>
   </section>
 
-  <div id="banner" class="banner hidden"></div>
+  <div id="banner" class="banner hidden" role="status" aria-live="polite"></div>
 
-  <section id="progress-card" class="card hidden">
+  <section id="progress-card" class="card hidden" aria-label="Search progress">
     <div class="row-between">
       <div>
         <h2>Searching</h2>
-        <div class="sub" id="progress-sub">Starting…</div>
+        <div class="sub" id="progress-sub" aria-live="polite">Starting…</div>
       </div>
       <div class="row-between" style="gap:10px;">
-        <span id="status-pill" class="pill running">running</span>
+        <span id="status-pill" class="pill running" aria-live="polite">running</span>
         <button id="cancel-btn" class="btn-cancel" hidden>Cancel</button>
       </div>
     </div>
@@ -333,13 +465,33 @@
     </details>
   </section>
 
-  <section id="results-card" class="card hidden">
+  <section id="results-card" class="card hidden" aria-label="Search results">
     <div class="row-between">
-      <h2 style="font-size:16px;">Results</h2>
-      <a id="download-link" class="btn-link" style="text-decoration:none;" hidden>⬇ Download JSON</a>
+      <h2 style="font-size:17px;">Results</h2>
     </div>
-    <div id="summary" class="summary"></div>
+    <div class="search-recap" id="search-recap"></div>
+    <div id="summary" class="results-summary-row"></div>
     <div id="fail-box"></div>
+
+    <div class="toolbar" id="toolbar" hidden>
+      <div class="toolbar-group">
+        <label for="sort-select" class="visually-hidden">Sort results</label>
+        <select id="sort-select" class="sort-select">
+          <option value="price-asc">Price: low to high</option>
+          <option value="price-desc">Price: high to low</option>
+          <option value="name-asc">Hotel name: A–Z</option>
+          <option value="rooms-desc">Most room types</option>
+        </select>
+        <button id="copy-all-btn" class="btn-chip" type="button">📋 Copy all results</button>
+        <span id="copy-all-feedback" class="copy-feedback" role="status" aria-live="polite">Copied!</span>
+      </div>
+      <div class="export-row">
+        <a id="download-json" class="btn-chip" hidden>⬇ JSON</a>
+        <a id="download-xlsx" class="btn-chip" hidden>⬇ Excel</a>
+        <a id="download-psv" class="btn-chip" hidden>⬇ PSV</a>
+      </div>
+    </div>
+
     <div id="results"></div>
   </section>
 </main>
@@ -468,7 +620,13 @@ function appendProgress(lines) {
   pre.scrollTop = pre.scrollHeight;
 }
 
-// ---- Results rendering ----
+// ---------------------------------------------------------------------------
+// Results rendering
+// ---------------------------------------------------------------------------
+
+let CURRENT_HOTELS = [];   // the payload.results array currently shown
+let CURRENT_JOB_ID = null;
+
 function money(u) {
   if (u.price_amount != null) {
     const n = (u.price_amount % 1 === 0) ? u.price_amount.toFixed(0) : u.price_amount.toFixed(2);
@@ -478,14 +636,28 @@ function money(u) {
   return null;
 }
 
-function bestImage(urlList) {
-  return (urlList || []).find((u) => !!u) || null;
+function moneyPlain(u) {
+  if (u.price_amount != null) {
+    const n = (u.price_amount % 1 === 0) ? u.price_amount.toFixed(0) : u.price_amount.toFixed(2);
+    return `${n} ${u.price_currency || ""}`.trim();
+  }
+  return u.price_text || "";
 }
 
 function cheapestUnit(units) {
   const priced = (units || []).filter((u) => u.price_amount != null);
   if (!priced.length) return null;
   return priced.reduce((min, u) => (u.price_amount < min.price_amount ? u : min));
+}
+
+function allImages(item) {
+  const h = item.hotel || {};
+  const fromUnits = (item.units || []).flatMap((u) => u.images || []);
+  return [...(h.images || []), ...fromUnits].filter(Boolean);
+}
+
+function bestImage(item) {
+  return allImages(item)[0] || null;
 }
 
 function amenityChips(list, limit) {
@@ -495,18 +667,94 @@ function amenityChips(list, limit) {
   return shown + (rest > 0 ? `<span class="chip more">+${rest} more</span>` : "");
 }
 
+function ratingBadge(h, cls) {
+  if (h.rating_score == null) return "";
+  const label = h.rating_label ? ` · ${esc(h.rating_label)}` : "";
+  return `<span class="badge rating ${cls || ''}">★ ${esc(h.rating_score)}${label}</span>`;
+}
+
+function availabilityBadge(h, cls) {
+  if (!h.availability) return "";
+  return `<span class="badge availability ${cls || ''}">${esc(h.availability)}</span>`;
+}
+
+// ---- Facility grouping (client-side only; groups already-extracted real
+// amenity strings -- never invents a facility that wasn't in the data) ----
+const FACILITY_GROUPS = [
+  { title: "Internet & workspace", keys: ["wifi", "internet", "workspace", "desk"] },
+  { title: "Wellness & pool", keys: ["pool", "spa", "sauna", "gym", "fitness", "hot tub", "wellness"] },
+  { title: "Food & drink", keys: ["kitchen", "restaurant", "bar", "breakfast", "coffee", "kitchenette", "dining"] },
+  { title: "Parking & transport", keys: ["parking", "garage", "shuttle", "airport"] },
+  { title: "Family & comfort", keys: ["family", "child", "crib", "playground", "garden", "balcony", "terrace", "view", "air conditioning", "heating"] },
+  { title: "Safety & services", keys: ["security", "24-hour", "24 hour", "front desk", "reception", "safe", "laundry", "elevator", "non-smoking"] },
+];
+
+function groupFacilities(list) {
+  const items = (list || []).slice();
+  const groups = FACILITY_GROUPS.map((g) => ({ title: g.title, items: [] }));
+  const other = [];
+  for (const item of items) {
+    const low = item.toLowerCase();
+    const group = groups.find((g) => FACILITY_GROUPS.find((fg) => fg.title === g.title).keys.some((k) => low.includes(k)));
+    if (group) group.items.push(item);
+    else other.push(item);
+  }
+  const nonEmpty = groups.filter((g) => g.items.length);
+  if (other.length) nonEmpty.push({ title: "More facilities", items: other });
+  return nonEmpty;
+}
+
+function renderFacilities(amenities) {
+  if (!amenities || !amenities.length) return "";
+  const groups = groupFacilities(amenities);
+  return `<div class="facility-groups">${groups.map((g) => `
+    <div class="facility-group">
+      <div class="facility-group-title">${esc(g.title)}</div>
+      <div class="amenity-chips">${g.items.map((a) => `<span class="chip">${esc(a)}</span>`).join("")}</div>
+    </div>`).join("")}</div>`;
+}
+
+function renderGallery(images, hotelName) {
+  if (!images.length) return "";
+  const main = images[0];
+  return `
+    <div class="gallery" data-images='${esc(JSON.stringify(images))}'>
+      <div class="gallery-main"><img id="gallery-main-img" loading="lazy" src="${esc(main)}" alt="Photo of ${esc(hotelName)}"></div>
+      ${images.length > 1 ? `<div class="gallery-thumbs" role="listbox" aria-label="Photo thumbnails">
+        ${images.slice(0, 8).map((img, i) => `
+          <button type="button" class="${i === 0 ? 'active' : ''}" role="option" aria-selected="${i === 0}"
+                  onclick="setGalleryImage(this)" data-src="${esc(img)}">
+            <img loading="lazy" src="${esc(img)}" alt="">
+          </button>`).join("")}
+      </div>` : ""}
+    </div>`;
+}
+
+function setGalleryImage(btn) {
+  const wrap = btn.closest(".gallery");
+  const mainImg = wrap.querySelector("#gallery-main-img") || wrap.querySelector(".gallery-main img");
+  mainImg.src = btn.dataset.src;
+  wrap.querySelectorAll(".gallery-thumbs button").forEach((b) => {
+    b.classList.toggle("active", b === btn);
+    b.setAttribute("aria-selected", b === btn ? "true" : "false");
+  });
+}
+window.setGalleryImage = setGalleryImage;
+
 function renderRoom(u) {
+  const img = (u.images || [])[0];
   const facts = [];
   if (u.beds_text) facts.push(u.beds_text);
   if (u.size_m2 != null) facts.push(`${u.size_m2} m²`);
   if (u.plan_name) facts.push(u.plan_name);
   const price = money(u);
   return `
-    <div class="room-row">
+    <div class="room-card">
+      <div class="room-thumb">${img ? `<img loading="lazy" src="${esc(img)}" alt="" onerror="this.parentElement.textContent='🛏'">` : "🛏"}</div>
       <div class="room-main">
         <div class="name">${esc(u.unit_name || "Room")}</div>
         ${facts.length ? `<div class="room-facts">${facts.map((f) => `<span class="fact">${esc(f)}</span>`).join("")}</div>` : ""}
-        ${u.amenities && u.amenities.length ? `<div class="room-amenities">${amenityChips(u.amenities, 4)}</div>` : ""}
+        ${u.amenities && u.amenities.length ? `<div class="room-amenities">${amenityChips(u.amenities, 5)}</div>` : ""}
       </div>
       <div class="room-price-col">
         ${price ? `<span class="price">${price}</span>` : `<span class="no-price">Price unavailable</span>`}
@@ -515,51 +763,168 @@ function renderRoom(u) {
     </div>`;
 }
 
+function hotelTextSummary(item) {
+  const h = item.hotel || {};
+  const units = item.units || [];
+  const cheapest = cheapestUnit(units);
+  const loc = [h.city, h.country].filter(Boolean).join(", ");
+  const lines = [h.hotel_name || h.hotel_id];
+  if (loc) lines.push(loc);
+  if (h.address) lines.push(h.address);
+  if (cheapest) lines.push(`From ${moneyPlain(cheapest)}`);
+  if (h.availability) lines.push(h.availability);
+  if (h.rating_score != null) {
+    lines.push(`Rating: ${h.rating_score}${h.rating_label ? " (" + h.rating_label + ")" : ""}${h.review_count != null ? ", " + h.review_count + " reviews" : ""}`);
+  }
+  if (units.length) lines.push(`Room types: ${units.map((u) => u.unit_name).filter(Boolean).join("; ")}`);
+  if (h.amenities && h.amenities.length) lines.push(`Key facilities: ${h.amenities.slice(0, 10).join(", ")}`);
+  if (h.booking_url) lines.push(h.booking_url);
+  return lines.join("\n");
+}
+
+async function copyToClipboard(text, feedbackEl) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (err) {
+    // Fallback for non-secure contexts / older browsers.
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch (_) { /* best effort */ }
+    document.body.removeChild(ta);
+  }
+  if (feedbackEl) {
+    feedbackEl.classList.add("show");
+    setTimeout(() => feedbackEl.classList.remove("show"), 1800);
+  }
+}
+
+function copyHotel(index) {
+  const item = CURRENT_HOTELS[index];
+  if (!item) return;
+  const btn = document.querySelector(`.hotel-card[data-idx="${index}"] .copy-hotel-feedback`);
+  copyToClipboard(hotelTextSummary(item), btn);
+}
+window.copyHotel = copyHotel;
+
+function allResultsAsTsv() {
+  const cols = ["Hotel Name", "Rating", "Availability", "City", "Country", "Room Name", "Price", "Currency", "Hotel URL"];
+  const lines = [cols.join("\t")];
+  for (const item of CURRENT_HOTELS) {
+    const h = item.hotel || {};
+    const units = item.units && item.units.length ? item.units : [{}];
+    for (const u of units) {
+      lines.push([
+        h.hotel_name || "", h.rating_score != null ? h.rating_score : "", h.availability || "",
+        h.city || "", h.country || "", u.unit_name || "",
+        u.price_amount != null ? u.price_amount : "", u.price_currency || "", h.booking_url || "",
+      ].map((v) => String(v).replace(/\t/g, " ").replace(/\n/g, " ")).join("\t"));
+    }
+  }
+  return lines.join("\n");
+}
+
 function renderHotelCard(item, index, openByDefault) {
   const h = item.hotel || {};
   const units = item.units || [];
-  const img = bestImage(units.flatMap((u) => u.images || []));
+  const images = allImages(item);
+  const img = images[0];
   const loc = [h.city, h.country].filter(Boolean).join(", ");
   const cheapest = cheapestUnit(units);
   const fromPrice = cheapest ? money(cheapest) : null;
+  const topAmenities = (h.amenities || []).slice(0, 3);
+  const detailId = `hotel-detail-${index}`;
+
   return `
-    <div class="hotel-card${openByDefault ? " open" : ""}" data-idx="${index}">
-      <div class="hotel-head" onclick="toggleHotel(${index})">
-        <div class="hotel-thumb">${img ? `<img loading="lazy" src="${esc(img)}" alt="" onerror="this.parentElement.textContent='🏨'">` : "🏨"}</div>
-        <div class="hotel-main">
-          <div class="hotel-title-row">
-            <h3 title="${esc(h.hotel_name || h.hotel_id)}">${esc(h.hotel_name || h.hotel_id)}</h3>
-            ${h.property_type ? `<span class="type-chip">${esc(h.property_type)}</span>` : ""}
+    <article class="hotel-card${openByDefault ? " open" : ""}" data-idx="${index}">
+      <button type="button" class="hotel-card-head" onclick="toggleHotel(${index})"
+              aria-expanded="${openByDefault ? "true" : "false"}" aria-controls="${detailId}">
+        <div class="hotel-card-top-row">
+          <div class="hotel-image-wrap">
+            ${img ? `<img loading="lazy" src="${esc(img)}" alt="Photo of ${esc(h.hotel_name || '')}" onerror="this.parentElement.innerHTML='<div class=&quot;hotel-image-fallback&quot;>🏨</div>'">` : `<div class="hotel-image-fallback">🏨</div>`}
           </div>
-          ${loc ? `<div class="hotel-loc">${esc(loc)}</div>` : ""}
-          <div class="hotel-sub-row">${units.length} room type${units.length === 1 ? "" : "s"} found</div>
+          <div class="hotel-card-body">
+            <div class="hotel-title-row">
+              <h3 title="${esc(h.hotel_name || h.hotel_id)}">${esc(h.hotel_name || h.hotel_id)}</h3>
+              ${h.property_type ? `<span class="type-chip">${esc(h.property_type)}</span>` : ""}
+            </div>
+            ${loc ? `<div class="hotel-loc">📍 ${esc(loc)}</div>` : ""}
+            ${(h.rating_score != null || h.availability) ? `<div class="badge-row">${ratingBadge(h)}${availabilityBadge(h)}</div>` : ""}
+            ${topAmenities.length ? `<div class="hotel-highlights">${amenityChips(topAmenities, 3)}</div>` : ""}
+            <div class="hotel-card-bottom">
+              <div class="room-count">${units.length} room type${units.length === 1 ? "" : "s"} available</div>
+              ${fromPrice ? `<div class="price-block"><span class="from-label">From</span><span class="price-big">${fromPrice}</span></div>` : ""}
+            </div>
+          </div>
         </div>
-        <div class="hotel-price-block">
-          ${fromPrice ? `<div class="price-wrap"><span class="from-label">From</span><span class="price-big">${fromPrice}</span></div>` : ""}
-          <span class="chevron">▾</span>
+        <div class="expand-affordance"><span>${openByDefault ? "Hide rooms & photos" : "View rooms & photos"}</span> <span class="chevron">▾</span></div>
+      </button>
+      <div class="hotel-detail" id="${detailId}" ${openByDefault ? "" : "hidden"}>
+        <div class="expand-head">
+          <div>
+            <div class="hotel-address">${esc(h.address || loc || "")}</div>
+            <div class="badges-inline">${ratingBadge(h)}${availabilityBadge(h)}</div>
+          </div>
+          <div class="expand-actions">
+            <button type="button" class="btn-chip" onclick="copyHotel(${index})">📋 Copy hotel</button>
+            <span class="copy-hotel-feedback copy-feedback" role="status" aria-live="polite">Copied!</span>
+            ${h.booking_url ? `<a class="btn-chip coral" href="${esc(h.booking_url)}" target="_blank" rel="noopener">Open on Booking.com ↗</a>` : ""}
+          </div>
         </div>
+
+        ${images.length ? `<div class="section-heading">Photos</div>${renderGallery(images, h.hotel_name || "")}` : ""}
+
+        ${h.amenities && h.amenities.length ? `<div class="section-heading">Facilities</div>${renderFacilities(h.amenities)}` : ""}
+
+        <div class="section-heading">Rooms</div>
+        <div class="room-list">${units.map(renderRoom).join("") || `<div class="no-rooms" style="color:var(--muted);font-size:12.5px;">No room details were extracted for this hotel.</div>`}</div>
       </div>
-      <div class="hotel-detail">
-        ${h.address ? `<div class="hotel-address">${esc(h.address)}</div>` : ""}
-        ${h.amenities && h.amenities.length ? `<div class="amenity-chips">${amenityChips(h.amenities, 8)}</div>` : ""}
-        <div class="room-list">${units.map(renderRoom).join("") || `<div class="no-rooms">No room details were extracted for this hotel.</div>`}</div>
-        <div class="hotel-link-row">
-          ${h.booking_url ? `<a class="btn-link" href="${esc(h.booking_url)}" target="_blank" rel="noopener">Open on Booking.com ↗</a>` : ""}
-        </div>
-      </div>
-    </div>`;
+    </article>`;
 }
 
 function toggleHotel(idx) {
   const el = document.querySelector(`.hotel-card[data-idx="${idx}"]`);
-  if (el) el.classList.toggle("open");
+  if (!el) return;
+  const opening = !el.classList.contains("open");
+  el.classList.toggle("open", opening);
+  const head = el.querySelector(".hotel-card-head");
+  const detail = el.querySelector(".hotel-detail");
+  head.setAttribute("aria-expanded", opening ? "true" : "false");
+  if (detail) detail.hidden = !opening;
+  const label = head.querySelector(".expand-affordance span");
+  if (label) label.textContent = opening ? "Hide rooms & photos" : "View rooms & photos";
 }
 window.toggleHotel = toggleHotel;
+
+function sortHotels(hotels, mode) {
+  const out = hotels.slice();
+  const priceOf = (item) => {
+    const c = cheapestUnit(item.units || []);
+    return c ? c.price_amount : Infinity;
+  };
+  if (mode === "price-asc") out.sort((a, b) => priceOf(a) - priceOf(b));
+  else if (mode === "price-desc") out.sort((a, b) => priceOf(b) - priceOf(a));
+  else if (mode === "name-asc") out.sort((a, b) => (a.hotel.hotel_name || "").localeCompare(b.hotel.hotel_name || ""));
+  else if (mode === "rooms-desc") out.sort((a, b) => (b.units || []).length - (a.units || []).length);
+  return out;
+}
+
+function renderHotelList() {
+  const hotels = CURRENT_HOTELS;
+  if (!hotels.length) return;
+  $("results").innerHTML = `<div class="hotel-list">${
+    hotels.map((item, i) => renderHotelCard(item, i, hotels.length <= 3)).join("")
+  }</div>`;
+}
 
 function renderResults(payload) {
   $("results-card").classList.remove("hidden");
   const hotels = Array.isArray(payload.results) ? payload.results : [];
   const summary = payload.summary || {};
+  const params = payload.params || {};
   const unitCount = hotels.reduce((n, h) => n + (h.units ? h.units.length : 0), 0);
   const collected = hotels.find((h) => h.collected_at);
   const ts = collected ? collected.collected_at.replace("T", " ").replace("Z", " UTC") : (payload.finished_at || "");
@@ -567,6 +932,16 @@ function renderResults(payload) {
   const requested = summary.requested_hotels != null ? summary.requested_hotels : hotels.length;
   const failed = summary.failed_hotels || 0;
   const retries = summary.retries_total || 0;
+
+  if (params.destination) {
+    const guestBits = [];
+    if (params.adults) guestBits.push(`${params.adults} adult${params.adults === 1 ? "" : "s"}`);
+    if (params.children) guestBits.push(`${params.children} child${params.children === 1 ? "" : "ren"}`);
+    if (params.rooms) guestBits.push(`${params.rooms} room${params.rooms === 1 ? "" : "s"}`);
+    $("search-recap").innerHTML = `<b>${esc(params.destination)}</b> · ${esc(params.checkin || "")} → ${esc(params.checkout || "")} · ${esc(guestBits.join(", "))} · ${esc(params.currency || "")}`;
+  } else {
+    $("search-recap").textContent = "";
+  }
 
   const stats = [
     `<div class="stat"><b>${hotels.length}</b><span>Hotels</span></div>`,
@@ -587,15 +962,18 @@ function renderResults(payload) {
     </div>`;
   }
 
-  const dl = $("download-link");
-  if (payload.download_url) {
-    dl.href = payload.download_url;
-    dl.hidden = false;
+  CURRENT_JOB_ID = payload.id || CURRENT_JOB_ID;
+  const dlJson = $("download-json"), dlXlsx = $("download-xlsx"), dlPsv = $("download-psv");
+  if (payload.download_url && hotels.length) {
+    dlJson.href = payload.download_url; dlJson.hidden = false;
+    dlXlsx.href = `/api/search/${CURRENT_JOB_ID}/export.xlsx`; dlXlsx.hidden = false;
+    dlPsv.href = `/api/search/${CURRENT_JOB_ID}/export.psv`; dlPsv.hidden = false;
   } else {
-    dl.hidden = true;
+    dlJson.hidden = dlXlsx.hidden = dlPsv.hidden = true;
   }
 
   if (!hotels.length) {
+    $("toolbar").hidden = true;
     const reason = summary.failure_reason;
     $("results").innerHTML = `
       <div class="empty-state">
@@ -606,10 +984,19 @@ function renderResults(payload) {
     return;
   }
 
-  $("results").innerHTML = `<div class="hotel-list">${
-    hotels.map((item, i) => renderHotelCard(item, i, hotels.length <= 3)).join("")
-  }</div>`;
+  $("toolbar").hidden = false;
+  CURRENT_HOTELS = sortHotels(hotels, $("sort-select").value);
+  renderHotelList();
 }
+
+$("sort-select").addEventListener("change", () => {
+  CURRENT_HOTELS = sortHotels(CURRENT_HOTELS, $("sort-select").value);
+  renderHotelList();
+});
+
+$("copy-all-btn").addEventListener("click", () => {
+  copyToClipboard(allResultsAsTsv(), $("copy-all-feedback"));
+});
 
 // ---- Job polling ----
 async function pollJob(jobId) {
@@ -697,7 +1084,7 @@ $("search-btn").addEventListener("click", async () => {
   $("live-counts").innerHTML = "";
   $("progress-sub").textContent = "Starting…";
   renderStepper({ phase: "resolve" }, "running");
-  $("download-link").hidden = true;
+  $("download-json").hidden = $("download-xlsx").hidden = $("download-psv").hidden = true;
 
   const body = {
     destination: $("destination").value,
@@ -734,6 +1121,7 @@ $("search-btn").addEventListener("click", async () => {
     }
     const { job_id: jobId } = await res.json();
     window.__jobId = jobId;
+    CURRENT_JOB_ID = jobId;
     await pollJob(jobId);
   } catch (err) {
     showBanner(`Could not start search: ${err.message}`, "error");

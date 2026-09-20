@@ -59,6 +59,10 @@ class Storage:
                 "amenities": hotel.hotel.amenities,
                 "amenity_flags": hotel.hotel.amenity_flags,
                 "images": hotel.hotel.images,
+                "rating_score": hotel.hotel.rating_score,
+                "rating_label": hotel.hotel.rating_label,
+                "review_count": hotel.hotel.review_count,
+                "availability": hotel.hotel.availability,
             },
             "units": [
                 {

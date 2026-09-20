@@ -23,10 +23,11 @@ from pathlib import Path
 from typing import Dict, List, Optional
 
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response
 from pydantic import BaseModel, Field, model_validator
 
 import booking_scraper.logger as scraper_log
+from .export import flatten_results, rows_to_psv, rows_to_xlsx_bytes
 from .models import HotelSearchParams
 from .orchestrator import (
     ScrapeOrchestrator,
@@ -337,6 +338,45 @@ def job_download(job_id: str):
         out,
         media_type="application/json",
         filename=out.name,
+    )
+
+
+@app.get("/api/search/{job_id}/export.xlsx")
+def job_export_xlsx(job_id: str):
+    """Export the job's results as a real .xlsx workbook (openpyxl), one
+    row per room/unit. Missing optional fields are blank cells, never
+    fabricated placeholders."""
+    job = _JOB_BY_ID.get(job_id)
+    if job is None:
+        raise HTTPException(status_code=404, detail="Unknown job id")
+    if not job.results:
+        raise HTTPException(status_code=404, detail="No results for this job")
+    rows = flatten_results(job.results)
+    data = rows_to_xlsx_bytes(rows)
+    filename = f"{Path(job.output_path).stem if job.output_path else job_id}.xlsx"
+    return Response(
+        content=data,
+        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
+
+
+@app.get("/api/search/{job_id}/export.psv")
+def job_export_psv(job_id: str):
+    """Export the job's results as pipe-separated values, one row per
+    room/unit."""
+    job = _JOB_BY_ID.get(job_id)
+    if job is None:
+        raise HTTPException(status_code=404, detail="Unknown job id")
+    if not job.results:
+        raise HTTPException(status_code=404, detail="No results for this job")
+    rows = flatten_results(job.results)
+    text = rows_to_psv(rows)
+    filename = f"{Path(job.output_path).stem if job.output_path else job_id}.psv"
+    return Response(
+        content=text.encode("utf-8"),
+        media_type="text/plain; charset=utf-8",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )
 
 

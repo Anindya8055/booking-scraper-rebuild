@@ -427,7 +427,56 @@ def is_property_amenity(text: Optional[str]) -> bool:
         return False
     if any(re.search(p, low) for p in _ROOM_ONLY_PATTERNS):
         return False
+    if is_scarcity_message(t):
+        return False
     return True
+
+
+# ---------------------------------------------------------------------------
+# Availability / scarcity-message detection
+#
+# Booking.com renders an urgency/scarcity line (e.g. "We have 2 left",
+# "Only 1 room left at this price") inline near the property's facilities
+# text. It used to leak into the generic amenities sweep above as junk.
+# This regex was written from our own genuinely-scraped Booking.com output
+# (real text observed in this project's own live results), and the pattern
+# itself -- Booking exposing a scarcity string as a distinct signal -- is
+# corroborated by the open-source factden/booking-com-scraper project's
+# published field dictionary (a `scarcityMessage` field, e.g. "We have 2
+# left"). No Booking.com official page/API was consulted for this; only
+# our own already-collected scrape output and that public GitHub project's
+# documented field.
+#
+# This is intentionally a *presence* check only: absence never implies
+# "available" -- callers must leave the field out entirely when nothing
+# matches, never fabricate a positive availability state.
+# ---------------------------------------------------------------------------
+_SCARCITY_RE = re.compile(
+    r"\b(?:we have|only)\s+\d+\s+(?:left|rooms?\s+left|apartments?\s+left|units?\s+left)\b"
+    r"|\bsold out\b"
+    r"|\bno\s+(?:rooms?|availability)\s+left\b"
+    r"|\bin high demand\b"
+    r"|\b\d+\s+(?:room|unit|apartment)s?\s+left\b",
+    re.I,
+)
+
+
+def is_scarcity_message(text: Optional[str]) -> bool:
+    """True if *text* is a Booking.com availability/scarcity urgency line."""
+    t = normalize_ws(text)
+    return bool(t and _SCARCITY_RE.search(t))
+
+
+def extract_scarcity_message(texts: List[str]) -> Optional[str]:
+    """Return the first genuine scarcity/urgency line found in *texts*.
+
+    *texts* should be raw candidate strings (e.g. facility list items)
+    already extracted from the live page; this never invents one."""
+    for t in texts:
+        norm = normalize_ws(t)
+        if norm and _SCARCITY_RE.search(norm):
+            return norm
+    return None
 
 
 # ---------------------------------------------------------------------------
