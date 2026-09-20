@@ -105,6 +105,55 @@ Run `.venv/bin/python -m src.cli --help` for the full help text. Detailed crawl
 tracing is kept out of the normal demo output and written to
 `data/logs/booking_debug.log` instead.
 
+## Localhost browser UI
+
+The same scraper can be driven from a local web page instead of the CLI. The web app
+is a thin wrapper around the existing `src.orchestrator.py` — it adds **no second
+scraper and no mock data**; every search still hits real Booking.com through the exact
+same application-layer code path.
+
+### Start
+
+```bash
+.venv/bin/uvicorn src.webapp:app --host 127.0.0.1 --port 8000
+```
+
+Then open <http://127.0.0.1:8000>.
+
+- The server binds to `127.0.0.1` only (local access; not publicly exposed).
+- One search can run at a time. A second submission while a search is already running
+  is rejected with a clear message. Searches run in a background worker (own event
+  loop), so the browser stays responsive and progress is polled from the server.
+- Detailed crawl tracing is not shown in the browser; it still goes to
+  `data/logs/booking_debug.log`.
+
+### The form
+
+Fields match the CLI defaults: Destination, Check-in (tomorrow), Check-out (+1 day),
+Adults (2), Children (0), Rooms (1), Currency (USD), Max hotels (5). Press
+**Search Booking.com** to start.
+
+The page then shows live progress (destination resolution → search phase → hotel by
+hotel), and when finished:
+
+- a summary (number of hotels, number of rooms/units, collection timestamp);
+- one card per hotel with name, property type, city, country, address, a
+  **Booking.com** link, and property amenities;
+- a table of rooms per hotel with room name, beds, size, price, plan, cancellation,
+  room amenities, and photos;
+- a **Download JSON** button that serves the very file written by the existing
+  storage layer (`data/booking_results_<timestamp>.json`).
+
+### API
+
+| Method | Path                         | Purpose                          |
+| ------ | ---------------------------- | -------------------------------- |
+| GET    | `/`                          | The UI page                      |
+| GET    | `/api/health`                | Health check                     |
+| POST   | `/api/search`                | Start a search (JSON payload)    |
+| GET    | `/api/search/{job_id}`       | Poll status/progress/results     |
+| GET    | `/api/search/{job_id}/download` | Download the generated JSON    |
+
 ## Output structure
 
 Each run writes one JSON file: `data/booking_results_<timestamp>.json`. It is a
@@ -180,6 +229,8 @@ src/client.py        Booking.com browser client (search + detail extraction)
 src/destination.py   live destination resolution + config fallback
 src/models.py        normalized data models
 src/storage.py       grouped JSON writer
+src/webapp.py        localhost FastAPI app (thin wrapper over the orchestrator)
+src/web/index.html   localhost browser UI
 booking_scraper/     proven extraction layer (search, detail, browser, utils)
 data/                generated JSON output + debug logs (git-ignored)
 ```

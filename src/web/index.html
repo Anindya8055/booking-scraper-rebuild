@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Booking Scraper Rebuild — Localhost</title>
+<style>
+  :root {
+    --bg: #f4f6fa;
+    --card: #ffffff;
+    --border: #e2e8f0;
+    --text: #1e293b;
+    --muted: #64748b;
+    --accent: #0369a1;
+    --accent-dark: #075985;
+    --ok: #15803d;
+    --err: #b91c1c;
+    --warn: #b45309;
+    --chip: #eef2ff;
+    --chip-text: #4338ca;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  }
+  header {
+    background: linear-gradient(135deg, #075985, #0369a1);
+    color: #fff;
+    padding: 18px 24px;
+  }
+  header h1 { margin: 0; font-size: 20px; }
+  header p { margin: 4px 0 0; opacity: .85; font-size: 13px; }
+  main { max-width: 1100px; margin: 0 auto; padding: 24px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+  }
+  label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  input, select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    background: #fff;
+  }
+  input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  button {
+    cursor: pointer;
+    border: none;
+    border-radius: 7px;
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover:not(:disabled) { background: var(--accent-dark); }
+  .btn-primary:disabled { opacity: .55; cursor: not-allowed; }
+  .row-between { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .pill {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .pill.running { background: #fef3c7; color: var(--warn); }
+  .pill.done { background: #dcfce7; color: var(--ok); }
+  .pill.error { background: #fee2e2; color: var(--err); }
+  .banner { padding: 12px 14px; border-radius: 8px; margin-bottom: 16px; font-size: 14px; }
+  .banner.error { background: #fee2e2; color: var(--err); border: 1px solid #fecaca; }
+  .banner.ok { background: #dcfce7; color: var(--ok); border: 1px solid #bbf7d0; }
+  .progress {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12.5px;
+    background: #0f172a;
+    color: #a5f3fc;
+    border-radius: 8px;
+    padding: 12px 14px;
+    max-height: 260px;
+    overflow: auto;
+    white-space: pre-wrap;
+  }
+  .hidden { display: none; }
+  .summary { display: flex; gap: 28px; flex-wrap: wrap; margin: 6px 0 4px; }
+  .summary .stat b { display: block; font-size: 24px; color: var(--accent); }
+  .summary .stat span { font-size: 12px; color: var(--muted); }
+  .hotel { border-top: 1px solid var(--border); padding: 18px 0 6px; }
+  .hotel h3 { margin: 0 0 4px; font-size: 18px; }
+  .hotel .meta { color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+  .hotel .meta a { color: var(--accent); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+  .chip {
+    background: var(--chip);
+    color: var(--chip-text);
+    border-radius: 999px;
+    padding: 2px 10px;
+    font-size: 12px;
+  }
+  table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13.5px; }
+  th, td { text-align: left; padding: 8px 10px; border-top: 1px solid var(--border); vertical-align: top; }
+  th { font-size: 12px; color: var(--muted); background: #f8fafc; }
+  .imgs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .imgs img { width: 70px; height: 48px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); }
+  .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  .price { font-weight: 700; color: var(--accent-dark); }
+  footer { max-width: 1100px; margin: 0 auto; padding: 0 24px 32px; color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Booking Scraper Rebuild</h1>
+  <p>Localhost UI — runs the existing scraper against real Booking.com data.</p>
+</header>
+
+<main>
+  <section class="card">
+    <div class="grid">
+      <div style="grid-column: span 2;">
+        <label for="destination">Destination</label>
+        <input id="destination" name="destination" placeholder="e.g. Bogota" value="">
+      </div>
+      <div>
+        <label for="checkin">Check-in</label>
+        <input id="checkin" name="checkin" type="date">
+      </div>
+      <div>
+        <label for="checkout">Check-out</label>
+        <input id="checkout" name="checkout" type="date">
+      </div>
+      <div>
+        <label for="adults">Adults</label>
+        <input id="adults" name="adults" type="number" min="1" value="2">
+      </div>
+      <div>
+        <label for="children">Children</label>
+        <input id="children" name="children" type="number" min="0" value="0">
+      </div>
+      <div>
+        <label for="rooms">Rooms</label>
+        <input id="rooms" name="rooms" type="number" min="1" value="1">
+      </div>
+      <div>
+        <label for="currency">Currency</label>
+        <input id="currency" name="currency" list="currency-list" value="USD">
+        <datalist id="currency-list">
+          <option value="USD"></option><option value="COP"></option>
+          <option value="EUR"></option><option value="GBP"></option>
+          <option value="MXN"></option><option value="BRL"></option>
+        </datalist>
+      </div>
+      <div>
+        <label for="max_hotels">Max hotels</label>
+        <input id="max_hotels" name="max_hotels" type="number" min="1" value="5">
+      </div>
+    </div>
+    <div class="row-between" style="margin-top: 14px;">
+      <button id="search-btn" class="btn-primary">Search Booking.com</button>
+      <div id="status-pill-wrap" class="hidden">
+        <span id="status-pill" class="pill running">running</span>
+        <span id="job-id-label" class="lbl"></span>
+      </div>
+    </div>
+  </section>
+
+  <div id="banner" class="banner hidden"></div>
+
+  <section id="progress-card" class="card hidden">
+    <div class="row-between">
+      <h2 style="margin:0;font-size:16px;">Progress</h2>
+      <a id="download-link" class="btn-primary" style="text-decoration:none;" hidden>Download JSON</a>
+    </div>
+    <pre id="progress" class="progress" style="margin-top:12px;"></pre>
+  </section>
+
+  <section id="results-card" class="card hidden">
+    <h2 style="margin:0 0 4px;font-size:16px;">Results</h2>
+    <div id="summary" class="summary"></div>
+    <div id="results"></div>
+  </section>
+</main>
+
+<footer>
+  Results are written to <code>data/booking_results_*.json</code> by the existing storage layer.
+  Detailed debug logs stay in <code>data/logs/booking_debug.log</code>. Localhost only.
+</footer>
+
+<script>
+"use strict";
+
+const $ = (id) => document.getElementById(id);
+
+function isoAddDays(base, days) {
+  const d = new Date(base);
+  d.setDate(d.getDate() + days);
+  const p = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+}
+
+function setDefaults() {
+  const tomorrow = isoAddDays(new Date(), 1);
+  $("checkin").value = tomorrow;
+  $("checkout").value = isoAddDays(new Date(tomorrow), 1);
+}
+setDefaults();
+
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"']/g, (c) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+  }[c]));
+}
+
+function showBanner(msg, kind) {
+  $("banner").textContent = msg;
+  $("banner").className = "banner " + kind;
+  $("banner").classList.remove("hidden");
+}
+function hideBanner() {
+  $("banner").classList.add("hidden");
+}
+
+function setStatus(state, jobId) {
+  $("status-pill-wrap").classList.remove("hidden");
+  const pill = $("status-pill");
+  pill.className = "pill " + state;
+  pill.textContent = state;
+  $("job-id-label").textContent = jobId ? `job ${jobId}` : "";
+}
+
+function appendProgress(lines) {
+  const pre = $("progress");
+  pre.textContent += lines.join("\n") + (lines.length ? "\n" : "");
+  pre.scrollTop = pre.scrollHeight;
+  $("progress-card").classList.remove("hidden");
+}
+
+function renderResults(payload) {
+  $("results-card").classList.remove("hidden");
+  const hotels = Array.isArray(payload.results) ? payload.results : [];
+  const unitCount = hotels.reduce((n, h) => n + (h.units ? h.units.length : 0), 0);
+  const collected = hotels.find((h) => h.collected_at);
+  const ts = collected ? collected.collected_at.replace("T", " ").replace("Z", "") : (payload.finished_at || "");
+
+  $("summary").innerHTML = `
+    <div class="stat"><b>${hotels.length}</b><span>Hotels</span></div>
+    <div class="stat"><b>${unitCount}</b><span>Rooms / units</span></div>
+    <div class="stat"><b>${esc(ts)}</b><span>Collection timestamp</span></div>
+  `;
+
+  const dl = $("download-link");
+  if (payload.download_url) {
+    dl.href = payload.download_url;
+    dl.hidden = false;
+  }
+
+  $("results").innerHTML = hotels.map((item) => {
+    const h = item.hotel || {};
+    const units = (item.units || []).map((u) => renderUnit(u)).join("");
+    const amenityChips = (h.amenities || []).map((a) => `<span class="chip">${esc(a)}</span>`).join("");
+    const meta = [];
+    if (h.city) meta.push(esc(h.city));
+    if (h.country) meta.push(esc(h.country));
+    if (h.address) meta.push(esc(h.address));
+    return `
+      <div class="hotel">
+        <h3>${esc(h.hotel_name || h.hotel_id)}</h3>
+        ${h.property_type ? `<span class="chip">${esc(h.property_type)}</span>` : ""}
+        <div class="meta">${meta.join(" · ")}
+          ${h.booking_url ? ` · <a href="${esc(h.booking_url)}" target="_blank" rel="noopener">Open on Booking.com</a>` : ""}
+        </div>
+        <div class="chips">${amenityChips}</div>
+        <table><thead>
+          <tr><th>Room</th><th>Beds</th><th>Size</th><th>Price</th><th>Plan</th><th>Cancellation</th><th>Amenities</th><th>Photos</th></tr>
+        </thead><tbody>${units}</tbody></table>
+        ${item.source_url ? `<div class="meta" style="margin-top:6px;">source: ${esc(item.source_url)}</div>` : ""}
+      </div>`;
+  }).join("");
+}
+
+function renderUnit(u) {
+  let price = "";
+  if (u.price_amount != null && u.price_amount !== undefined) {
+    const n = (u.price_amount % 1 === 0) ? u.price_amount.toFixed(0) : u.price_amount.toFixed(2);
+    price = `<span class="price">${n} ${esc(u.price_currency || "")}</span>`;
+  } else if (u.price_text) {
+    price = `<span class="price">${esc(u.price_text)}</span>`;
+  } else {
+    price = "—";
+  }
+  return `<tr>
+    <td>${esc(u.unit_name || u.unit_id)}</td>
+    <td>${esc(u.beds_text || "—")}</td>
+    <td>${u.size_m2 != null ? esc(u.size_m2) + " m²" : "—"}</td>
+    <td>${price}</td>
+    <td>${esc(u.plan_name || "—")}</td>
+    <td>${esc(u.cancellation || "—")}</td>
+    <td><div class="chips">${(u.amenities || []).map((a) => `<span class="chip">${esc(a)}</span>`).join("")}</div></td>
+    <td>${renderImages(u.images)}</td>
+  </tr>`;
+}
+
+function renderImages(images) {
+  const list = (images || []).slice(0, 6);
+  if (!list.length) return "—";
+  return `<div class="imgs">${list.map((src) =>
+    `<img loading="lazy" src="${esc(src)}" alt="" onerror="this.style.display='none'">`
+  ).join("")}</div>`;
+}
+
+async function pollJob(jobId) {
+  let seen = 0;
+  setStatus("running", jobId);
+  while (true) {
+    let payload;
+    try {
+      const res = await fetch(`/api/search/${jobId}`);
+      if (!res.ok) throw new Error(`status ${res.status}`);
+      payload = await res.json();
+    } catch (err) {
+      showBanner(`Lost contact with the server: ${err.message}`, "error");
+      setStatus("error", jobId);
+      $("search-btn").disabled = false;
+      return;
+    }
+    if (payload.progress.length > seen) {
+      appendProgress(payload.progress.slice(seen));
+      seen = payload.progress.length;
+    }
+    if (payload.status === "done") {
+      hideBanner();
+      setStatus("done", jobId);
+      $("search-btn").disabled = false;
+      renderResults(payload);
+      return;
+    }
+    if (payload.status === "error") {
+      showBanner(`Search failed: ${payload.error || "unknown error"}`, "error");
+      setStatus("error", jobId);
+      $("search-btn").disabled = false;
+      return;
+    }
+    await new Promise((r) => setTimeout(r, 1500));
+  }
+}
+
+$("search-btn").addEventListener("click", async () => {
+  hideBanner();
+  $("progress-card").classList.add("hidden");
+  $("results-card").classList.add("hidden");
+  $("progress").textContent = "";
+  $("download-link").hidden = true;
+
+  const body = {
+    destination: $("destination").value,
+    checkin: $("checkin").value || null,
+    checkout: $("checkout").value || null,
+    adults: parseInt($("adults").value, 10) || 2,
+    children: parseInt($("children").value, 10) || 0,
+    rooms: parseInt($("rooms").value, 10) || 1,
+    currency: $("currency").value,
+    max_hotels: parseInt($("max_hotels").value, 10) || 5,
+  };
+
+  $("search-btn").disabled = true;
+  try {
+    const res = await fetch("/api/search", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    if (!res.ok) {
+      let detail = `status ${res.status}`;
+      try {
+        const err = await res.json();
+        if (Array.isArray(err.detail)) {
+          detail = err.detail.map((d) => d.msg).join("; ");
+        } else if (err.detail) {
+          detail = err.detail;
+        }
+      } catch (_) {}
+      showBanner(`Search request rejected: ${detail}`, "error");
+      $("search-btn").disabled = false;
+      return;
+    }
+    const { job_id: jobId } = await res.json();
+    await pollJob(jobId);
+  } catch (err) {
+    showBanner(`Could not start search: ${err.message}`, "error");
+    $("search-btn").disabled = false;
+  }
+});
+</script>
+</body>
+</html>
