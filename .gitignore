@@ -16,3 +16,6 @@ research/.cache/
 evidence/tmp/
 
 data/logs/
+data/*.json
+
+scratch/

@@ -316,6 +316,7 @@ _EXACT_AMENITY_JUNK = {
     "medellín", "medellin", "rionegro", "santa elena", "girardota",
     "bello", "colombia", "antioquia", "la candelaria", "alojamiento",
     "precio", "reservas", "ofrece", "servicios", "ver más", "mostrar",
+    "bogotá", "bogota", "cota", "choachí", "choachi", "cundinamarca",
 }
 
 _SUBSTR_AMENITY_JUNK = (
@@ -342,9 +343,13 @@ _SUBSTR_AMENITY_JUNK = (
     "hay piscina", "hay spa", "hay habitaciones", "qué restaurantes",
     "servicio de enlace", "todo empieza con", "luego, un viaje",
     "solo se pueden dejar comentarios",
+    "agentes de viajes", "registra tu alojamiento",
+    "declaración sobre la esclavitud moderna", "declaración sobre derechos humanos",
+    "embajada", "consulado",
     "parque el poblado", "plaza botero", "estadio atanasio",
     "aeropuerto internacional", "aeropuerto olaya", "parque barrio",
     "zona colonial", "casco histórico", "centro histórico",
+    "nos quedan", "por cancelar", "parque de la",
 )
 
 _ROOM_ONLY_PATTERNS = (
@@ -352,6 +357,7 @@ _ROOM_ONLY_PATTERNS = (
     r"\baseo\b", r"toallas", r"ropa de cama", r"sábanas",
     r"papel higiénico", r"vistas", r"ventilador", r"balcón", r"balcon",
     r"pantalla plana", r"\btv\b", r"caja de seguridad",
+    r"canales por cable", r"perchero",
     r"artículos de aseo", r"articulos de aseo", r"cafetera",
     r"microondas", r"nevera", r"frigorífico", r"secador", r"hervidor",
     r"minibar", r"sofá", r"\bcama\b", r"\bcamas\b", r"cuna",

@@ -439,7 +439,7 @@ async def _parse_rp_content(rp: Locator, page: Page) -> Dict[str, Any]:
     res["size_m2"] = size_m2
 
     sections: Dict[str, Any] = {"bano_privado": [], "vista": [], "equipamiento": [], "politica_humo": None}
-    lists = rp.locator('ul li, [role="listitem"]').all() if await safe_count(rp.locator('ul li, [role="listitem"]')) else []
+    lists = (await rp.locator('ul li, [role="listitem"]').all()) if await safe_count(rp.locator('ul li, [role="listitem"]')) else []
     if lists:
         try:
             texts = [await l.text_content() for l in lists]
@@ -1102,11 +1102,28 @@ async def extract_property_type_from_ldjson(page: Page) -> Optional[str]:
 _FACILITY_ROOT_SELECTORS = [
     'section[data-testid="property-facilities"]',
     '[data-testid="property-facilities"]',
+    '[data-testid="property-facilities-section"]',
+    '[data-testid="property-section--facilities"]',
     '[data-testid="property-amenities"]',
     'div[id="facilities"]',
     'section[id="facilities"]',
     '#facilities',
 ]
+
+# Ancestors that mark a list as navigation/footer/breadcrumb noise rather than
+# real property facilities (used when no dedicated facilities section exists).
+_BAD_SECTION_JS = (
+    "(el) => !!(el.closest('footer') || el.closest('nav') || el.closest('header') || "
+    "el.closest('ol') || el.closest('#footer_menu_track') || el.closest('#subheader-wrap') || "
+    "el.closest('[class*=\"TravellerFooter\"]') || el.closest('[class*=\"footer-lists\"]'))"
+)
+
+
+async def _li_in_bad_section(li: Locator) -> bool:
+    try:
+        return bool(await li.evaluate(_BAD_SECTION_JS))
+    except Exception:
+        return False
 
 
 async def _facility_roots(page: Page) -> List[Locator]:
@@ -1142,14 +1159,22 @@ async def extract_amenities(page: Page) -> List[str]:
     try:
         roots = await _facility_roots(page)
         if not roots:
-            roots = [page.locator("body")]
+            main_loc = page.locator("main")
+            if await safe_count(main_loc):
+                roots = [main_loc.first]
+            else:
+                roots = [page.locator("body")]
         collected: List[str] = []
         seen: set[str] = set()
         for root in roots:
             lis = root.locator("li")
             if await safe_count(lis) == 0:
                 continue
-            for t in await safe_all_texts(lis):
+            for i in range(await safe_count(lis)):
+                li = lis.nth(i)
+                if await _li_in_bad_section(li):
+                    continue
+                t = await safe_inner_text(li)
                 if not is_property_amenity(t):
                     continue
                 clean = clean_amenity_text(t)

@@ -3,10 +3,10 @@ Booking.com client for scraping hotel and unit data.
 """
 
 import asyncio
+import contextlib
 import time
 from datetime import datetime
 from typing import List, Optional
-from urllib.parse import urlparse, parse_qs, urlunparse
 
 from playwright.async_api import Browser, BrowserContext, Page, async_playwright
 
@@ -46,9 +46,6 @@ from booking_scraper.utils import (
     hotel_key,
     norm_amenity_flag,
     build_detail_url_with_params,
-    ensure_dates,
-    safe_count,
-    safe_visible,
 )
 from booking_scraper.logger import log
 from booking_scraper.config import (
@@ -69,6 +66,9 @@ class BookingScraperClient:
     def __init__(self, headless: bool = True):
         self.headless = headless
         self.browser: Optional[Browser] = None
+        from .destination import DestinationResolver
+        self._resolver = DestinationResolver()
+        self.last_resolved: Optional[dict] = None
 
     async def __aenter__(self):
         await self._start_browser()
@@ -98,6 +98,60 @@ class BookingScraperClient:
         assert self.browser
         return await create_context(self.browser, city)
 
+    async def _resolve_city(
+        self,
+        params: HotelSearchParams,
+    ) -> CityCfg:
+        """Return a CityCfg for the requested destination.
+
+        Uses a previously-resolved destination when already known, otherwise
+        queries Booking.com's live AutoComplete endpoint (with the local
+        cities.booking.json config as fallback)."""
+        cached = self._resolver.cached(params)
+        if cached is not None:
+            return self._resolver.apply_params(cached, params)
+
+        context = await self._new_context(None)
+        page = await context.new_page()
+        try:
+            from booking_scraper.browser import (
+                kill_overlays,
+                force_scale_1,
+                quick_dismiss_overlays,
+                close_any_map,
+            )
+            base_url = "https://www.booking.com/index.es.html"
+            log("goto BASE for resolution", url=base_url)
+            await page.goto(base_url, wait_until="domcontentloaded", timeout=60_000)
+            with contextlib.suppress(Exception):
+                await page.wait_for_timeout(ON_OPEN_ESC_WAIT_MS)
+                await page.keyboard.press("Escape")
+            await quick_dismiss_overlays(page, 2)
+            await close_any_map(page)
+            await kill_overlays(page)
+            await force_scale_1(page)
+            resolved = await self._resolver.resolve(page, params)
+        finally:
+            await page.close()
+            await context.close()
+
+        self.last_resolved = {
+            "query": params.destination,
+            "label": resolved.label,
+            "dest_id": resolved.dest_id,
+            "dest_type": resolved.dest_type,
+            "country_code": resolved.country_code,
+            "source": resolved.source,
+        }
+        log(
+            "destination resolved",
+            query=params.destination,
+            dest_id=resolved.dest_id,
+            dest_type=resolved.dest_type,
+            source=resolved.source,
+        )
+        return self._resolver.apply_params(resolved, params)
+
     async def search_hotel_urls(
         self,
         params: HotelSearchParams,
@@ -106,24 +160,7 @@ class BookingScraperClient:
         """
         Search for hotels and return a list of hotel URLs.
         """
-        from booking_scraper.utils import load_cities
-        cities = load_cities()
-        city_obj = None
-        for c in cities:
-            if c.name.lower() == params.destination.lower():
-                city_obj = c
-                break
-        if not city_obj:
-            raise ValueError(f"City not found: {params.destination}")
-        # Override the city_cfg with the loaded one
-        city_cfg = city_obj
-        city_cfg.checkin = params.checkin.isoformat()
-        city_cfg.checkout = params.checkout.isoformat()
-        city_cfg.adults = params.adults
-        city_cfg.children = params.children
-        city_cfg.rooms = params.rooms
-        city_cfg.currency = params.currency
-        city_cfg.lang = params.lang
+        city_cfg = await self._resolve_city(params)
 
         context = await self._new_context(city_cfg)
         page = await context.new_page()
@@ -288,26 +325,7 @@ class BookingScraperClient:
         """
         Fetch the detail page for a hotel and return a ScrapedHotel.
         """
-        # We need to get the city configuration again for the detail page.
-        from booking_scraper.utils import load_cities
-        cities = load_cities()
-        city_obj = None
-        for c in cities:
-            if c.name.lower() == params.destination.lower():
-                city_obj = c
-                break
-        if not city_obj:
-            log("City not found for detail", destination=params.destination)
-            return None
-
-        city_cfg = city_obj
-        city_cfg.checkin = params.checkin.isoformat()
-        city_cfg.checkout = params.checkout.isoformat()
-        city_cfg.adults = params.adults
-        city_cfg.children = params.children
-        city_cfg.rooms = params.rooms
-        city_cfg.currency = params.currency
-        city_cfg.lang = params.lang
+        city_cfg = await self._resolve_city(params)
 
         context = await self._new_context(city_cfg)
         page = await context.new_page()
