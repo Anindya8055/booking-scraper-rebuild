@@ -181,52 +181,63 @@
   .fail-list { margin-top: 10px; padding: 10px 12px; background: var(--warn-bg); border: 1px solid var(--warn-border); border-radius: var(--radius-sm); font-size: 12.5px; color: #92400e; }
   .fail-list div { padding: 2px 0; }
 
-  .hotel-list { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; }
-  .hotel-card { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface); }
-  .hotel-head { display: flex; gap: 14px; padding: 14px; cursor: pointer; align-items: stretch; }
+  .hotel-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+  .hotel-card { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface); transition: box-shadow .15s ease, border-color .15s ease; }
+  .hotel-card.open, .hotel-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow); }
+  .hotel-head { display: flex; gap: 12px; padding: 11px 12px; cursor: pointer; align-items: center; }
   .hotel-head:hover { background: var(--surface-2); }
   .hotel-thumb {
-    width: 108px; height: 84px; flex: none; border-radius: var(--radius-sm); overflow: hidden;
+    width: 76px; height: 76px; flex: none; border-radius: var(--radius-sm); overflow: hidden;
     background: linear-gradient(135deg, #dbeafe, #e0e7ff);
-    display: flex; align-items: center; justify-content: center; color: #94a3b8;
+    display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 24px;
   }
   .hotel-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .hotel-body { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
-  .hotel-title-row { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-  .hotel-title-row h3 { margin: 0; font-size: 16.5px; font-weight: 700; }
-  .type-chip { font-size: 11px; font-weight: 700; color: var(--accent-dark); background: var(--accent-bg); padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
-  .hotel-loc { color: var(--muted); font-size: 13px; }
-  .hotel-meta-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; font-size: 12.5px; color: var(--muted); margin-top: 2px; }
-  .room-count-badge { font-weight: 700; color: var(--text); }
-  .chevron { flex: none; align-self: center; color: var(--muted-2); transition: transform .15s ease; font-size: 13px; }
+  .hotel-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .hotel-title-row { display: flex; align-items: baseline; gap: 7px; flex-wrap: wrap; }
+  .hotel-title-row h3 {
+    margin: 0; font-size: 14.5px; font-weight: 700; line-height: 1.3;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%;
+  }
+  .type-chip { flex: none; font-size: 10px; font-weight: 700; color: var(--accent-dark); background: var(--accent-bg); padding: 2px 7px; border-radius: 999px; white-space: nowrap; }
+  .hotel-loc { color: var(--muted); font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .hotel-sub-row { font-size: 11.5px; color: var(--muted-2); font-weight: 600; }
+
+  .hotel-price-block { flex: none; display: flex; align-items: center; gap: 8px; padding-left: 4px; }
+  .hotel-price-block .price-wrap { text-align: right; line-height: 1.2; }
+  .hotel-price-block .from-label { display: block; font-size: 9.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; font-weight: 600; }
+  .hotel-price-block .price-big { display: block; font-size: 18px; font-weight: 800; color: var(--accent-dark); white-space: nowrap; }
+  .chevron { flex: none; color: var(--muted-2); transition: transform .15s ease; font-size: 12px; }
   .hotel-card.open .chevron { transform: rotate(180deg); }
 
-  .hotel-detail { border-top: 1px solid var(--border); background: var(--surface-2); padding: 14px; display: none; }
+  .hotel-detail { border-top: 1px solid var(--border); background: var(--surface-2); padding: 12px; display: none; }
   .hotel-card.open .hotel-detail { display: block; }
+  .hotel-address { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
   .amenity-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-  .chip { background: var(--chip-bg); color: var(--chip-text); border-radius: 999px; padding: 3px 10px; font-size: 11.5px; font-weight: 600; }
+  .chip { background: var(--chip-bg); color: var(--chip-text); border-radius: 999px; padding: 3px 10px; font-size: 11px; font-weight: 600; white-space: nowrap; }
   .chip.more { background: transparent; color: var(--muted); }
 
-  .room-row { display: flex; gap: 12px; padding: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 9px; }
-  .room-row:last-child { margin-bottom: 0; }
-  .room-thumb {
-    width: 72px; height: 72px; flex: none; border-radius: 8px; overflow: hidden;
-    background: var(--surface-2); display: flex; align-items: center; justify-content: center; color: var(--muted-2);
-  }
-  .room-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .room-list { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; }
+  .no-rooms { padding: 14px; color: var(--muted); font-size: 12.5px; }
+  .room-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 13px; border-bottom: 1px solid var(--border); }
+  .room-row:last-child { border-bottom: none; }
   .room-main { flex: 1; min-width: 0; }
-  .room-main .name { font-weight: 700; font-size: 14px; }
-  .room-facts { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 4px; font-size: 12.5px; color: var(--muted); }
-  .room-facts span.fact::before { content: "•"; margin-right: 12px; color: var(--border-strong); }
+  .room-main .name { font-weight: 700; font-size: 13px; margin-bottom: 3px; }
+  .room-facts { display: flex; flex-wrap: wrap; gap: 3px 10px; font-size: 11.5px; color: var(--muted); }
+  .room-facts span.fact::before { content: "•"; margin-right: 10px; color: var(--border-strong); }
   .room-facts span.fact:first-child::before { content: none; margin-right: 0; }
-  .room-amenities { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
-  .room-price-col { flex: none; text-align: right; min-width: 108px; display: flex; flex-direction: column; justify-content: center; gap: 3px; }
-  .room-price-col .price { font-weight: 800; font-size: 16px; color: var(--accent-dark); }
-  .room-price-col .cancel-note { font-size: 11px; color: var(--ok); font-weight: 600; }
-  .room-price-col .no-price { font-size: 12px; color: var(--muted-2); font-style: italic; }
-  @media (max-width: 560px) {
-    .room-row { flex-wrap: wrap; }
-    .room-price-col { text-align: left; align-items: flex-start; min-width: 0; width: 100%; padding-top: 6px; border-top: 1px dashed var(--border); }
+  .room-amenities { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .room-amenities .chip { font-size: 10px; padding: 2px 7px; }
+  .room-price-col { flex: none; text-align: right; }
+  .room-price-col .price { display: block; font-weight: 800; font-size: 14.5px; color: var(--accent-dark); white-space: nowrap; }
+  .room-price-col .cancel-note { display: block; font-size: 10px; color: var(--ok); font-weight: 600; margin-top: 2px; white-space: nowrap; }
+  .room-price-col .no-price { font-size: 11px; color: var(--muted-2); font-style: italic; white-space: nowrap; }
+
+  @media (max-width: 480px) {
+    .hotel-thumb { width: 58px; height: 58px; font-size: 19px; }
+    .hotel-title-row h3 { font-size: 13.5px; }
+    .hotel-loc { max-width: 46vw; }
+    .hotel-price-block .from-label { display: none; }
+    .hotel-price-block .price-big { font-size: 15px; }
   }
 
   .hotel-link-row { margin-top: 12px; }
@@ -471,6 +482,12 @@ function bestImage(urlList) {
   return (urlList || []).find((u) => !!u) || null;
 }
 
+function cheapestUnit(units) {
+  const priced = (units || []).filter((u) => u.price_amount != null);
+  if (!priced.length) return null;
+  return priced.reduce((min, u) => (u.price_amount < min.price_amount ? u : min));
+}
+
 function amenityChips(list, limit) {
   const items = list || [];
   const shown = items.slice(0, limit).map((a) => `<span class="chip">${esc(a)}</span>`).join("");
@@ -479,7 +496,6 @@ function amenityChips(list, limit) {
 }
 
 function renderRoom(u) {
-  const img = bestImage(u.images);
   const facts = [];
   if (u.beds_text) facts.push(u.beds_text);
   if (u.size_m2 != null) facts.push(`${u.size_m2} m²`);
@@ -487,11 +503,10 @@ function renderRoom(u) {
   const price = money(u);
   return `
     <div class="room-row">
-      <div class="room-thumb">${img ? `<img loading="lazy" src="${esc(img)}" alt="" onerror="this.parentElement.innerHTML=''">` : "🛏"}</div>
       <div class="room-main">
         <div class="name">${esc(u.unit_name || "Room")}</div>
-        <div class="room-facts">${facts.map((f) => `<span class="fact">${esc(f)}</span>`).join("")}</div>
-        ${u.amenities && u.amenities.length ? `<div class="room-amenities">${amenityChips(u.amenities, 5)}</div>` : ""}
+        ${facts.length ? `<div class="room-facts">${facts.map((f) => `<span class="fact">${esc(f)}</span>`).join("")}</div>` : ""}
+        ${u.amenities && u.amenities.length ? `<div class="room-amenities">${amenityChips(u.amenities, 4)}</div>` : ""}
       </div>
       <div class="room-price-col">
         ${price ? `<span class="price">${price}</span>` : `<span class="no-price">Price unavailable</span>`}
@@ -505,25 +520,29 @@ function renderHotelCard(item, index, openByDefault) {
   const units = item.units || [];
   const img = bestImage(units.flatMap((u) => u.images || []));
   const loc = [h.city, h.country].filter(Boolean).join(", ");
+  const cheapest = cheapestUnit(units);
+  const fromPrice = cheapest ? money(cheapest) : null;
   return `
     <div class="hotel-card${openByDefault ? " open" : ""}" data-idx="${index}">
       <div class="hotel-head" onclick="toggleHotel(${index})">
-        <div class="hotel-thumb">${img ? `<img loading="lazy" src="${esc(img)}" alt="" onerror="this.parentElement.innerHTML='🏨'">` : "🏨"}</div>
-        <div class="hotel-body">
+        <div class="hotel-thumb">${img ? `<img loading="lazy" src="${esc(img)}" alt="" onerror="this.parentElement.textContent='🏨'">` : "🏨"}</div>
+        <div class="hotel-main">
           <div class="hotel-title-row">
-            <h3>${esc(h.hotel_name || h.hotel_id)}</h3>
+            <h3 title="${esc(h.hotel_name || h.hotel_id)}">${esc(h.hotel_name || h.hotel_id)}</h3>
             ${h.property_type ? `<span class="type-chip">${esc(h.property_type)}</span>` : ""}
           </div>
-          ${loc ? `<div class="hotel-loc">${esc(loc)}${h.address ? " · " + esc(h.address) : ""}</div>` : ""}
-          <div class="hotel-meta-row">
-            <span class="room-count-badge">${units.length} room type${units.length === 1 ? "" : "s"}</span> found
-          </div>
+          ${loc ? `<div class="hotel-loc">${esc(loc)}</div>` : ""}
+          <div class="hotel-sub-row">${units.length} room type${units.length === 1 ? "" : "s"} found</div>
         </div>
-        <div class="chevron">▾</div>
+        <div class="hotel-price-block">
+          ${fromPrice ? `<div class="price-wrap"><span class="from-label">From</span><span class="price-big">${fromPrice}</span></div>` : ""}
+          <span class="chevron">▾</span>
+        </div>
       </div>
       <div class="hotel-detail">
+        ${h.address ? `<div class="hotel-address">${esc(h.address)}</div>` : ""}
         ${h.amenities && h.amenities.length ? `<div class="amenity-chips">${amenityChips(h.amenities, 8)}</div>` : ""}
-        ${units.map(renderRoom).join("") || `<p style="color:var(--muted);font-size:13px;">No room details were extracted for this hotel.</p>`}
+        <div class="room-list">${units.map(renderRoom).join("") || `<div class="no-rooms">No room details were extracted for this hotel.</div>`}</div>
         <div class="hotel-link-row">
           ${h.booking_url ? `<a class="btn-link" href="${esc(h.booking_url)}" target="_blank" rel="noopener">Open on Booking.com ↗</a>` : ""}
         </div>

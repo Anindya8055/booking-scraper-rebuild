@@ -211,7 +211,17 @@ async def quick_dismiss_overlays(page: Page, rounds: int = 2) -> int:
         with contextlib.suppress(Exception):
             await page.keyboard.press('Escape')
         with contextlib.suppress(Exception):
-            await page.locator('button[aria-label*="Cerrar" i], [data-modal-close], .bui-modal__close').first.click(force=True)
+            # is_visible() resolves immediately (no auto-wait); only click when
+            # something is actually there. Without this guard, a bare
+            # locator().click() on a selector matching nothing on the page
+            # (the common case -- most navigations show no close button) makes
+            # Playwright wait for its full default 30s actionability timeout
+            # before giving up, once per call site.
+            close_btn = page.locator(
+                'button[aria-label*="Cerrar" i], [data-modal-close], .bui-modal__close'
+            ).first
+            if await safe_visible(close_btn):
+                await close_btn.click(force=True, timeout=1000)
         await page.wait_for_timeout(120)
         after = await _count_overlays(page)
         if after >= before:

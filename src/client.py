@@ -396,6 +396,15 @@ class BookingScraperClient:
             await quick_dismiss_overlays(page, 2)
             await close_any_map(page)
 
+        # Wait for the actual room/price table to finish its client-side
+        # render before extracting. This used to happen "for free" as a
+        # side effect of an unrelated 30s overlay-dismissal timeout bug;
+        # now that that bug is fixed, this explicit (bounded, event-driven)
+        # wait is what actually guarantees the availability table exists.
+        with bl_timing.timed("detail.availability"):
+            with contextlib.suppress(Exception):
+                await ensure_availability_loaded(page)
+
         # Extract hotel information from the detail page
         with bl_timing.timed("detail.info"):
             hotel = await self._extract_hotel_info(page, detail_url, city)
