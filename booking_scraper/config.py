@@ -16,6 +16,12 @@ CITIES_CFG_PATH = CRAWLER_DIR / "cities.booking.json"
 # Environment-driven settings
 # ---------------------------------------------------------------------------
 BROWSER_PER_DETAIL = os.getenv("BROWSER_PER_DETAIL", "1").strip().lower() in ("1", "true", "yes")
+
+# Booking.com content locale. This is independent from the user's selected
+# currency (selected_currency): language controls which strings Booking
+# renders, currency controls only the price display. Keep this English so
+# scraped strings are consistently in English regardless of currency.
+DEFAULT_LANG = os.getenv("BOOKING_LANG", "en-us").strip().lower()
 ON_OPEN_ESC_WAIT_MS = int(os.getenv("ON_OPEN_ESC_WAIT_MS", "3000"))
 ABORT_MAP_RESOURCES = os.getenv("ABORT_MAP_RESOURCES", "0").strip().lower() in ("1", "true", "yes")
 
@@ -76,6 +82,10 @@ GENERIC_LOAD_MORE_CSS = [
     'nav[aria-label*="Pag"] a[rel="next"]',
     'a[aria-label*="Next"]',
     'button[aria-label*="Next"]',
+    'button[aria-label*="Show more"]',
+    'button[aria-label*="Load more"]',
+    'a[aria-label*="Show more"]',
+    'a[aria-label*="Load more"]',
 ]
 
 GENERIC_LOAD_MORE_XPATH = [

@@ -543,7 +543,7 @@ async def _parse_legacy_modal(modal_root: Locator) -> Dict[str, Any]:
     if size_m2 is None:
         blob = " ".join([t for t in [
             await safe_text_content(modal_root.locator(".hprt-room-facilities-block").first, timeout=500),
-            await safe_text_content(modal_root.locator('h2:has-text("Tama\u00f1o")').first, timeout=500),
+            await safe_text_content(modal_root.locator('h2:has-text("Tama\u00f1o"), h2:has-text("Size")').first, timeout=500),
             beds_text or ""
         ] if t])
         m = re.search(r"(\d+(?:[.,]\d+)?)\s*m\u00b2", blob, re.I)

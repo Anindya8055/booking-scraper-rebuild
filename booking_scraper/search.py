@@ -391,7 +391,11 @@ async def click_load_more_if_present(page: Page, old_count: int, wait_new_ms: in
             continue
 
     with contextlib.suppress(Exception):
-        loc = page.locator("button:has-text('Cargar más resultados')").first
+        loc = page.locator(
+            "button:has-text('Cargar más resultados'), "
+            "button:has-text('Load more results'), "
+            "button:has-text('Show more results')"
+        ).first
         if await loc.is_visible():
             await loc.scroll_into_view_if_needed()
             await loc.click(force=True)

@@ -3,6 +3,8 @@
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
 
+from .config import DEFAULT_LANG
+
 
 @dataclass
 class CityCfg:
@@ -16,7 +18,7 @@ class CityCfg:
     children: int = 0
     rooms: int = 1
     currency: str = "COP"
-    lang: str = "es"
+    lang: str = DEFAULT_LANG
     nights: int = 1
 
 

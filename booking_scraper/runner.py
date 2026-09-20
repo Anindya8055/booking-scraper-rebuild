@@ -17,6 +17,7 @@ from .config import (
     ON_OPEN_ESC_WAIT_MS,
     VIEWPORT_W,
     VIEWPORT_H,
+    DEFAULT_LANG,
     _KEEP_KEYS,
 )
 from .models import CityCfg, ParentCtx, UnitRow
@@ -235,7 +236,7 @@ class BookingComCrawler:
         async with async_playwright() as p2:
             b = await p2.chromium.launch(
                 headless=headless,
-                args=["--disable-gpu", "--no-sandbox", "--lang=es-ES",
+                args=["--disable-gpu", "--no-sandbox", f"--lang={DEFAULT_LANG}",
                       "--disable-blink-features=AutomationControlled",
                       f"--window-size={VIEWPORT_W},{VIEWPORT_H}"]
             )
@@ -462,7 +463,7 @@ class BookingComCrawler:
                 main_browser = await p.chromium.launch(
                     headless=headless,
                     args=[
-                        "--disable-gpu", "--no-sandbox", "--lang=es-ES",
+                        "--disable-gpu", "--no-sandbox", f"--lang={DEFAULT_LANG}",
                         "--disable-blink-features=AutomationControlled",
                         f"--window-size={VIEWPORT_W},{VIEWPORT_H}",
                     ]

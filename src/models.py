@@ -6,6 +6,8 @@ from dataclasses import dataclass, field
 from datetime import date
 from typing import List, Optional
 
+from booking_scraper.config import DEFAULT_LANG
+
 
 @dataclass
 class HotelSearchParams:
@@ -17,7 +19,7 @@ class HotelSearchParams:
     children: int = 0
     rooms: int = 1
     currency: str = "USD"
-    lang: str = "es"
+    lang: str = DEFAULT_LANG
 
 
 @dataclass

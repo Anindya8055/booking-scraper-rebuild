@@ -16,6 +16,7 @@ from .config import (
     _KEEP_KEYS,
     _UNWANTED_KEYS,
     CITIES_CFG_PATH,
+    DEFAULT_LANG,
 )
 from .models import CityCfg, UnitRow
 from .logger import log
@@ -124,14 +125,24 @@ def build_search_url(c: CityCfg) -> str:
     return f"https://www.booking.com/searchresults.{c.lang}.html?{urlencode(params)}"
 
 
+_LANG_SUFFIX_RE = re.compile(r"\.[a-z]{2}(?:-[a-z]{2})?\.html$", re.I)
+
+
 def build_detail_url_with_params(raw_url: str, c: Optional[CityCfg]) -> str:
     try:
         base = urljoin("https://www.booking.com", raw_url)
         u = urlparse(base)
 
+        target_lang = c.lang if c else DEFAULT_LANG
         path = u.path
-        if path.endswith(".html") and not path.endswith(".es.html"):
-            path = path[:-5] + ".es.html"
+        if path.endswith(".html"):
+            # Strip whatever locale suffix the SERP link carried (e.g.
+            # ".es.html") and force the requested locale instead, so detail
+            # pages always match the search's language regardless of what
+            # Booking put in the card href.
+            path = _LANG_SUFFIX_RE.sub(".html", path)
+            if not path.endswith(f".{target_lang}.html"):
+                path = path[:-5] + f".{target_lang}.html"
 
         src_qs = parse_qs(u.query)
         params: Dict[str, str] = {}
@@ -462,7 +473,7 @@ def load_cities() -> List[CityCfg]:
                     "children": 0,
                     "rooms": 1,
                     "currency": "COP",
-                    "lang": "es",
+                    "lang": DEFAULT_LANG,
                 }
             ]
         }

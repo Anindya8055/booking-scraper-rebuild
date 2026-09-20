@@ -54,6 +54,7 @@ from booking_scraper.config import (
     MAX_IDLE_WAVES,
     VIEWPORT_W,
     VIEWPORT_H,
+    DEFAULT_LANG,
 )
 from booking_scraper.models import CityCfg, ParentCtx, UnitRow
 
@@ -94,7 +95,7 @@ class BookingScraperClient:
             args=[
                 "--disable-gpu",
                 "--no-sandbox",
-                "--lang=es-ES",
+                f"--lang={DEFAULT_LANG}",
                 "--disable-blink-features=AutomationControlLED",
                 f"--window-size={VIEWPORT_W},{VIEWPORT_H}",
             ],
@@ -130,7 +131,7 @@ class BookingScraperClient:
                 quick_dismiss_overlays,
                 close_any_map,
             )
-            base_url = "https://www.booking.com/index.es.html"
+            base_url = f"https://www.booking.com/index.{params.lang}.html"
             with bl_timing.timed("dest.resolve"):
                 log("goto BASE for resolution", url=base_url)
                 await page.goto(base_url, wait_until="domcontentloaded", timeout=60_000)

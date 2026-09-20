@@ -16,6 +16,7 @@ from .config import (
     VIEWPORT_W,
     VIEWPORT_H,
     DEVICE_SCALE,
+    DEFAULT_LANG,
     _KEEP_KEYS,
     _UNWANTED_KEYS,
 )
@@ -321,7 +322,7 @@ async def create_context(browser: Browser, city: Optional[CityCfg]) -> BrowserCo
     """Create a fully-configured browser context on an existing *browser* instance."""
     default_ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit(537.36) (KHTML, like Gecko) Chrome/120 Safari/537.36"
     ctx = await browser.new_context(
-        locale=(city.lang if city else "es-ES"),
+        locale=(city.lang if city else DEFAULT_LANG),
         user_agent=default_ua,
         viewport={"width": VIEWPORT_W, "height": VIEWPORT_H},
         screen={"width": VIEWPORT_W, "height": VIEWPORT_H},

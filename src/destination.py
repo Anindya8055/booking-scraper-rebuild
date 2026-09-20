@@ -28,6 +28,7 @@ from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
 from playwright.async_api import Page
 
+from booking_scraper.config import DEFAULT_LANG
 from booking_scraper.models import CityCfg
 from booking_scraper.utils import load_cities
 
@@ -112,7 +113,7 @@ class ResolvedDestination:
     source: str = "live"
 
 
-def _graphql_endpoint(page_url: str, default_lang: str = "es") -> str:
+def _graphql_endpoint(page_url: str, default_lang: str = DEFAULT_LANG) -> str:
     """Build the AutoComplete GraphQL URL reusing params from the loaded page."""
     qs = parse_qs(urlparse(page_url).query)
     keep = {}
@@ -172,7 +173,7 @@ class DestinationResolver:
                 )
         return None
 
-    async def resolve_live(self, page: Page, query: str, lang: str = "es") -> Optional[ResolvedDestination]:
+    async def resolve_live(self, page: Page, query: str, lang: str = DEFAULT_LANG) -> Optional[ResolvedDestination]:
         """Resolve using Booking.com's own AutoComplete endpoint (live data)."""
         payload = {
             "operationName": "AutoComplete",
