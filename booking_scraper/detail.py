@@ -691,6 +691,17 @@ async def extract_units(page: Page) -> List[UnitRow]:
         rows = await legacy.locator("tr[data-block-id], tr[id]").all()
         out: List[UnitRow] = []
         taken_ids: set = set()
+        # Booking's table gives the room name/link its own <td rowspan="N">
+        # on only the FIRST <tr> of a room that has several rate-plan rows
+        # (e.g. "non-refundable" vs "flexible" for the same physical room);
+        # the following rows share that name visually via rowspan but have
+        # no name cell or link of their own in the DOM. Without inheriting
+        # from the room's first row, those rows extract with no name (shown
+        # as a generic "Room" in the UI) and no photo. Track the last real
+        # room's identity so continuation rows reuse its real data instead.
+        last_room_name: Optional[str] = None
+        last_room_images: List[str] = []
+        last_room_amenities: List[str] = []
         for tr in rows:
             with contextlib.suppress(Exception):
                 await page.keyboard.press("Escape")
@@ -749,9 +760,29 @@ async def extract_units(page: Page) -> List[UnitRow]:
                             await close_modal_like(page, modal_root)
                         log("modal.closed.requested", where="DETAIL/extract_units")
 
+            resolved_name = text_or_none(modal_data.get("unit_name") or name)
+            resolved_images = modal_data.get("images") or []
+            resolved_amenities = modal_data.get("unit_amenities") or []
+            is_continuation_row = resolved_name is None and last_room_name is not None
+            if is_continuation_row:
+                # Same physical room as the row above (a different rate plan
+                # only) -- reuse its real name/photo/amenities rather than
+                # showing a bare "Room" with no image.
+                resolved_name = last_room_name
+                if not resolved_images:
+                    resolved_images = last_room_images
+                if not resolved_amenities:
+                    resolved_amenities = last_room_amenities
+            elif resolved_name is not None:
+                last_room_name = resolved_name
+                if resolved_images:
+                    last_room_images = resolved_images
+                if resolved_amenities:
+                    last_room_amenities = resolved_amenities
+
             out.append(UnitRow(
                 unit_id=unit_id,
-                unit_name=text_or_none(modal_data.get("unit_name") or name),
+                unit_name=resolved_name,
                 price_amount=price_amount,
                 price_currency=price_currency,
                 price_text=text_or_none(modal_data.get("price_text") or price_text),
@@ -759,8 +790,8 @@ async def extract_units(page: Page) -> List[UnitRow]:
                 cancellation=modal_data.get("cancellation"),
                 beds_text=clean_beds_text(modal_data.get("beds_text") or beds_text),
                 size_m2=modal_data.get("size_m2") or m2,
-                amenities=modal_data.get("unit_amenities") or [],
-                images=modal_data.get("images") or [],
+                amenities=resolved_amenities,
+                images=resolved_images,
                 sections=modal_data.get("sections"),
                 header_chips=modal_data.get("header_chips"),
                 long_desc=modal_data.get("long_desc"),
@@ -1169,9 +1200,20 @@ _FACILITY_ROOT_SELECTORS = [
 
 # Ancestors that mark a list as navigation/footer/breadcrumb noise rather than
 # real property facilities (used when no dedicated facilities section exists).
+#
+# `el.querySelector('a')` (el is the <li> itself here) specifically excludes
+# Booking's "nearby cities you might also like" quick-link list (e.g.
+# "Gurgaon", "Noida", "Sonipat" on a Delhi property) -- confirmed live: each
+# of those <li> items *contains* an <a> link, while every real facility item
+# on the same page (e.g. "Free Wifi", "Air conditioning", "Private
+# bathroom") is plain text with no link anywhere inside its <li>. This is
+# only reached as a fallback when no dedicated facilities section exists on
+# the page (see _facility_roots), which is when unrelated page furniture
+# like this can leak into the generic <li> sweep.
 _BAD_SECTION_JS = (
     "(el) => !!(el.closest('footer') || el.closest('nav') || el.closest('header') || "
     "el.closest('ol') || el.closest('#footer_menu_track') || el.closest('#subheader-wrap') || "
+    "el.querySelector('a') || "
     "el.closest('[class*=\"TravellerFooter\"]') || el.closest('[class*=\"footer-lists\"]'))"
 )
 

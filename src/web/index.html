@@ -252,19 +252,38 @@
   }
   .copy-feedback.show { opacity: 1; }
 
-  /* ---- Hotel cards ---- */
-  .hotel-list { display: flex; flex-direction: column; gap: 16px; margin-top: 16px; }
+  /* ---- Hotel cards ----
+     Each hotel card gets a colored top strip + a numbered rank badge so it
+     reads unmistakably as "a new hotel" rather than blending into the
+     preceding room-card list, which uses a similar thumb+title+price
+     layout at a smaller scale. The extra gap between cards (vs. the
+     tighter gap between room rows inside one hotel) reinforces the same
+     grouping visually. */
+  .hotel-list { display: flex; flex-direction: column; gap: 26px; margin-top: 16px; }
   .hotel-card {
+    position: relative;
     border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
     background: var(--surface); transition: box-shadow .15s ease, border-color .15s ease;
+    box-shadow: 0 1px 0 rgba(28, 25, 23, .03);
+  }
+  .hotel-card::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--coral));
   }
   .hotel-card.open, .hotel-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow); }
+  .hotel-rank {
+    position: absolute; top: 12px; right: 13px; z-index: 1; pointer-events: none;
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px;
+    background: var(--text); color: #fff; font-size: 11px; font-weight: 800;
+    letter-spacing: .01em;
+  }
   .hotel-card-head {
     display: block; width: 100%; text-align: left; background: none;
     padding: 0; border-radius: 0; color: inherit; cursor: pointer;
   }
   .hotel-card-head:hover .hotel-card-top-row { background: var(--surface-2); }
-  .hotel-card-top-row { display: flex; gap: 13px; align-items: center; padding: 13px; }
+  .hotel-card-top-row { display: flex; gap: 13px; align-items: center; padding: 17px 13px 13px; }
   .hotel-image-wrap {
     position: relative; width: 108px; height: 108px; flex: none; border-radius: var(--radius-sm);
     background: linear-gradient(135deg, #ddd6fe, #fecdd3);
@@ -696,18 +715,30 @@ function availabilityBadge(h, cls) {
 // ---- Facility grouping (client-side only; groups already-extracted real
 // amenity strings -- never invents a facility that wasn't in the data) ----
 //
-// Matching uses whole-word/whole-phrase boundaries, not substring search --
-// a plain `.includes()` on a short key like "spa" would also match inside
-// "Spanish" (a language, from Booking's "Languages spoken" list) and file it
-// under Wellness & pool. Boundaries fix that at the root; KNOWN_LANGUAGES
-// below is kept as a cheap, explicit second guard for the same failure mode.
+// Matching uses whole-word/whole-phrase boundaries (with an optional
+// trailing "s" for simple plurals), not substring search -- a plain
+// `.includes()` on a short key like "spa" would also match inside "Spanish"
+// (a language, from Booking's "Languages spoken" list) and file it under
+// Wellness & pool. Boundaries fix that at the root; KNOWN_LANGUAGES below is
+// kept as a cheap, explicit second guard for the same failure mode.
+//
+// A fuller property's amenity list runs to 100+ items (electronics, bedroom
+// linens, accessibility, cleaning services, ...); nine groups keeps most of
+// that out of the catch-all "General" bucket. Matching is done against a
+// single list of (key, group) pairs sorted longest-key-first -- e.g. "front
+// desk" (Safety & services) always wins over the shorter "desk" (Internet &
+// workspace) inside "24-hour front desk", regardless of which group is
+// declared first below.
 const FACILITY_GROUPS = [
-  { title: "Internet & workspace", keys: ["wifi", "internet", "workspace", "business center"] },
+  { title: "Internet & workspace", keys: ["wifi", "internet", "workspace", "business center", "desk", "computer", "laptop"] },
   { title: "Wellness & pool", keys: ["pool", "spa", "sauna", "gym", "fitness", "hot tub", "wellness", "massage"] },
-  { title: "Food & drink", keys: ["kitchen", "kitchenette", "restaurant", "bar", "breakfast", "coffee", "dining", "minibar"] },
+  { title: "Food & drink", keys: ["kitchen", "kitchenette", "restaurant", "bar", "breakfast", "coffee", "dining", "minibar", "kettle", "microwave", "refrigerator", "toaster", "kitchenware", "dishwasher"] },
   { title: "Parking & transport", keys: ["parking", "garage", "shuttle", "airport"] },
-  { title: "Family & comfort", keys: ["family", "child", "crib", "playground", "garden", "balcony", "terrace", "view", "air conditioning", "heating"] },
-  { title: "Safety & services", keys: ["security", "24-hour", "24 hour", "front desk", "reception", "safe", "laundry", "elevator", "lift", "non-smoking"] },
+  { title: "Bathroom", keys: ["bathroom", "shower", "bath", "toilet", "bidet", "towel", "toiletries", "hairdryer", "slippers", "bathrobe"] },
+  { title: "Entertainment & tech", keys: ["tv", "television", "cable channel", "satellite channel", "game console", "dvd", "cd player", "blu-ray", "radio", "ipod", "ipad", "video game", "pay-per-view", "telephone"] },
+  { title: "Cleaning & laundry", keys: ["housekeeping", "dry cleaning", "ironing", "iron", "press", "laundry", "cleaning product", "washing machine", "dryer"] },
+  { title: "Family & comfort", keys: ["family", "child", "children", "baby", "crib", "board game", "playground", "garden", "balcony", "terrace", "view", "air conditioning", "heating", "fan", "patio", "fireplace", "sofa"] },
+  { title: "Safety & services", keys: ["security", "24-hour", "24 hour", "front desk", "reception", "safe", "elevator", "lift", "non-smoking", "wheelchair", "accessible", "cctv", "smoke alarm", "fire extinguisher"] },
 ];
 
 const KNOWN_LANGUAGES = new Set([
@@ -720,19 +751,29 @@ const KNOWN_LANGUAGES = new Set([
 
 function matchesFacilityKey(low, key) {
   const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  return new RegExp(`(^|[^a-z0-9])${escaped}([^a-z0-9]|$)`, "i").test(low);
+  // Optional trailing "s" so a singular key ("towel", "fire extinguisher")
+  // still matches the plural form Booking usually renders ("Towels",
+  // "Fire extinguishers").
+  return new RegExp(`(^|[^a-z0-9])${escaped}s?([^a-z0-9]|$)`, "i").test(low);
 }
+
+// One flat (key, group) list, longest key first, so a more specific phrase
+// always outranks a shorter key that happens to appear inside it (see the
+// "front desk" vs. "desk" note above) no matter which group declares which.
+const FACILITY_KEY_INDEX = FACILITY_GROUPS
+  .flatMap((g, groupIndex) => g.keys.map((key) => ({ key, groupIndex })))
+  .sort((a, b) => b.key.length - a.key.length);
 
 function groupFacilities(list) {
   const items = (list || []).slice();
-  const groups = FACILITY_GROUPS.map((g) => ({ title: g.title, keys: g.keys, items: [] }));
+  const groups = FACILITY_GROUPS.map((g) => ({ title: g.title, items: [] }));
   const other = [];
   for (const item of items) {
     const low = item.toLowerCase().trim();
-    const group = KNOWN_LANGUAGES.has(low)
+    const hit = KNOWN_LANGUAGES.has(low)
       ? null
-      : groups.find((g) => g.keys.some((k) => matchesFacilityKey(low, k)));
-    if (group) group.items.push(item);
+      : FACILITY_KEY_INDEX.find((fk) => matchesFacilityKey(low, fk.key));
+    if (hit) groups[hit.groupIndex].items.push(item);
     else other.push(item);
   }
   const nonEmpty = groups.filter((g) => g.items.length).map((g) => ({ title: g.title, items: g.items }));
@@ -876,6 +917,7 @@ function renderHotelCard(item, index, openByDefault) {
 
   return `
     <article class="hotel-card${openByDefault ? " open" : ""}" data-idx="${index}">
+      <span class="hotel-rank" aria-hidden="true">#${index + 1}</span>
       <button type="button" class="hotel-card-head" onclick="toggleHotel(${index})"
               aria-expanded="${openByDefault ? "true" : "false"}" aria-controls="${detailId}">
         <div class="hotel-card-top-row">

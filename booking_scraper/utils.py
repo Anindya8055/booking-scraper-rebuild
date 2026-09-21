@@ -335,6 +335,15 @@ _EXACT_AMENITY_JUNK = {
     "bello", "colombia", "antioquia", "la candelaria", "alojamiento",
     "precio", "reservas", "ofrece", "servicios", "ver más", "mostrar",
     "bogotá", "bogota", "cota", "choachí", "choachi", "cundinamarca",
+    # Booking's own review-score breakdown (e.g. "Facilities 8.5",
+    # "Cleanliness 9.0") sits in the same list-item sweep as the real
+    # facilities on English-locale pages; the numeric score is stripped by
+    # clean_amenity_text() first, leaving just the bare category label,
+    # which otherwise leaks in as a fake "facility" (observed live: a
+    # hotel's amenities starting with "Facilities, Cleanliness, Comfort,
+    # Value for money, Location" ahead of any real facility).
+    "facilities", "cleanliness", "comfort", "value for money", "location",
+    "staff",
 }
 
 _SUBSTR_AMENITY_JUNK = (

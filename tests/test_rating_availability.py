@@ -54,3 +54,18 @@ def test_scarcity_text_excluded_from_property_amenities():
     # Regression: this used to leak into the generic amenities sweep.
     assert not is_property_amenity("We have 2 left")
     assert is_property_amenity("Free Wifi")
+
+
+def test_review_score_categories_excluded_from_property_amenities():
+    # Regression: Booking's own review-score breakdown labels (e.g.
+    # "Facilities 8.5") sit in the same list-item sweep as real facilities
+    # on English-locale pages; once clean_amenity_text() strips the trailing
+    # score, the bare category label used to leak in as a fake "facility",
+    # observed live as a run of junk items ahead of any real facility.
+    for junk in ("Facilities", "Cleanliness", "Comfort", "Value for money",
+                 "Location", "Staff"):
+        assert not is_property_amenity(junk), junk
+    # Real facilities that happen to share a word with a junk category must
+    # still pass.
+    assert is_property_amenity("Great location")
+    assert is_property_amenity("24-hour front desk")

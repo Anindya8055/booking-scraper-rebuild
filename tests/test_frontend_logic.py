@@ -94,13 +94,33 @@ def test_common_facilities_grouped_sensibly():
 
 
 def test_front_desk_not_misfiled_under_workspace_via_desk_substring():
-    # "desk" used to be a bare Internet & workspace key, so "24-hour front
-    # desk" (a reception/safety fact) would substring-match "desk" and be
-    # filed under Internet & workspace instead of Safety & services.
-    groups = _group(["24-hour front desk"])
+    # "front desk" (Safety & services) must win over the shorter "desk"
+    # (Internet & workspace) key that also lives in the index -- matching
+    # is longest-key-first specifically so this holds regardless of key
+    # reuse across groups.
+    groups = _group(["24-hour front desk", "Desk"])
     by_title = {g["title"]: g["items"] for g in groups}
     assert "24-hour front desk" not in by_title.get("Internet & workspace", [])
     assert "24-hour front desk" in by_title["Safety & services"]
+    assert "Desk" in by_title["Internet & workspace"]
+
+
+def test_expanded_categories_cover_a_large_real_amenity_list():
+    # A feature-rich property's amenity list runs to 100+ items -- these
+    # extra categories exist so most of that lands somewhere meaningful
+    # instead of dumping into "General" (observed live: 106 of 131 items on
+    # one Delhi property before these categories were added).
+    groups = _group([
+        "Towels", "Fire extinguishers", "Cable channels", "Washing machine",
+        "Baby safety gates", "Refrigerator",
+    ])
+    by_title = {g["title"]: g["items"] for g in groups}
+    assert "Towels" in by_title["Bathroom"]
+    assert "Fire extinguishers" in by_title["Safety & services"]
+    assert "Cable channels" in by_title["Entertainment & tech"]
+    assert "Washing machine" in by_title["Cleaning & laundry"]
+    assert "Baby safety gates" in by_title["Family & comfort"]
+    assert "Refrigerator" in by_title["Food & drink"]
 
 
 def test_unclassifiable_item_goes_to_general_not_invented_category():
