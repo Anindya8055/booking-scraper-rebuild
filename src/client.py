@@ -29,6 +29,7 @@ from booking_scraper.detail import (
     extract_city_country_from_ldjson,
     extract_property_type_from_ldjson,
     extract_amenities,
+    extract_hero_images,
     ensure_availability_loaded,
     get_meta,
     safe_first_text,
@@ -480,6 +481,12 @@ class BookingScraperClient:
             if f:
                 amenity_flags[f] = True
 
+        # Property's own hero photo(s), already on the loaded page (og:image /
+        # JSON-LD) -- real Booking CDN URLs, no extra navigation, and a much
+        # higher resolution than the room-modal thumbnails used as a fallback
+        # by the frontend gallery.
+        hero_images = await extract_hero_images(page)
+
         # Extract hotel id from the URL
         hotel_id = hotel_key(detail_url)
 
@@ -501,6 +508,7 @@ class BookingScraperClient:
             description=og_desc,
             amenities=amenities,
             amenity_flags=amenity_flags,
+            images=hero_images,
             rating_score=serp_rating.get("score") if serp_rating else None,
             rating_label=serp_rating.get("label") if serp_rating else None,
             review_count=serp_rating.get("count") if serp_rating else None,

@@ -656,8 +656,23 @@ function allImages(item) {
   return [...(h.images || []), ...fromUnits].filter(Boolean);
 }
 
-function bestImage(item) {
-  return allImages(item)[0] || null;
+// ---- Booking CDN resolution selection (client-side only) ----
+// Booking's image CDN (cf.bstatic.com) serves the SAME real photo at many
+// sizes via a size token in the path, e.g. .../hotel/square60/ID.jpg (a 60px
+// thumbnail meant for room-modal chip lists) vs .../hotel/max1024x768/ID.jpg
+// (full-size). Requesting a larger token for an already-extracted URL is not
+// upscaling or inventing an image -- it's the same CDN asset at a real,
+// larger size Booking already generates -- and costs zero extra Booking
+// navigations (the browser just requests a differently-sized image, exactly
+// like <img srcset> would). Non-Booking-CDN URLs pass through unchanged.
+const BOOKING_CDN_SIZE_RE = /(\/xdata\/images\/hotel\/)[a-z0-9]+(\/)/i;
+const GALLERY_MAIN_SIZE = "max1024x768";
+const GALLERY_THUMB_SIZE = "max300";
+const CARD_THUMB_SIZE = "max300";
+
+function bookingImageAtSize(url, sizeToken) {
+  if (!url) return url;
+  return url.replace(BOOKING_CDN_SIZE_RE, `$1${sizeToken}$2`);
 }
 
 function amenityChips(list, limit) {
@@ -680,27 +695,48 @@ function availabilityBadge(h, cls) {
 
 // ---- Facility grouping (client-side only; groups already-extracted real
 // amenity strings -- never invents a facility that wasn't in the data) ----
+//
+// Matching uses whole-word/whole-phrase boundaries, not substring search --
+// a plain `.includes()` on a short key like "spa" would also match inside
+// "Spanish" (a language, from Booking's "Languages spoken" list) and file it
+// under Wellness & pool. Boundaries fix that at the root; KNOWN_LANGUAGES
+// below is kept as a cheap, explicit second guard for the same failure mode.
 const FACILITY_GROUPS = [
-  { title: "Internet & workspace", keys: ["wifi", "internet", "workspace", "desk"] },
-  { title: "Wellness & pool", keys: ["pool", "spa", "sauna", "gym", "fitness", "hot tub", "wellness"] },
-  { title: "Food & drink", keys: ["kitchen", "restaurant", "bar", "breakfast", "coffee", "kitchenette", "dining"] },
+  { title: "Internet & workspace", keys: ["wifi", "internet", "workspace", "business center"] },
+  { title: "Wellness & pool", keys: ["pool", "spa", "sauna", "gym", "fitness", "hot tub", "wellness", "massage"] },
+  { title: "Food & drink", keys: ["kitchen", "kitchenette", "restaurant", "bar", "breakfast", "coffee", "dining", "minibar"] },
   { title: "Parking & transport", keys: ["parking", "garage", "shuttle", "airport"] },
   { title: "Family & comfort", keys: ["family", "child", "crib", "playground", "garden", "balcony", "terrace", "view", "air conditioning", "heating"] },
-  { title: "Safety & services", keys: ["security", "24-hour", "24 hour", "front desk", "reception", "safe", "laundry", "elevator", "non-smoking"] },
+  { title: "Safety & services", keys: ["security", "24-hour", "24 hour", "front desk", "reception", "safe", "laundry", "elevator", "lift", "non-smoking"] },
 ];
+
+const KNOWN_LANGUAGES = new Set([
+  "english", "spanish", "french", "german", "italian", "portuguese",
+  "dutch", "russian", "chinese", "mandarin", "cantonese", "japanese",
+  "korean", "arabic", "hindi", "turkish", "polish", "swedish", "greek",
+  "thai", "vietnamese", "indonesian", "hebrew", "danish", "norwegian",
+  "finnish", "czech", "hungarian", "romanian", "ukrainian", "tagalog",
+]);
+
+function matchesFacilityKey(low, key) {
+  const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`(^|[^a-z0-9])${escaped}([^a-z0-9]|$)`, "i").test(low);
+}
 
 function groupFacilities(list) {
   const items = (list || []).slice();
-  const groups = FACILITY_GROUPS.map((g) => ({ title: g.title, items: [] }));
+  const groups = FACILITY_GROUPS.map((g) => ({ title: g.title, keys: g.keys, items: [] }));
   const other = [];
   for (const item of items) {
-    const low = item.toLowerCase();
-    const group = groups.find((g) => FACILITY_GROUPS.find((fg) => fg.title === g.title).keys.some((k) => low.includes(k)));
+    const low = item.toLowerCase().trim();
+    const group = KNOWN_LANGUAGES.has(low)
+      ? null
+      : groups.find((g) => g.keys.some((k) => matchesFacilityKey(low, k)));
     if (group) group.items.push(item);
     else other.push(item);
   }
-  const nonEmpty = groups.filter((g) => g.items.length);
-  if (other.length) nonEmpty.push({ title: "More facilities", items: other });
+  const nonEmpty = groups.filter((g) => g.items.length).map((g) => ({ title: g.title, items: g.items }));
+  if (other.length) nonEmpty.push({ title: "General", items: other });
   return nonEmpty;
 }
 
@@ -716,15 +752,15 @@ function renderFacilities(amenities) {
 
 function renderGallery(images, hotelName) {
   if (!images.length) return "";
-  const main = images[0];
+  const main = bookingImageAtSize(images[0], GALLERY_MAIN_SIZE);
   return `
     <div class="gallery" data-images='${esc(JSON.stringify(images))}'>
       <div class="gallery-main"><img id="gallery-main-img" loading="lazy" src="${esc(main)}" alt="Photo of ${esc(hotelName)}"></div>
       ${images.length > 1 ? `<div class="gallery-thumbs" role="listbox" aria-label="Photo thumbnails">
         ${images.slice(0, 8).map((img, i) => `
           <button type="button" class="${i === 0 ? 'active' : ''}" role="option" aria-selected="${i === 0}"
-                  onclick="setGalleryImage(this)" data-src="${esc(img)}">
-            <img loading="lazy" src="${esc(img)}" alt="">
+                  onclick="setGalleryImage(this)" data-src="${esc(bookingImageAtSize(img, GALLERY_MAIN_SIZE))}">
+            <img loading="lazy" src="${esc(bookingImageAtSize(img, GALLERY_THUMB_SIZE))}" alt="">
           </button>`).join("")}
       </div>` : ""}
     </div>`;
@@ -844,7 +880,7 @@ function renderHotelCard(item, index, openByDefault) {
               aria-expanded="${openByDefault ? "true" : "false"}" aria-controls="${detailId}">
         <div class="hotel-card-top-row">
           <div class="hotel-image-wrap">
-            ${img ? `<img loading="lazy" src="${esc(img)}" alt="Photo of ${esc(h.hotel_name || '')}" onerror="this.parentElement.innerHTML='<div class=&quot;hotel-image-fallback&quot;>🏨</div>'">` : `<div class="hotel-image-fallback">🏨</div>`}
+            ${img ? `<img loading="lazy" src="${esc(bookingImageAtSize(img, CARD_THUMB_SIZE))}" alt="Photo of ${esc(h.hotel_name || '')}" onerror="this.parentElement.innerHTML='<div class=&quot;hotel-image-fallback&quot;>🏨</div>'">` : `<div class="hotel-image-fallback">🏨</div>`}
           </div>
           <div class="hotel-card-body">
             <div class="hotel-title-row">

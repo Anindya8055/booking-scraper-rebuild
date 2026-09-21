@@ -1103,6 +1103,55 @@ async def extract_property_type_from_ldjson(page: Page) -> Optional[str]:
     return None
 
 
+async def extract_hero_images(page: Page) -> List[str]:
+    """Property-level photo(s) from data already on the loaded detail page --
+    no extra Booking navigation. Booking publishes the property's own
+    highest-resolution hero photo as ``og:image`` (typically a
+    ``max1024x768``-class CDN URL), which is the real listing photo rather
+    than a room-modal thumbnail. Falls back to the JSON-LD ``image`` field
+    when present. Never fabricates a URL; returns [] if neither is found."""
+    out: List[str] = []
+    seen: set[str] = set()
+
+    def _add(url: Any) -> None:
+        if isinstance(url, str):
+            u = url.strip()
+            if u.startswith("http") and u not in seen:
+                seen.add(u)
+                out.append(u)
+
+    og_image = await get_meta(page, 'meta[property="og:image"]')
+    _add(og_image)
+
+    with contextlib.suppress(Exception):
+        scripts = await page.locator('script[type="application/ld+json"]').all()
+        for h in scripts:
+            raw = await h.text_content()
+            if not raw:
+                continue
+            with contextlib.suppress(Exception):
+                jd = json.loads(raw)
+                nodes: List[Any] = []
+                if isinstance(jd, list):
+                    nodes.extend(jd)
+                elif isinstance(jd, dict):
+                    graph = jd.get("@graph")
+                    if isinstance(graph, list):
+                        nodes.extend(graph)
+                    else:
+                        nodes.append(jd)
+                for node in nodes:
+                    if not isinstance(node, dict):
+                        continue
+                    img = node.get("image")
+                    if isinstance(img, list):
+                        for entry in img:
+                            _add(entry)
+                    else:
+                        _add(img)
+    return out
+
+
 # ---------------------------------------------------------------------------
 # Amenities extraction
 # ---------------------------------------------------------------------------
